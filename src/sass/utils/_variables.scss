@@ -1,0 +1,32 @@
+//Main colors
+$bg-color-primary: #f0f0f0;
+$bg-color-footer: #f7f7f7;
+$bg-color-accent: #b92f2c;
+$bg-color-modal: rgb(0 0 0 / 0.2);
+
+//Texts
+$color-text-primary: #000;
+$color-text-secondary: #8c8c8c;
+$color-text-accent: $bg-color-accent;
+$color-text-white: #fff;
+$color-text-footer: #545454;
+
+//Border-radius
+$border-radius-hero: 10px;
+$border-radius-film-img: 5px;
+
+//Fonts
+$font-family: Roboto, sans-serif;
+$font-size: 12px; // Body Font Size
+$line-height: 1.67; // Document Line Height
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+
+//Transitions
+$transition-duration: 250ms;
+$transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+
+//breakpoints
+$breakpoint-desktop: 1280px;
+$breakpoint-tablet: 768px;
+$breakpoint-mobile: 320px;
