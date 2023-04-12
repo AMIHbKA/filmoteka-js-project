@@ -4,7 +4,7 @@
   "description": "",
   "homepage": "https://AMIHbKA.github.io/filmoteka-js-project",
   "scripts": {
-    "start": "parcel src/*.html",
+    "start": "parcel src/*.html --open",
     "build": "parcel build src/*.html --public-url /filmoteka-js-project/"
   },
   "repository": {
