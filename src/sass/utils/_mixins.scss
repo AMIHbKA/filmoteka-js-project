@@ -1,4 +1,4 @@
-// Миксин для настольных компьютеров
+// Миксин для десктопа
 @mixin desktop {
   @media (min-width: $breakpoint-desktop) {
     @content;
@@ -7,14 +7,7 @@
 
 // Миксин для планшетов
 @mixin tablet {
-  @media (min-width: $breakpoint-tablet) and (max-width: calc($breakpoint-desktop - 1px)) {
-    @content;
-  }
-}
-
-// Миксин для мобильных устройств
-@mixin mobile {
-  @media (max-width: calc($breakpoint-tablet - 1px)) {
+  @media (min-width: $breakpoint-tablet) {
     @content;
   }
 }
