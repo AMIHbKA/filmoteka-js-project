@@ -1,13 +1,13 @@
 // Миксин для десктопа
 @mixin desktop {
-  @media (min-width: $breakpoint-desktop) {
+  @media screen and (min-width: $breakpoint-desktop) {
     @content;
   }
 }
 
 // Миксин для планшетов
 @mixin tablet {
-  @media (min-width: $breakpoint-tablet) {
+  @media screen and (min-width: $breakpoint-tablet) {
     @content;
   }
 }
