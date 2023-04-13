@@ -1,0 +1,1 @@
+{"mappings":"AAEAA","sources":["src/index.js"],"sourcesContent":["import gallery from './js/gallery';\n\nRenderDefaultMoviesOnMainPage();\n"],"names":["RenderDefaultMoviesOnMainPage"],"version":3,"file":"index.97423322.js.map"}
