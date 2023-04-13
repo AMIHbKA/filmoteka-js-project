@@ -1,0 +1,70 @@
+//стилі для футера
+footer {
+  min-width: 320px;
+  min-height: 100px;
+  background-color: $bg-color-footer;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+
+.container.container--footer-padding {
+  min-width: 236px;
+  text-align: center;
+  padding: 28px 42px; // зроби в _container.scss такий падінг або хай тут буде він перебиває специфічністю
+
+  @media screen and (min-width: $breakpoint-tablet) {
+    min-width: 482px;
+  }
+}
+
+.footer__text, 
+.footer__year {
+  display: inline;
+  color: $color-text-footer;
+  font-size: 14px;
+  line-height: 1.14;
+
+  @media screen and (min-width: $breakpoint-tablet) {
+    font-size: 16px;
+  }
+
+  @media screen and (min-width: $breakpoint-desktop) {
+    font-size: 19px;
+  }
+}
+
+.footer__icon-heart {
+  transform: translateY(2px);
+
+  @media screen and (min-width: $breakpoint-tablet) {
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+}
+
+.footer__team-modal-btn {
+
+  border: none;
+  background-color: transparent;
+  text-decoration: underline;
+  padding: 5px;
+  cursor: pointer;
+
+  box-shadow: rgba(0, 0, 0, 0.1);
+  border-radius: 100px;
+  
+  transition: color $transition-duration $transition-timing-function, background-color $transition-duration $transition-timing-function,  box-shadow $transition-duration $transition-timing-function;
+
+  &:hover,
+  &:focus {
+    color: $color-text-accent;
+    background-color:rgba(84, 84, 84, 0.2);
+    box-shadow: 12px 12px 20px rgba(0, 0, 0, 0.6);
+  }
+    
+}
+
