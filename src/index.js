@@ -1,3 +1,3 @@
-import gallery from './js/gallery';
+import { RenderDefaultMoviesOnMainPage } from './js/gallery';
 
 RenderDefaultMoviesOnMainPage();
