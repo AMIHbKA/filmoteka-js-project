@@ -13,7 +13,7 @@ header {
   min-height: 460px;
   padding: 14px 14px 24px;
 
-  background-image: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.4) 65.37%),
+  background-image: linear-gradient(75deg, rgba(0, 0, 0, 0.1) 9%, rgba(0, 0, 0, 0.3) 100%),
     url(/src/images/hero_mob_red@1x.webp);
   background-repeat: no-repeat;
   background-position: center;
@@ -25,7 +25,7 @@ header {
       min-height: 222px;
       padding: 16px;
   
-      background-image: linear-gradient(273.67deg, rgba(0, 0, 0, 0.49) -2.09%, rgba(0, 0, 0, 0) 99.83%),
+      background-image: linear-gradient(180deg, rgba(0, 0, 0, 0) 2%, rgba(0, 0, 0, 0.4) 60%),
         url(/src/images/hero-bg-tabl@1x.webp);
     }
   
@@ -34,7 +34,7 @@ header {
       min-height: 316px;
       padding: 16px 32px;
   
-      background-image: linear-gradient(273.67deg, rgba(0, 0, 0, 0.49) -2.09%, rgba(0, 0, 0, 0) 99.83%),
+      background-image: linear-gradient(204deg, rgba(0, 0, 0, 0.1) 2%, rgba(0, 0, 0, 0.3) 60%),
         url(/src/images/hero_desk_red@1x.webp);
   
     }
@@ -54,7 +54,7 @@ header {
 }
 
 .header-nav {
-  margin-bottom: 16px;
+  margin-bottom: 8px;
 
   &__list {
     display: flex;

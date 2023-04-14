@@ -1,0 +1,87 @@
+//стилі для мобільної версії // початок
+.box {
+  @media screen and (max-width: 767px) {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+}
+
+.btn-wrap--mobile {
+  margin-top: 16px;
+
+  @media screen and (min-width: $breakpoint-tablet) {
+    display: none;
+  }
+
+}
+//стилі для мобільної версії // кінець
+
+
+
+//загальні стилі 
+.header-btn {
+  justify-content: center;
+  align-items: center;
+
+  height: 34px;
+  padding: 10px 23px;
+  gap: 10px;
+
+  border-style: none;
+  cursor: pointer;
+  
+  font-weight: 500;
+  line-height: 1.17;
+  text-transform: uppercase;
+  border-radius: 100px;
+  
+  transition: color $transition-duration $transition-timing-function, background-color $transition-duration $transition-timing-function, transform $transition-duration $transition-timing-function;
+
+  &:hover,
+  &:focus {
+    color: $bg-color-accent;
+    background-color: $color-text-white;
+    transform: scale(0.95);
+  }
+
+
+  @media screen and (min-width: $breakpoint-tablet) {
+    height: 38px;
+    padding: 12px 23px;
+
+  }
+
+  @media screen and (min-width: $breakpoint-desktop) {
+    height: 42px;
+    padding: 14px 32px;
+
+  }
+}
+
+.header-btn:first-child {
+  margin-right: 4px;
+
+  @media screen and (min-width: $breakpoint-desktop) {
+    margin-right: 8px;
+
+  }
+}
+
+.header-btn--current {
+  background-color: $bg-color-accent;
+  color: $color-text-white;
+  box-shadow: 0px 0px 7px rgba(27, 27, 27, 0.15);
+}
+
+
+///СТИЛІ ДЛЯ ТАБЛЕТА 
+.btn-wrap--tablet {
+  display: flex;
+  margin-left: auto;
+
+  @media screen and (max-width: 767px) {
+    display: none;
+
+  }
+}
