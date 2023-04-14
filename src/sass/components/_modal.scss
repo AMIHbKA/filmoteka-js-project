@@ -1,28 +1,29 @@
 /* СТИЛИ МОДАЛЬНОГО ОКНА BasicLightBox */
+
+
 .modal {
+    max-width: 85dvw;
+    max-height: 95dvh;
     background-color: #ffffff;
-    padding: 40px 12px;
-    max-width: 806px;
-    grid-column-gap: 16px;
+    // padding: 48px 20px;
+    padding: 48px 20px 40px 20px;
+    // max-width: 806px;
+    width: 280px;
+    // grid-column-gap: 16px;
     /* grid-template-columns: 375px 1fr; */
     /* padding: 20px; */
     display: flex;
-
+    flex-direction: column;
     scroll-behavior: auto;
     overflow-x: hidden;
-
-    @media screen and (max-width: 767px) {
-        flex-direction: column;
-        // max-width: 280px;
-        width: 85dvw;
-        height: 95dvh;
-    }
 
     @media screen and (min-width: $breakpoint-tablet) {
         flex-direction: row;
         // max-width: 704px;
         width: 704px;
-        padding: 40px 72px 40px 36px;
+        padding: 40px 72px 64px 36px;
+        // padding-top: 40px;
+        // padding-left: 36px;
     }
 
     @media screen and (min-width: $breakpoint-desktop) {
@@ -36,38 +37,45 @@
 
 .modal-movie__wrapper {
     display: block;
-    margin-left: auto;
-    margin-right: auto;
+    // margin-left: auto;
+    // margin-right: auto;
+    // padding: 20;
     font-family: $font-family;
     font-size: 12px;
-    width: 90%;
+    // width: 90%;
 
     @media screen and (min-width: $breakpoint-tablet) {
         display: flex;
         flex-direction: column;
+        padding-left: 68px;
+        padding-right: 20px;
+        // padding: 20px 72px 20px 68px;
     }
 }
 
 .modal-movie__poster {
     margin: 0 auto;
     display: block;
+    width: 240px;
+    height: 357px;
+    margin-bottom: 20px;
     border-radius: $border-radius-film-img;
 
-    @media screen and (min-width: 10px) and (max-width: $breakpoint-mobile) {
-        width: 200px;
-        height: 317px;
+    // @media screen and (min-width: 10px) and (max-width: $breakpoint-mobile) {
+    //     width: 200px;
+    //     height: 317px;
 
-        margin-bottom: 20px;
-    }
+    //     margin-bottom: 20px;
+    // }
 
-    @media screen and (min-width: $breakpoint-mobile) and (max-width: 767px) {
-        width: 240px;
-        height: 357px;
+    // @media screen and (min-width: $breakpoint-mobile) and (max-width: 767px) {
+    //     width: 240px;
+    //     height: 357px;
 
-        margin-bottom: 20px;
-    }
+    //     margin-bottom: 20px;
+    // }
 
-    @media screen and (min-width: $breakpoint-tablet) and (max-width: 1279px) {
+    @media screen and (min-width: $breakpoint-tablet) {
         width: 264px;
         height: 374px;
     }
@@ -154,6 +162,7 @@
     line-height: 20px;
     color: $color-text-primary;
     margin: 8px 0 20px;
+    overflow-x: hidden;
 }
 
 .modal-movie__close-btn {
