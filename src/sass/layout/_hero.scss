@@ -5,7 +5,7 @@
   justify-content: center;
   grid-gap: 20px;
 
-  @include tablet {
+  @include tablet-and-up {
     grid-auto-rows: 495px;
     grid-gap: 32px;
   }
@@ -24,7 +24,7 @@
   height: 402px;
   border-radius: 5px;
 
-  @include tablet {
+  @include tablet-and-up {
     width: 336px;
     height: 455px;
   }
@@ -71,7 +71,7 @@
 
 .movie__wrapper {
   width: 280px;
-  @include tablet {
+  @include tablet-and-up {
     width: 336px;
   }
   @include desktop {
