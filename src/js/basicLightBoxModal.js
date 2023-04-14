@@ -3,7 +3,7 @@ import 'basiclightbox/dist/basicLightbox.min.css';
 
 import { fetchDefaultMovies } from "./fetchAPI";
 import { genresIdsConvertingToGenres } from "./genresIdsConvertingToGenres";
-import { addFilmToLibrary, checkFilmInLibrary} from './local-storage-service';
+import { checkFilmInLibrary} from './local-storage-service';
 
 let pageNumber = 1; // для пагинации
 const galleryBox = document.querySelector(".movie__list");
