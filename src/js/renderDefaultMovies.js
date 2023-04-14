@@ -13,9 +13,9 @@ export function renderDefaultMovies(defaultMoviesArray) {
                     
                         <div class="movie__info">
                             <p class="movie__name">
-                                ${(name || title).slice(0, 33)}
+                                ${name || title}
                             </p>
-                            
+
                             <p class="movie__genres-year">
                                 ${genresIdsConvertingToGenres(genre_ids)} | ${String(release_date || first_air_date).slice(0, 4)}
                             </p>
