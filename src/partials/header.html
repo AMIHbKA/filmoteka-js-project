@@ -6,7 +6,16 @@
     <div class="header__box-nav">
       <!-- !!! Обгортка для позиціонування блоків в My library для таблет і десктоп -->
       <!-- Тут будуть дві кнопки |Watched & Queue| start  -->
-      <!-- user`s library -->
+
+      <!-- user`s library visually-hidden-->
+      <div class="btn-wrap--tablet ">
+        <button class="header-btn header-btn--current" type="button" name="watched" disabled data-btn-watched>
+          watched
+        </button>
+        <button class="header-btn" type="button" name="queue" data-btn-queue>
+          queue
+        </button>
+      </div>
 
       <!-- end -->
 
@@ -56,7 +65,15 @@
         </a>
       </div>
 
-      <!-- user`s library -->
+      <!-- user`s library   visually-hidden-->
+      <div class="btn-wrap--mobile ">
+        <button class="header-btn header-btn--current" type="button" name="watched" disabled data-btn-watched>
+          watched
+        </button>
+        <button class="header-btn" type="button" name="queue" data-btn-queue>
+          queue
+        </button>
+      </div>
 
 
     </div>
