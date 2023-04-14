@@ -1,27 +1,26 @@
-footer{
+footer {
   /* min-width: 320px;
   min-height: 100px; */
   background-color: $bg-color-footer;
 }
 
 .container.container--footer-padding {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  
+  text-align: center;
+
   @include tablet {
-    flex-direction: row;
+    display: flex;
+    align-items: baseline;
     justify-content: center;
   }
 }
 
-.footer__text, 
+.footer__text,
 .footer__link {
   color: $color-text-footer;
   font-weight: 400;
   font-size: 14px;
-  /* line-height: 1.14; */     // по макету
-  line-height: 1.2;            //після зустрічі, для вирівнювання
+  line-height: 1.14;
+  // line-height: 1.2; //після зустрічі, для вирівнювання
 }
 
 .footer__text {
@@ -30,14 +29,14 @@ footer{
   @include tablet {
     margin-bottom: 0;
   }
-  
 }
 
 .footer__link {
   padding: 7px;
   border-radius: 100px;
-
-  transition: color $transition-duration $transition-timing-function, box-shadow $transition-duration $transition-timing-function;
+  cursor: pointer;
+  transition: color $transition-duration $transition-timing-function,
+    box-shadow $transition-duration $transition-timing-function;
 
   @include tablet {
     transition: color $transition-duration $transition-timing-function;
@@ -66,8 +65,6 @@ footer{
     /* animation: animate 1s linear infinite; */
     animation: heart-beat 1.5s ease-in-out infinite;
   }
-    
-
 }
 
 /* @keyframes animate {
@@ -84,7 +81,6 @@ footer{
     box-shadow: 0 0 0 rgb(185, 47, 44, 0);
   }
 } */
-
 
 @keyframes heart-beat {
   0% {
@@ -103,4 +99,3 @@ footer{
     transform: scale(1);
   }
 }
-
