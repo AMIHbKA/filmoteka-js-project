@@ -32,7 +32,7 @@ export async function onMoviesGalleryBoxClick(event) {
         const selectedMovie = event.target.closest('li');
         const selectedMovieId = Number(selectedMovie.getAttribute('id'));
         
-        const { poster_path, title, name, vote_average, vote_count, popularity, original_title, genre_ids, overview } = defaultMoviesArray.find(movie => movie.id === selectedMovieId);
+        const { poster_path, title, name, vote_average, vote_count, popularity, original_title, genre_ids, overview, first_air_date, release_date } = defaultMoviesArray.find(movie => movie.id === selectedMovieId);
         
         const instance = basicLightbox.create(
                 `
@@ -105,13 +105,11 @@ export async function onMoviesGalleryBoxClick(event) {
         return data = {
             poster_path, 
             title, 
-            name, 
-            vote_average, 
-            vote_count, 
-            popularity, 
+            name,
+            first_air_date, 
             original_title, 
             genre_ids, 
-            overview,
+            release_date,
         };
         }
         catch(error) {console.log(error.message); }
