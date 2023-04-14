@@ -8,9 +8,9 @@ import { renderDefaultMovies } from './renderDefaultMovies';
 let currentPage = 1;
 const galleryBox = document.querySelector('.movie__list');
 
-startPagination();
+// startPagination();
 
-function startPagination() {
+export function startPagination() {
   createDiv();
   fetchDefaultMovies(currentPage)
     .then(function (response) {
