@@ -3,7 +3,7 @@ import 'basiclightbox/dist/basicLightbox.min.css';
 
 import { fetchDefaultMovies } from "./fetchAPI";
 import { genresIdsConvertingToGenres } from "./genresIdsConvertingToGenres";
-import { addFilmToLibrary} from './local-storage-service';
+import { addFilmToLibrary, checkFilmInLibrary} from './local-storage-service';
 
 let pageNumber = 1; // для пагинации
 const galleryBox = document.querySelector(".movie__list");
@@ -32,7 +32,7 @@ export async function onMoviesGalleryBoxClick(event) {
         const selectedMovie = event.target.closest('li');
         const selectedMovieId = Number(selectedMovie.getAttribute('id'));
         
-        const { poster_path, title, name, vote_average, vote_count, popularity, original_title, genre_ids, overview, first_air_date, release_date } = defaultMoviesArray.find(movie => movie.id === selectedMovieId);
+        const { poster_path, title, name, vote_average, vote_count, popularity, original_title, genre_ids, overview, first_air_date, release_date, id } = defaultMoviesArray.find(movie => movie.id === selectedMovieId);
         
         const instance = basicLightbox.create(
                 `
@@ -86,11 +86,12 @@ export async function onMoviesGalleryBoxClick(event) {
             {
                 onShow: (instance) => { 
                     window.addEventListener('keydown', closeModal);
-                    instance.element().querySelector(".modal-movie__add-watched-btn").addEventListener('click', () => {
-                        addFilmToLibrary(data, "watched");
+                    
+                    instance.element().querySelector(".modal-movie__add-watched-btn").addEventListener('click', (event) => {
+                        checkFilmInLibrary(data, "watched", event);
                       });
-                    instance.element().querySelector(".modal-movie__add-queue-btn").addEventListener('click', () => {
-                        addFilmToLibrary(data, "queue");
+                    instance.element().querySelector(".modal-movie__add-queue-btn").addEventListener('click', (event) => {
+                        checkFilmInLibrary(data, "queue", event);
                       });
                 },
                 onClose: (instance) => { 
@@ -98,7 +99,7 @@ export async function onMoviesGalleryBoxClick(event) {
                 },
             }
         );
-
+        
         instance.show();
         return data = {
             poster_path, 
@@ -108,6 +109,7 @@ export async function onMoviesGalleryBoxClick(event) {
             original_title, 
             genre_ids, 
             release_date,
+            id,
         };
         }
         catch(error) {console.log(error.message); }
