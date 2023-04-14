@@ -1,0 +1,212 @@
+/* СТИЛИ МОДАЛЬНОГО ОКНА BasicLightBox */
+.modal {
+    background-color: #ffffff;
+    padding: 40px 12px;
+    max-width: 806px;
+    grid-column-gap: 16px;
+    /* grid-template-columns: 375px 1fr; */
+    /* padding: 20px; */
+    display: flex;
+
+    scroll-behavior: auto;
+    overflow-x: hidden;
+
+    @media screen and (max-width: 767px) {
+        flex-direction: column;
+        // max-width: 280px;
+        width: 85dvw;
+        height: 95dvh;
+    }
+
+    @media screen and (min-width: $breakpoint-tablet) {
+        flex-direction: row;
+        // max-width: 704px;
+        width: 704px;
+        padding: 40px 72px 40px 36px;
+    }
+
+    @media screen and (min-width: $breakpoint-desktop) {
+        flex-direction: row;
+        // max-width: 806px;
+        width: 806px;
+        padding: 40px 12px;
+    }
+}
+
+
+.modal-movie__wrapper {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: $font-family;
+    font-size: 12px;
+    width: 90%;
+
+    @media screen and (min-width: $breakpoint-tablet) {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.modal-movie__poster {
+    margin: 0 auto;
+    display: block;
+    border-radius: $border-radius-film-img;
+
+    @media screen and (min-width: 10px) and (max-width: $breakpoint-mobile) {
+        width: 200px;
+        height: 317px;
+
+        margin-bottom: 20px;
+    }
+
+    @media screen and (min-width: $breakpoint-mobile) and (max-width: 767px) {
+        width: 240px;
+        height: 357px;
+
+        margin-bottom: 20px;
+    }
+
+    @media screen and (min-width: $breakpoint-tablet) and (max-width: 1279px) {
+        width: 264px;
+        height: 374px;
+    }
+
+    @media screen and (min-width: $breakpoint-desktop) {
+        width: 375px;
+        height: 478px;
+    }
+
+}
+
+.modal-movie__title {
+    font-family: $font-family;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 35px;
+    color: $color-text-primary;
+    margin: 0 0 20px;
+    text-transform: uppercase;
+}
+
+.modal-movie__text {
+    margin: 0px;
+    font-family: $font-family;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    color: $color-text-secondary;
+}
+
+.modal-movie__text:not(:last-child) {
+    margin-bottom: 8px;
+}
+
+.modal-movie__vote-average {
+    width: 36px;
+    height: 16px;
+    background: $bg-color-accent;
+    border-radius: 5px;
+    padding: 1px 10px;
+    font-family: $font-family;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 14px;
+    text-transform: uppercase;
+    color: #ffffff;
+}
+
+.modal-movie__vote,
+.modal-movie__popularity,
+.modal-movie__original-title,
+.modal-movie__genre {
+    font-family: $font-family;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    color: #000000;
+}
+
+.modal-movie__original-title {
+    text-transform: uppercase;
+}
+
+.modal-movie__about-title {
+    font-family: $font-family;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    text-transform: uppercase;
+    color: #000000;
+    margin-top: 20px;
+}
+
+.modal-movie__about-text {
+    font-family: $font-family;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 20px;
+    color: $color-text-primary;
+    margin: 8px 0 20px;
+}
+
+.modal-movie__close-btn {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    color: black;
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+}
+
+.modal-movie__buttons-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+
+    @media screen and (min-width: $breakpoint-mobile) and (max-width: 767px) {
+        gap: 20px;
+    }
+
+    @media screen and (min-width: $breakpoint-tablet) and (max-width: 1279px) {
+        gap: 15px;
+    }
+
+    @media screen and (min-width: $breakpoint-desktop) {
+        gap: 16px;
+    }
+}
+
+.modal-movie__add-watched-btn,
+.modal-movie__add-queue-btn {
+    width: 165px;
+    height: 42px;
+    background: $bg-color-primary;
+    border-radius: 100px;
+    outline: none;
+    border: 1px solid #000;
+    text-transform: uppercase;
+    color: $bg-color-accent;
+    transition: background-color $transition-duration, color $transition-timing-function;
+
+    &:hover,
+    &:focus {
+        background-color: $bg-color-accent;
+        color: $color-text-white;
+        border: none;
+    }
+}
