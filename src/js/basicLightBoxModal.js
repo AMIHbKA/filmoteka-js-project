@@ -32,14 +32,18 @@ export async function onMoviesGalleryBoxClick(event) {
         const selectedMovieId = Number(selectedMovie.getAttribute('id'));
         
         const { poster_path, title, name, vote_average, vote_count, popularity, original_title, genre_ids, overview } = defaultMoviesArray.find(movie => movie.id === selectedMovieId);
-              
+        
         const instance = basicLightbox.create(
                 `
                 <div class="modal">
-                    <button class="modal-movie__close-btn"></button>
+                    <button class="modal-movie__close-btn">
+                        <svg class="modal-movie__svg-close-btn" width="14" height="14">
+                            <use href="./images/icons.svg#icon-close"></use>
+                        </svg>
+                    </button>
 
                     <div>
-                        <img class="modal-movie__poster" src="https://image.tmdb.org/t/p/w400/${poster_path}" alt="" />
+                        <img class="modal-movie__poster" src="https://image.tmdb.org/t/p/w400/${poster_path}" alt="${title || name}" />
                     </div>
 
                     <div class="modal-movie__wrapper">
