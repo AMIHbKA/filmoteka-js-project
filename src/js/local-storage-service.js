@@ -1,7 +1,11 @@
-
 import { Notify } from "notiflix";
 
 const ERROR_MESSAGE = "Oops, something went wrong. Try again later."
+
+// У файлі рендеру модалки:
+// document.querySelector(".modal-movie__add-watched-btn").addEventListener('click', addFilmToLibrary(data, "watched"));
+// document.querySelector(".modal-movie__add-queue-btn").addEventListener('click', addFilmToLibrary(data, "queue"));
+
 
 
 function addFilmToLibrary(newFilm, key) {
@@ -21,25 +25,3 @@ function addFilmToLibrary(newFilm, key) {
         Notify.failure(ERROR_MESSAGE);
     }
 }
-
-const film = {
-    genre: "adventure",
-    rating: 6,
-    name: 'Hello',
-}
-
-const film2 = {
-    genre: "horror",
-    rating: 6,
-    name: 'ello',
-}
-
-const film3 = {
-    genre: "or",
-    rating: 6,
-    name: 'allo',
-}
-
-addFilmToLibrary(film, "watched");
-addFilmToLibrary(film2, "watched");
-addFilmToLibrary(film3, "queue");
