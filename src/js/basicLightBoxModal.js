@@ -45,32 +45,34 @@ export async function onMoviesGalleryBoxClick(event) {
 
                     <div>
                         <img class="modal-movie__poster" src="https://image.tmdb.org/t/p/w400/${poster_path}" alt="${title || name}" />
+                        <button type="button" class="modal-movie__trailer-btn">watch trailer</button>
                     </div>
 
                     <div class="modal-movie__wrapper">
                     
                         <div class="modal-movie__data">
                             <h2 class="modal-movie__title">${title || name}</h2>
+
+                        <div class="modal-movie__container">
+                        <ul class="modal-movie__info-block">
                             
-                            <p class="modal-movie__text">Vote / Votes
-                                <span class="modal-movie__vote-average">${vote_average.toFixed(1)}</span>
-                                /
-                                <span class="modal-movie__vote">${vote_count}</span>
-                            </p>
+                        <li class="modal-movie__info-item"><span class="modal-movie__text-year">Year</span>
+                            <span class="modal-movie__year">${release_date}</span></li>
+                            
+                            <li class="modal-movie__info-item"><span class="modal-movie__text-vote">Vote / Votes</span>
+                            <div><span class="modal-movie__vote-average">${vote_average.toFixed(1)}</span><span class="modal-movie__vote"> / ${vote_count}</span></div>
 
-                            <p class="modal-movie__text">Popularity
-                                <span class="modal-movie__popularity">${popularity.toFixed(1)}</span>
-                            </p>
+                            <li class="modal-movie__info-item"><span class="modal-movie__text-pop">Popularity</span>
+                            <span class="modal-movie__popularity">${popularity.toFixed(1)}</span>
 
-                            <p class="modal-movie__text">Original Title
-                                <span class="modal-movie__original-title">${original_title || name}</span>
-                            </p>
-
-                            <p class="modal-movie__text">Genre
-                                <span class="modal-movie__genre">${genresIdsConvertingToGenres(genre_ids)}</span>
-                            </p>                 
-                        </div>
-            
+                            <li class="modal-movie__info-item"><span class="modal-movie__text-title">Original Title</span>
+                            <span class="modal-movie__original-title">${original_title || name}</span>
+                            
+                            <li class="modal-movie__info-item"><span class="modal-movie__text-genre">Genre</span>
+                            <span class="modal-movie__genre">${genresIdsConvertingToGenres(genre_ids)}</span>
+                        <ul>
+                        </div>    
+          
                         <div class="modal-movie__about-wrapper">
                             <h3 class="modal-movie__about-title">about</h3>
                             <p class="modal-movie__about-text">${overview}</p>
@@ -89,10 +91,10 @@ export async function onMoviesGalleryBoxClick(event) {
                     
                     instance.element().querySelector(".modal-movie__add-watched-btn").addEventListener('click', (event) => {
                         checkFilmInLibrary(data, "watched", event);
-                      });
+                    });
                     instance.element().querySelector(".modal-movie__add-queue-btn").addEventListener('click', (event) => {
                         checkFilmInLibrary(data, "queue", event);
-                      });
+                    });
                 },
                 onClose: (instance) => { 
                     window.removeEventListener('keydown', closeModal);

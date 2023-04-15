@@ -38,7 +38,7 @@
 
     @media screen and (min-width: $breakpoint-desktop) {
         width: 391px;
-        }
+    }
 }
 
 .modal-movie__poster {
@@ -55,10 +55,30 @@
     }
 
     @media screen and (min-width: $breakpoint-desktop) {
+        object-fit: cover;
         width: 375px;
         height: 478px;
     }
 
+}
+
+.modal-movie__container {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.modal-movie__info-block {
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-movie__info-item {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 108px 1fr;
+    align-items: baseline;
+    color: #8c8c8c;
 }
 
 .modal-movie__title {
@@ -70,7 +90,7 @@
     color: $color-text-primary;
     margin: 0 0 20px;
     text-transform: uppercase;
-    
+
     @media screen and (min-width: $breakpoint-desktop) {
         font-size: 30px;
         line-height: 35px;
@@ -78,7 +98,8 @@
 
 }
 
-.modal-movie__text {
+.modal-movie__info-text {
+    width: 100%;
     margin: 0px;
     font-family: $font-family;
     font-style: normal;
@@ -110,7 +131,8 @@
 .modal-movie__vote,
 .modal-movie__popularity,
 .modal-movie__original-title,
-.modal-movie__genre {
+.modal-movie__genre,
+.modal-movie__year {
     font-family: $font-family;
     font-style: normal;
     font-weight: 500;
@@ -195,7 +217,7 @@
         width: 137px;
         height: 38px;
     }
-    
+
     @media screen and (min-width: $breakpoint-desktop) {
         width: 165px;
         height: 42px;
