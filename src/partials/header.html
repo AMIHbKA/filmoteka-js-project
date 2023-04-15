@@ -1,81 +1,116 @@
 <!-- header -->
 <!-- <header class="header"> -->
 
-  <!-- main nav home-->
-  <div class="header__container">
-    <div class="header__box-nav">
-      <!-- !!! Обгортка для позиціонування блоків в My library для таблет і десктоп -->
-      <!-- Тут будуть дві кнопки |Watched & Queue| start  -->
+<!-- main nav home-->
+<div class="header__container">
+  <include src="./partials/authentication/auth-menu.html"></include>
 
-      <!-- user`s library visually-hidden-->
-      <div class="btn-wrap--tablet ">
-        <button class="header-btn header-btn--current" type="button" name="watched" disabled data-btn-watched>
-          watched
-        </button>
-        <button class="header-btn" type="button" name="queue" data-btn-queue>
-          queue
-        </button>
-      </div>
+  <div class="header__box-nav">
+    <!-- !!! Обгортка для позиціонування блоків в My library для таблет і десктоп -->
+    <!-- Тут будуть дві кнопки |Watched & Queue| start  -->
 
-      <!-- end -->
+    <!-- user`s library visually-hidden-->
+    <!-- <div class="btn-wrap--tablet">
+      <button
+        class="header-btn header-btn--current"
+        type="button"
+        name="watched"
+        disabled
+        data-btn-watched
+      >
+        watched
+      </button>
+      <button class="header-btn" type="button" name="queue" data-btn-queue>
+        queue
+      </button>
+    </div> -->
 
-      <!-- nav-list  -->
-      <nav class="header-nav" data-menu>
-        <ul class="header-nav__list list">
-          <li class="header-nav__item">
-            <a id="nav-link-home" class="header-nav__link link header-nav__link--current"
-              href="#">Home</a>
-          </li>
-          <li class="header-nav__item">
-            <a id="nav-link-library" class="header-nav__link link" href="#">My library</a>
-          </li>
-        </ul>
-      </nav>
+    <!-- end -->
 
-      <!-- Serch box -->
-      <form class="search-form" id="search-form">
-        <input class="search-form__input" type="text" name="searchQuery" placeholder="Movie search" autocomplete="off"
-          required>
+    <!-- nav-list  -->
+    <nav class="header-nav" data-menu>
+      <ul class="header-nav__list list">
+        <li class="header-nav__item">
+          <a
+            id="nav-link-home"
+            class="header-nav__link link header-nav__link--current"
+            href="#"
+            >Home</a
+          >
+        </li>
+        <li class="header-nav__item">
+          <a id="nav-link-library" class="header-nav__link link" href="#"
+            >MY LIBRARY</a
+          >
+        </li>
+        <li class="header-nav__item">
+          <button
+            class="header-nav__link header-nav__button auth-menu-button auth-menu-button--open"
+          >
+            <svg class="header-nav__icon" width="23" height="23">
+              <use href="./images/icons.svg#icon-person"></use>
+            </svg>
+          </button>
+        </li>
+      </ul>
+    </nav>
 
-        <button class="button search-form__btn btn--join" type="submit" aria-label="search">
-          <svg class="search-form__icon" width="14" height="14">
-            <use href="./images/icons.svg#icon-search"></use>
-          </svg>
-        </button>
+    <!-- Serch box -->
+    <form class="search-form" id="search-form">
+      <input
+        class="search-form__input"
+        type="text"
+        name="searchQuery"
+        placeholder="Movie search"
+        autocomplete="off"
+        required
+      />
 
-        <!-- !!!!! ***Якщо будемо використовувати Notiflix, то даний р ***зайвий -->
-        <p class="header__no-search visually-hidden">
-          Sorry, there are no movies matching your search query. Try one more time,
-          please.
-        </p>
-      </form>
+      <button
+        class="button search-form__btn btn--join"
+        type="submit"
+        aria-label="search"
+      >
+        <svg class="search-form__icon" width="14" height="14">
+          <use href="./images/icons.svg#icon-search"></use>
+        </svg>
+      </button>
+
+      <!-- !!!!! ***Якщо будемо використовувати Notiflix, то даний р ***зайвий -->
+      <p class="header__no-search visually-hidden">
+        Sorry, there are no movies matching your search query. Try one more
+        time, please.
+      </p>
+    </form>
+  </div>
+
+  <div class="header__box-bottom box">
+    <!-- !!! Обгортка для позиціонування блоків в My library для мобільних -->
+
+    <!-- logo -->
+    <div class="logo-wrap--no-margin">
+      <a href="" class="logo-link">
+        <svg class="logo__icon" width="32" height="32">
+          <use href="./images/icons.svg#icon-film"></use>
+        </svg>
+        <h1 class="logo__txt">Filmoteka</h1>
+      </a>
     </div>
 
-
-    <div class="box">
-      <!-- !!! Обгортка для позиціонування блоків в My library для мобільних -->
-
-      <!-- logo -->
-      <div class="logo-wrap--no-margin">
-        <a href="" class="logo-link">
-          <svg class="logo__icon" width="32" height="32">
-            <use href="./images/icons.svg#icon-film"></use>
-          </svg>
-          <h1 class="logo__txt">Filmoteka</h1>
-        </a>
-      </div>
-
-      <!-- user`s library   visually-hidden-->
-      <div class="btn-wrap--mobile ">
-        <button class="header-btn header-btn--current" type="button" name="watched" disabled data-btn-watched>
-          watched
-        </button>
-        <button class="header-btn" type="button" name="queue" data-btn-queue>
-          queue
-        </button>
-      </div>
-
-
+    <!-- user`s library   visually-hidden-->
+    <div class="btn-wrap--mobile">
+      <button
+        class="header-btn header-btn--current"
+        type="button"
+        name="watched"
+        disabled
+        data-btn-watched
+      >
+        watched
+      </button>
+      <button class="header-btn" type="button" name="queue" data-btn-queue>
+        queue
+      </button>
     </div>
   </div>
-</header>
+</div>
