@@ -1,8 +1,18 @@
 //стилі для мобільної версії // початок
+.box {
+  @include mobile-only {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+}
+
 .btn-wrap--mobile {
   margin-top: 16px;
+  display: flex;
+  justify-content: center;
 
-  @media screen and (min-width: $breakpoint-tablet) {
+  @include tablet-and-up {
     display: none;
   }
 }
@@ -36,12 +46,12 @@
     transform: scale(0.95);
   }
 
-  @media screen and (min-width: $breakpoint-tablet) {
+  @include tablet-only {
     height: 38px;
     padding: 12px 23px;
   }
 
-  @media screen and (min-width: $breakpoint-desktop) {
+  @include desktop {
     height: 42px;
     padding: 14px 32px;
   }
@@ -50,7 +60,7 @@
 .header-btn:first-child {
   margin-right: 4px;
 
-  @media screen and (min-width: $breakpoint-desktop) {
+  @include desktop {
     margin-right: 8px;
   }
 }
@@ -63,6 +73,10 @@
 
 ///СТИЛІ ДЛЯ ТАБЛЕТА
 .btn-wrap--tablet {
+  @include mobile-only {
+    display: none;
+  }
+
   display: flex;
   margin-left: auto;
 
