@@ -1,9 +1,12 @@
 import * as basicLightbox from 'basiclightbox';
 import 'basiclightbox/dist/basicLightbox.min.css';
 
-import { fetchDefaultMovies } from './fetchAPI';
-import { genresIdsConvertingToGenres } from './genresIdsConvertingToGenres';
+
 import { checkFilmInLibrary } from './local-storage-service';
+import { fetchDefaultMovies } from "./fetchAPI";
+import { genresIdsConvertingToGenres } from "./genresIdsConvertingToGenres";
+import { addFilmToLibrary, checkFilmInLibrary } from "./local-storage-service"
+
 
 let pageNumber = 1; // для пагинации
 const galleryBox = document.querySelector('.movie__list');
@@ -122,41 +125,38 @@ export async function onMoviesGalleryBoxClick(event) {
                     </div>
                 </div>
                 `,
-      {
-        onShow: instance => {
-          window.addEventListener('keydown', closeModal);
 
-          instance
-            .element()
-            .querySelector('.modal-movie__add-watched-btn')
-            .addEventListener('click', event => {
-              checkFilmInLibrary(data, 'watched', event);
-            });
-          instance
-            .element()
-            .querySelector('.modal-movie__add-queue-btn')
-            .addEventListener('click', event => {
-              checkFilmInLibrary(data, 'queue', event);
-            });
-        },
-        onClose: instance => {
-          window.removeEventListener('keydown', closeModal);
-        },
-      }
-    );
-
-    instance.show();
-    return (data = {
-      poster_path,
-      title,
-      name,
-      first_air_date,
-      original_title,
-      genre_ids,
-      release_date,
-      id,
-    });
-  } catch (error) {
-    console.log(error.message);
-  }
-}
+            {
+                onShow: (instance) => { 
+                    window.addEventListener('keydown', closeModal);
+                    
+                    instance.element().querySelector(".modal-movie__add-watched-btn").addEventListener('click', () => {
+                        addFilmToLibrary(data, "watched");
+                      });
+                    instance.element().querySelector(".modal-movie__add-queue-btn").addEventListener('click', () => {
+                        addFilmToLibrary(data, "queue");
+                      });
+                    
+                },
+                onClose: (instance) => { 
+                    window.removeEventListener('keydown', closeModal);
+                },
+            }
+        );
+        
+        instance.show();
+        checkFilmInLibrary("watched", id);
+        checkFilmInLibrary("queue", id);
+        return data = {
+            poster_path, 
+            title, 
+            name,
+            first_air_date, 
+            original_title, 
+            genre_ids, 
+            release_date,
+            id,
+        };
+        }
+        catch(error) {console.log(error.message); }
+};

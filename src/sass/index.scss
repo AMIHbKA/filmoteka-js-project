@@ -3,9 +3,10 @@
 @import './utils/mixins';
 @import './utils/container';
 @import './base/typography';
-@import './layout/header';
-@import './layout/hero';
-@import './layout/footer';
 @import './components/buttons';
 @import './components/modal';
+@import './components/pagination';
+@import './layout/header';
+@import './authentication/auth-menu.scss';
 @import './layout/hero';
+@import './layout/footer';

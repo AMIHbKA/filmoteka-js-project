@@ -202,31 +202,36 @@
 
 .modal-movie__add-watched-btn,
 .modal-movie__add-queue-btn {
-  width: 125px;
-  height: 34px;
-  background: $bg-color-primary;
-  border-radius: 100px;
-  outline: none;
-  border: 1px solid #000;
-  text-transform: uppercase;
-  color: $bg-color-accent;
-  transition: background-color $transition-duration,
-    color $transition-timing-function;
 
-  @media screen and (min-width: $breakpoint-tablet) and (max-width: 1279px) {
-    width: 137px;
-    height: 38px;
-  }
+    width: 125px;
+    height: 34px;
+    background: $bg-color-primary;
+    border-radius: 100px;
+    outline: none;
+    border: 1px solid #000;
+    text-transform: uppercase;
+    color: $bg-color-accent;
+    transition: background-color $transition-duration, color $transition-timing-function;
 
-  @media screen and (min-width: $breakpoint-desktop) {
-    width: 165px;
-    height: 42px;
-  }
+    @media screen and (min-width: $breakpoint-tablet) and (max-width: 1279px) {
+        width: 137px;
+        height: 38px;
+    }
+    
+    @media screen and (min-width: $breakpoint-desktop) {
+        width: 165px;
+        height: 42px;
+    }
 
-  &:hover,
-  &:focus {
-    background-color: $bg-color-accent;
-    color: $color-text-white;
-    border: none;
-  }
+    &:hover,
+    &:focus {
+        background-color: $bg-color-accent;
+        color: $color-text-white;
+        border: none;
+    }
+
+    &:disabled {
+        background-color: $color-text-footer;
+        color: $color-text-secondary;
+    }
 }
