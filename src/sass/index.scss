@@ -1,12 +1,14 @@
 @import './base/common';
+@import './base/typography';
 @import './utils/variables';
 @import './utils/mixins';
 @import './utils/container';
-@import './base/typography';
 @import './components/buttons';
 @import './components/modal';
 @import './components/pagination';
-@import './layout/header';
-@import './authentication/auth-menu.scss';
 @import './layout/hero';
+@import './layout/header';
 @import './layout/footer';
+@import './authentication/auth-menu';
+@import './authentication/auth-form';
+@import './authentication/profile';

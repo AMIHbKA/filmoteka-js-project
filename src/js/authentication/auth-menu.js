@@ -1,13 +1,30 @@
+import Authentication from '../authentication/authentication';
 export default class AuthMenu {
   constructor() {
+    this.authentication = new Authentication(
+      this.showProfile.bind(this),
+      this.showLoginForm.bind(this)
+    );
+
+    this.refs = {};
+
+    this.buildRefs();
+    this.hangListeners();
+    this.initMenu();
+  }
+
+  buildRefs() {
     this.refs = {
       menu: document.querySelector('.auth-menu'),
+      wrapper: document.querySelector('.auth-menu__wrapper'),
       headerNav: document.querySelector('.header__box-nav'),
       headerBottom: document.querySelector('.header__box-bottom'),
-      menuOpenButton: document.querySelector('.auth-menu-button--open'),
-      menuCloseButton: document.querySelector('.auth-menu-button--close'),
+      menuOpenButton: document.querySelector('.auth-menu__button--open'),
+      menuCloseButton: document.querySelector('.auth-menu__button--close'),
     };
+  }
 
+  hangListeners() {
     this.refs.menuOpenButton.addEventListener(
       'click',
       this.openMenu.bind(this)
@@ -17,6 +34,14 @@ export default class AuthMenu {
       'click',
       this.closeMenu.bind(this)
     );
+  }
+
+  initMenu() {
+    if (this.authentication.isAuthenticated()) {
+      this.showProfile();
+    } else {
+      this.showLoginForm();
+    }
   }
 
   openMenu() {
@@ -35,5 +60,13 @@ export default class AuthMenu {
       this.refs.headerNav.classList.remove('header__box-nav--hidden');
       this.refs.headerBottom.classList.remove('header__box-bottom--hidden');
     }, 250);
+  }
+
+  showLoginForm() {
+    this.refs.wrapper.classList.add('auth-menu__wrapper--flipped');
+  }
+
+  showProfile() {
+    this.refs.wrapper.classList.remove('auth-menu__wrapper--flipped');
   }
 }
