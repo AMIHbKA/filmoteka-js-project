@@ -5,13 +5,6 @@ import Authentication from './js/authentication/auth-menu';
 import TmdbApi from './js/tmdbAPI';
 import { Notify } from 'notiflix';
 
-// test
-import {
-  getGenresNamesById,
-  genresIdsConvertingToGenres,
-} from './js/genresIdsConvertingToGenres';
-//
-
 const API_KEY = '193148fb3e296bb7bc40d2f930865e2a';
 
 RenderDefaultMoviesOnMainPage();
@@ -21,7 +14,3 @@ new AuthMenu();
 // new Authentication('#authForm');
 
 const tmdbApi = new TmdbApi(API_KEY);
-tmdbApi
-  .fetchTrendingMovies()
-  .then(response => console.log(response))
-  .catch(error => Notify.failure(error.message));

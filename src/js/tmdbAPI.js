@@ -9,6 +9,23 @@ export default class TmdbApi {
     this.totalPages = 0;
   }
 
+  #checkForHttpError(response, errorMessages) {
+    const {
+      status,
+      data: { total_results },
+    } = response;
+
+    if (status === 400) {
+      throw new Error(errorMessages[400]);
+    } else if (status === 401) {
+      throw new Error(errorMessages[401]);
+    } else if (status === 404) {
+      throw new Error(errorMessages[404]);
+    } else if (total_results === 0) {
+      throw new Error(errorMessages[200]);
+    }
+  }
+
   getTotalPages() {
     return this.totalPages;
   }
@@ -33,12 +50,13 @@ export default class TmdbApi {
       const response = await axios.get(`${this.baseUrl}search/movie`, {
         params: { api_key: this.apiKey, query, page },
       });
-
-      if (response.status === 404) {
-        throw new Error(
-          'Search result not successful. Enter the correct movie name.'
-        );
-      }
+      console.log(response);
+      this.#checkForHttpError(response, {
+        400: `Bad request`,
+        401: 'Unauthorized request',
+        404: 'Search result not successful. Enter the correct movie name.',
+        200: 'Sorry, there are no movies matching your search query. Try one more time, please.',
+      });
 
       this.lastSearch = query;
       this.totalPages = response.data.total_pages;
@@ -47,7 +65,7 @@ export default class TmdbApi {
       return response.data;
     } catch (error) {
       console.log(error);
-      throw new Error(`Failed to get movies by search: ${error.message}`);
+      throw new Error(error.message);
     }
   }
 
@@ -59,21 +77,22 @@ export default class TmdbApi {
     }
 
     try {
-      const response = await axios.get(`${this.baseUrl}all/day`, {
+      const response = await axios.get(`${this.baseUrl}trending/all/day`, {
         params: { api_key: this.apiKey, page },
       });
 
-      if (response.status === 404 || response.status === 404) {
-        throw new Error('Result not successful.');
-      }
+      this.#checkForHttpError(response, {
+        400: `Bad request`,
+        401: 'Unauthorized request',
+        404: 'Search result not successful. The resource you requested could not be found.',
+      });
 
       this.totalPages = response.data.total_pages;
       this.cache.set(cacheKey, response.data);
       this.cache.set(`${cacheKey}-totalPages`, response.data.total_pages);
       return response.data;
     } catch (error) {
-      console.log(error);
-      throw new Error(`Failed to get movies by search: ${error.message}`);
+      throw new Error(error.message);
     }
   }
 }
