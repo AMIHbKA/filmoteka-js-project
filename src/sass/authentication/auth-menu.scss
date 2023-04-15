@@ -28,19 +28,24 @@
   width: 100%;
   height: 100%;
 
+  padding: 60px 14px 24px;
+
+  @media screen and (min-width: $breakpoint-tablet) {
+    padding: 16px 100px;
+  }
+
+  @media screen and (min-width: $breakpoint-desktop) {
+    padding: 16px 0;
+  }
+}
+
+.auth-menu__wrapper {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 
-  padding: 14px 14px 24px;
-
-  @media screen and (min-width: $breakpoint-tablet) {
-    padding: 16px;
-  }
-
-  @media screen and (min-width: $breakpoint-desktop) {
-    padding: 16px 32px;
-  }
+  width: 100%;
+  height: 100%;
 }
 
 .auth-menu-button--close {
