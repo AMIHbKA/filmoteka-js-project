@@ -7,7 +7,7 @@ footer {
 .container.container--footer-padding {
   text-align: center;
 
-  @include tablet {
+  @include tablet-and-up {
     display: flex;
     align-items: baseline;
     justify-content: center;
@@ -26,7 +26,7 @@ footer {
 .footer__text {
   margin-bottom: 12px;
 
-  @include tablet {
+  @include tablet-and-up {
     margin-bottom: 0;
   }
 }
@@ -38,7 +38,7 @@ footer {
   transition: color $transition-duration $transition-timing-function,
     box-shadow $transition-duration $transition-timing-function;
 
-  @include tablet {
+  @include tablet-and-up {
     transition: color $transition-duration $transition-timing-function;
   }
 
@@ -47,7 +47,7 @@ footer {
     color: $color-text-accent;
     box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.4);
 
-    @include tablet {
+    @include tablet-and-up {
       box-shadow: none;
     }
   }
