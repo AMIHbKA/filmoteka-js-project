@@ -3,7 +3,7 @@ import 'basiclightbox/dist/basicLightbox.min.css';
 
 import { fetchDefaultMovies } from "./fetchAPI";
 import { genresIdsConvertingToGenres } from "./genresIdsConvertingToGenres";
-import { checkFilmInLibrary} from './local-storage-service';
+import { addFilmToLibrary, checkFilmInLibrary } from "./local-storage-service"
 
 let pageNumber = 1; // для пагинации
 const galleryBox = document.querySelector(".movie__list");
@@ -87,12 +87,13 @@ export async function onMoviesGalleryBoxClick(event) {
                 onShow: (instance) => { 
                     window.addEventListener('keydown', closeModal);
                     
-                    instance.element().querySelector(".modal-movie__add-watched-btn").addEventListener('click', (event) => {
-                        checkFilmInLibrary(data, "watched", event);
+                    instance.element().querySelector(".modal-movie__add-watched-btn").addEventListener('click', () => {
+                        addFilmToLibrary(data, "watched");
                       });
-                    instance.element().querySelector(".modal-movie__add-queue-btn").addEventListener('click', (event) => {
-                        checkFilmInLibrary(data, "queue", event);
+                    instance.element().querySelector(".modal-movie__add-queue-btn").addEventListener('click', () => {
+                        addFilmToLibrary(data, "queue");
                       });
+                    
                 },
                 onClose: (instance) => { 
                     window.removeEventListener('keydown', closeModal);
@@ -101,6 +102,8 @@ export async function onMoviesGalleryBoxClick(event) {
         );
         
         instance.show();
+        checkFilmInLibrary("watched", id);
+        checkFilmInLibrary("queue", id);
         return data = {
             poster_path, 
             title, 

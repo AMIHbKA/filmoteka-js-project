@@ -207,4 +207,9 @@
         color: $color-text-white;
         border: none;
     }
+
+    &:disabled {
+        background-color: $color-text-footer;
+        color: $color-text-secondary;
+    }
 }
