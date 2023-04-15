@@ -1,6 +1,6 @@
 //стилі для мобільної версії // початок
 .box {
-  @media screen and (max-width: 767px) {
+  @include mobile-only {
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -9,17 +9,16 @@
 
 .btn-wrap--mobile {
   margin-top: 16px;
+  display: flex;
+  justify-content: center;
 
-  @media screen and (min-width: $breakpoint-tablet) {
+  @include tablet-and-up {
     display: none;
   }
-
 }
 //стилі для мобільної версії // кінець
 
-
-
-//загальні стилі 
+//загальні стилі
 .header-btn {
   justify-content: center;
   align-items: center;
@@ -30,13 +29,15 @@
 
   border-style: none;
   cursor: pointer;
-  
+
   font-weight: 500;
   line-height: 1.17;
   text-transform: uppercase;
   border-radius: 100px;
-  
-  transition: color $transition-duration $transition-timing-function, background-color $transition-duration $transition-timing-function, transform $transition-duration $transition-timing-function;
+
+  transition: color $transition-duration $transition-timing-function,
+    background-color $transition-duration $transition-timing-function,
+    transform $transition-duration $transition-timing-function;
 
   &:hover,
   &:focus {
@@ -45,26 +46,22 @@
     transform: scale(0.95);
   }
 
-
-  @media screen and (min-width: $breakpoint-tablet) {
+  @include tablet-only {
     height: 38px;
     padding: 12px 23px;
-
   }
 
-  @media screen and (min-width: $breakpoint-desktop) {
+  @include desktop {
     height: 42px;
     padding: 14px 32px;
-
   }
 }
 
 .header-btn:first-child {
   margin-right: 4px;
 
-  @media screen and (min-width: $breakpoint-desktop) {
+  @include desktop {
     margin-right: 8px;
-
   }
 }
 
@@ -74,14 +71,16 @@
   box-shadow: 0px 0px 7px rgba(27, 27, 27, 0.15);
 }
 
-
-///СТИЛІ ДЛЯ ТАБЛЕТА 
+///СТИЛІ ДЛЯ ТАБЛЕТА
 .btn-wrap--tablet {
+  @include mobile-only {
+    display: none;
+  }
+
   display: flex;
   margin-left: auto;
 
   @media screen and (max-width: 767px) {
     display: none;
-
   }
 }
