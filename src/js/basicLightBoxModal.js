@@ -87,11 +87,11 @@ export async function onMoviesGalleryBoxClick(event) {
                 onShow: (instance) => { 
                     window.addEventListener('keydown', closeModal);
                     
-                    instance.element().querySelector(".modal-movie__add-watched-btn").addEventListener('click', (event) => {
-                        addFilmToLibrary(data, "watched", event);
+                    instance.element().querySelector(".modal-movie__add-watched-btn").addEventListener('click', () => {
+                        addFilmToLibrary(data, "watched");
                       });
-                    instance.element().querySelector(".modal-movie__add-queue-btn").addEventListener('click', (event) => {
-                        addFilmToLibrary(data, "queue", event);
+                    instance.element().querySelector(".modal-movie__add-queue-btn").addEventListener('click', () => {
+                        addFilmToLibrary(data, "queue");
                       });
                     
                 },

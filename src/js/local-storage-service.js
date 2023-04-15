@@ -2,7 +2,7 @@ import { Notify } from "notiflix";
 
 const ERROR_MESSAGE = "Oops, something went wrong. Try again later."
 
-export function addFilmToLibrary(newFilm, key, event) {
+export function addFilmToLibrary(newFilm, key) {
     try {
         const savedData = JSON.parse(localStorage.getItem(key));
         let storageData = [];
