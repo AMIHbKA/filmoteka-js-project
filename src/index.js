@@ -22,6 +22,6 @@ new AuthMenu();
 
 const tmdbApi = new TmdbApi(API_KEY);
 tmdbApi
-  .searchMovies('venom')
+  .fetchTrendingMovies()
   .then(response => console.log(response))
   .catch(error => Notify.failure(error.message));
