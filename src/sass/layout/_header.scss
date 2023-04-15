@@ -5,6 +5,8 @@ header {
 }
 
 .header__container {
+  position: relative;
+
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -12,6 +14,8 @@ header {
   min-width: 280px;
   min-height: 460px;
   padding: 14px 14px 24px;
+
+  overflow: hidden;
 
   background-image: linear-gradient(
       75deg,
@@ -22,7 +26,7 @@ header {
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  border-radius: 10px;
+  border-radius: 15px;
 
   @media screen and (min-width: $breakpoint-tablet) {
     min-width: 704px;
@@ -73,10 +77,30 @@ header {
 
 //Навігація
 .header__box-nav {
+  transition: transform $transition-duration $transition-timing-function;
+
   @media screen and (min-width: $breakpoint-tablet) {
     display: flex;
     flex-direction: row-reverse;
     justify-content: flex-end;
+  }
+
+  &--hidden {
+    transform: translateY(-150px);
+  }
+}
+
+.header__box-bottom {
+  transition: transform $transition-duration $transition-timing-function;
+
+  @media screen and (max-width: 767px) {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  &--hidden {
+    transform: translateY(150px);
   }
 }
 

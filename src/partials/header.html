@@ -3,6 +3,8 @@
 
 <!-- main nav home-->
 <div class="header__container">
+  <include src="./partials/authentication/auth-menu.html"></include>
+
   <div class="header__box-nav">
     <!-- !!! Обгортка для позиціонування блоків в My library для таблет і десктоп -->
     <!-- Тут будуть дві кнопки |Watched & Queue| start  -->
@@ -43,8 +45,7 @@
         </li>
         <li class="header-nav__item">
           <button
-            id="auth-menu-button"
-            class="header-nav__link header-nav__button"
+            class="header-nav__link header-nav__button auth-menu-button auth-menu-button--open"
           >
             <svg class="header-nav__icon" width="23" height="23">
               <use href="./images/icons.svg#icon-person"></use>
@@ -83,7 +84,7 @@
     </form>
   </div>
 
-  <div class="box">
+  <div class="header__box-bottom">
     <!-- !!! Обгортка для позиціонування блоків в My library для мобільних -->
 
     <!-- logo -->

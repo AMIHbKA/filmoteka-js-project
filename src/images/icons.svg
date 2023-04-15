@@ -1,7 +1,7 @@
 <svg aria-hidden="true" style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1"
     xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <defs>
-        <symbol id="icon-search-a" viewBox="0 0 32 32">
+        <symbol id="icon-search" viewBox="0 0 32 32">
             <path fill="none" stroke="#000" stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4"
                 stroke-width="2.2857"
                 d="M14.667 25.333c5.891 0 10.667-4.776 10.667-10.667s-4.776-10.667-10.667-10.667c-5.891 0-10.667 4.776-10.667 10.667s4.776 10.667 10.667 10.667z">
@@ -26,6 +26,12 @@
                 d="M8.533 8.533l14.933 14.933"></path>
             <path stroke-linejoin="miter" stroke-linecap="butt" stroke-miterlimit="4" stroke-width="2.1333"
                 d="M8.533 23.467l14.933-14.933"></path>
+        </symbol>
+        <symbol id="icon-close-black" viewBox="0 0 32 32">
+            <path stroke="#000" stroke-linejoin="miter" stroke-linecap="butt" stroke-miterlimit="4"
+                stroke-width="2.1333" d="M8.533 8.533l14.933 14.933"></path>
+            <path stroke="#000" stroke-linejoin="miter" stroke-linecap="butt" stroke-miterlimit="4"
+                stroke-width="2.1333" d="M8.533 23.467l14.933-14.933"></path>
         </symbol>
         <symbol id="icon-film" viewBox="0 0 32 32">
             <path fill="none" stroke="#fff" style="stroke: var(--color1, #fff)" stroke-linejoin="round"
