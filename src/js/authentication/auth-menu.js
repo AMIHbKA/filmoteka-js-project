@@ -1,5 +1,15 @@
+import Authentication from '../authentication/authentication';
 export default class AuthMenu {
   constructor() {
+    this.authentication = new Authentication();
+
+    this.refs = {};
+
+    this.buildRefs();
+    this.hangListeners();
+  }
+
+  buildRefs() {
     this.refs = {
       menu: document.querySelector('.auth-menu'),
       headerNav: document.querySelector('.header__box-nav'),
@@ -7,7 +17,9 @@ export default class AuthMenu {
       menuOpenButton: document.querySelector('.auth-menu-button--open'),
       menuCloseButton: document.querySelector('.auth-menu-button--close'),
     };
+  }
 
+  hangListeners() {
     this.refs.menuOpenButton.addEventListener(
       'click',
       this.openMenu.bind(this)
