@@ -14,37 +14,61 @@ header {
   padding: 14px 14px 24px;
 
   background-image: linear-gradient(75deg, rgba(0, 0, 0, 0.1) 9%, rgba(0, 0, 0, 0.3) 100%),
-    url(/src/images/hero_mob_red@1x.webp);
+    url("../images/hero_mob_red@1x.webp");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
   border-radius: 10px;
 
-  @media screen and (min-width: $breakpoint-tablet) {
-      min-width: 704px;
-      min-height: 222px;
-      padding: 16px;
-  
-      background-image: linear-gradient(180deg, rgba(0, 0, 0, 0) 2%, rgba(0, 0, 0, 0.4) 60%),
-        url(/src/images/hero-bg-tabl@1x.webp);
+
+  //для респонсивних фонових зображень
+  @media (min-device-pixel-ratio: 2),
+    (min-resolution: 192dpi),
+    (min-resolution: 2dppx) {
+    background-image: linear-gradient(75deg, rgba(0, 0, 0, 0.1) 9%, rgba(0, 0, 0, 0.3) 100%),
+        url("../images/hero_mob_red@2x.webp");
     }
+
+  @include tablet-only {
+    min-width: 704px;
+    min-height: 222px;
+    padding: 16px;
+
+    background-image: linear-gradient(180deg, rgba(0, 0, 0, 0) 2%, rgba(0, 0, 0, 0.4) 60%),
+      url("../images/hero-bg-tabl@1x.webp");
+
+    //для респонсивних фонових зображень
+    @media (min-device-pixel-ratio: 2),
+      (min-resolution: 192dpi),
+      (min-resolution: 2dppx) {
+        background-image: linear-gradient(180deg, rgba(0, 0, 0, 0) 2%, rgba(0, 0, 0, 0.4) 60%),
+          url("../images/hero-bg-tabl@2x.webp");
+      }
+  }
   
-    @media screen and (min-width: $breakpoint-desktop) {
-      max-width: 1216px;
-      min-height: 316px;
-      padding: 16px 32px;
-  
+  @include desktop {
+    max-width: 1216px;
+    min-height: 316px;
+    padding: 16px 32px;
+
+    background-image: linear-gradient(204deg, rgba(0, 0, 0, 0.1) 2%, rgba(0, 0, 0, 0.3) 60%),
+      url("../images/hero_desk_red@1x.webp");
+
+    //для респонсивних фонових зображень
+    @media (min-device-pixel-ratio: 2),
+    (min-resolution: 192dpi),
+    (min-resolution: 2dppx) {
       background-image: linear-gradient(204deg, rgba(0, 0, 0, 0.1) 2%, rgba(0, 0, 0, 0.3) 60%),
-        url(/src/images/hero_desk_red@1x.webp);
-  
+        url("../images/hero_desk_red@2x.webp");
     }
+  }
 
 }
 
 
 //Навігація
 .header__box-nav {
-  @media screen and (min-width: $breakpoint-tablet) {
+  @include tablet-and-up {
 
     display: flex;
     flex-direction: row-reverse;
@@ -93,13 +117,13 @@ header {
   }
 
 
-  @media screen and (min-width: $breakpoint-tablet) {
+  @include tablet-only {
     height: 38px;
     padding: 12px 20px;
     align-items: center;
   }
 
-  @media screen and (min-width: $breakpoint-desktop) {
+  @include desktop {
     height: 42px;
     padding: 14px 24px;
     align-items: center;
@@ -123,14 +147,14 @@ header {
   margin-left: 0;
   margin-right: 0;
 
-  @media screen and (min-width: $breakpoint-tablet) {
+  @include tablet-only {
 
     width: 165px;
     height: 38px;
     margin-right: 4px;
   }
 
-  @media screen and (min-width: $breakpoint-desktop) {
+  @include desktop {
 
     width: 187px;
     height: 42px;
@@ -148,13 +172,13 @@ header {
   border-radius: 100px;
   padding: 10px 14px;
 
-  @media screen and (min-width: $breakpoint-tablet) {
+  @include tablet-only {
     max-width: 165px;
     height: 38px;
     padding: 11px 16px;
   }
 
-  @media screen and (min-width: $breakpoint-desktop) {
+  @include desktop {
     max-width: 187px;
     height: 42px;
     padding: 13px 16px;
@@ -218,7 +242,7 @@ header {
   justify-content: center;
   align-items: center;
 
-  @media screen and (min-width: $breakpoint-tablet) {
+  @include tablet-and-up {
 
     display: inline-flex;
 
@@ -229,12 +253,12 @@ header {
   width: 32px;
   height: 32px;
 
-  @media screen and (min-width: $breakpoint-tablet) {
+  @include tablet-only {
     width: 40px;
     height: 40px;
   }
 
-  @media screen and (min-width: $breakpoint-desktop) {
+  @include desktop {
     width: 59px;
     height: 59px;
   }
@@ -255,14 +279,14 @@ header {
 
   color: $color-text-white;
 
-  @media screen and (min-width: $breakpoint-tablet) {
+  @include tablet-only {
 
     font-size: 40px;
     line-height: 1.17;
 
   }
 
-  @media screen and (min-width: $breakpoint-desktop) {
+  @include desktop {
 
     font-size: 64px;
 
