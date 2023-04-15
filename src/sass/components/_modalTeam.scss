@@ -1,0 +1,49 @@
+.basicLightbox {
+  overflow: scroll;
+}
+
+.team-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+
+  margin: -20px;
+
+  width: 900px;
+  height: 500px;
+  background-color: floralwhite;
+  border-radius: 15px;
+}
+
+.team-card {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  margin: 20px;
+
+  width: calc((100% - 80px) / 2);
+}
+
+.team-image {
+  margin-bottom: 10px;
+
+  width: 100%;
+
+  border-radius: 50%;
+}
+
+.team-name {
+  margin-bottom: 5px;
+
+  font-weight: 700;
+}
+
+// footer
+
+.team-modal {
+  text-decoration: underline;
+
+  cursor: pointer;
+}

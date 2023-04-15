@@ -3,3 +3,5 @@ import { startPagination } from './js/pagination';
 
 RenderDefaultMoviesOnMainPage();
 startPagination();
+
+import './js/modalTeam';
