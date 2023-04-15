@@ -8,7 +8,7 @@ import {
 } from 'firebase/auth';
 
 export default class FirebaseAPI {
-  constructor() {
+  constructor(onLoginCallback, onLogoutCallback) {
     this.FIREBASE_CONFIG = {
       apiKey: 'AIzaSyCUzIbYrWt1gRDF2DKq0tM78ENX5LnPctw',
       authDomain: 'filmoteka-js-project-8.firebaseapp.com',
@@ -19,13 +19,17 @@ export default class FirebaseAPI {
       measurementId: 'G-B22P5WY8Z9',
     };
 
+    this.onLoginCallback = onLoginCallback;
+    this.onLogoutCallback = onLogoutCallback;
+
     this.app = initializeApp(this.FIREBASE_CONFIG);
     this.auth = getAuth(this.app);
-    this.authenticated = this.auth.currentUser ? true : false;
+
+    this.auth.onAuthStateChanged(this.handleAuthStateChanged.bind(this));
   }
 
   isAuthenticated() {
-    return this.authenticated;
+    return this.auth.currentUser ? true : false;
   }
 
   login(email, password) {
@@ -36,15 +40,15 @@ export default class FirebaseAPI {
     return createUserWithEmailAndPassword(this.auth, email, password);
   }
 
-  // async signUpEmailAndPassword(email, password) {
-  //   return await createUserWithEmailAndPassword(auth, email, password);
-  // }
+  logout() {
+    return this.auth.signOut();
+  }
 
-  // async signInEmailAndPassword(email, password) {
-  //   return await signInWithEmailAndPassword(auth, email, password);
-  // }
-
-  // async onAuthStateChanged(cb) {
-  //   return await onAuthStateChanged(auth, cb);
-  // }
+  handleAuthStateChanged(user) {
+    if (user) {
+      this.onLoginCallback(user);
+    } else {
+      this.onLogoutCallback();
+    }
+  }
 }

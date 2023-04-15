@@ -2,8 +2,11 @@ import FirebaseAPI from './firebaseAPI.js';
 import { Notify } from 'notiflix';
 
 export default class Authentication {
-  constructor() {
-    this.firebase = new FirebaseAPI();
+  constructor(onLoginCallback, onLogoutCallback) {
+    this.firebase = new FirebaseAPI(onLoginCallback, onLogoutCallback);
+
+    this.onLoginCallback = onLoginCallback;
+    this.onLogoutCallback = onLogoutCallback;
 
     this.refs = {};
     this.action = 'login';
@@ -17,6 +20,7 @@ export default class Authentication {
     this.refs.submitButton = document.querySelector('#submit');
     this.refs.loginButton = document.querySelector('#login');
     this.refs.registerButton = document.querySelector('#register');
+    this.refs.logoutButton = document.querySelector('#logout');
     this.refs.githubButton = document.querySelector('#github-auth');
     this.refs.googleButton = document.querySelector('#google-auth');
     this.refs.inputsWrapper = document.querySelector(
@@ -33,6 +37,10 @@ export default class Authentication {
     this.refs.registerButton.addEventListener(
       'click',
       this.onRegisterButtonClick.bind(this)
+    );
+    this.refs.logoutButton.addEventListener(
+      'click',
+      this.onLogoutButtonClick.bind(this)
     );
     this.refs.githubButton.addEventListener(
       'click',
@@ -52,6 +60,22 @@ export default class Authentication {
   onRegisterButtonClick() {
     this.action = 'register';
     this.clickSubmitButton();
+  }
+
+  isAuthenticated() {
+    return this.firebase.isAuthenticated();
+  }
+
+  async onLogoutButtonClick() {
+    try {
+      await this.firebase.logout();
+    } catch (error) {
+      Notify.failure('Something went wrong', {
+        clickToClose: true,
+      });
+    }
+
+    this.onLogoutCallback();
   }
 
   clickSubmitButton() {
@@ -76,7 +100,6 @@ export default class Authentication {
       await this.firebase.login(email, password);
     } catch (error) {
       let errorMessage = '';
-      console.log(error.code);
 
       switch (error.code) {
         case 'auth/wrong-password':
@@ -100,9 +123,11 @@ export default class Authentication {
       Notify.failure(errorMessage, {
         clickToClose: true,
       });
+
+      return;
     }
 
-    this.showProfile();
+    this.onLoginCallback();
     this.resetForm();
   }
 
@@ -111,7 +136,6 @@ export default class Authentication {
       await this.firebase.register(email, password);
     } catch (error) {
       let errorMessage = '';
-      console.log(error.code);
 
       switch (error.code) {
         case 'auth/email-already-in-use':
@@ -135,9 +159,11 @@ export default class Authentication {
       Notify.failure(errorMessage, {
         clickToClose: true,
       });
+
+      return;
     }
 
-    this.showProfile();
+    this.onLoginCallback();
     this.resetForm();
   }
 
@@ -148,10 +174,6 @@ export default class Authentication {
   async handleGoogleAuth(e) {
     e.preventDefault();
   }
-
-  showLoginForm() {}
-
-  showProfile() {}
 
   resetForm() {
     this.refs.form.reset();

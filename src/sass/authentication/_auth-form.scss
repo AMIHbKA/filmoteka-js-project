@@ -3,24 +3,13 @@
   flex-direction: column;
   justify-content: space-between;
 
+  transform: rotateY(180deg);
+
   --elements-gap: 16px;
 
   @media screen and (min-width: $breakpoint-tablet) and (max-width: $breakpoint-desktop) {
     --elements-gap: 10px;
   }
-}
-
-.auth-form__head {
-  text-align: center;
-}
-
-.auth-form__title {
-  margin-bottom: var(--elements-gap);
-
-  font-size: 24px;
-  font-weight: 500;
-  line-height: 1.2;
-  color: $color-text-white;
 }
 
 .auth-form__providers {
