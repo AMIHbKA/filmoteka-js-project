@@ -63,7 +63,7 @@ export default class TmdbApi {
         params: { api_key: this.apiKey, page },
       });
 
-      if (response.status === 404) {
+      if (response.status === 404 || response.status === 404) {
         throw new Error('Result not successful.');
       }
 
