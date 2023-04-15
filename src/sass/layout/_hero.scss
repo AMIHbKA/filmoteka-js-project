@@ -17,6 +17,13 @@
 .movie__item {
   margin-left: auto;
   margin-right: auto;
+  transition: scale 500ms ease-in-out, background-color 500ms ease-in-out;  
+  border-radius: 5px;
+  &:hover,
+  &:focus {
+      background-color: $bg-color-primary;
+      scale: 102%;
+    }
 }
 .movie__poster {
   display: block;
@@ -47,7 +54,7 @@
 .movie__name {
   font-size: 12px;
   line-height: calc(16 / 12);
-  color: #000000;
+  color: $color-text-primary;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
@@ -61,7 +68,7 @@
 .movie__genres-year {
   font-size: 12px;
   line-height: calc(16 / 12);
-  color: #b92f2c;
+  color: $bg-color-accent;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
