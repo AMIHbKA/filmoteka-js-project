@@ -6,7 +6,10 @@ import TmdbApi from './js/tmdbAPI';
 import { Notify } from 'notiflix';
 
 // test
-import { getGenresNamesById } from './js/genresIdsConvertingToGenres';
+import {
+  getGenresNamesById,
+  genresIdsConvertingToGenres,
+} from './js/genresIdsConvertingToGenres';
 //
 
 const API_KEY = '193148fb3e296bb7bc40d2f930865e2a';
@@ -22,5 +25,3 @@ tmdbApi
   .searchMovies('venom')
   .then(response => console.log(response))
   .catch(error => Notify.failure(error.message));
-
-console.log(getGenresNamesById([28, 16, 35]));
