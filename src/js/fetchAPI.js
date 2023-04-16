@@ -13,3 +13,20 @@ export async function fetchDefaultMovies(pageNumber) {
     console.error(error);
   }
 }
+
+
+// запрос трейлера по ID
+export async function fetchMovieTrailer(movieId) {
+    try {
+       return await axios.get(`${baseUrl}movie/${movieId}/videos?api_key=${API_KEY}&language=en-US`); 
+        // console.log(result)       
+    } catch (error) {
+        console.error(error);
+        
+        // if (error.response.status === 404) { 
+        //     console.log(error.data.results.length)
+        //     alert("Oops, there is not trailer")
+        // }
+    }
+}
+// 
