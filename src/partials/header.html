@@ -5,24 +5,10 @@
 <div class="header__container">
   <include src="./partials/authentication/auth-menu.html"></include>
 
-
-      <!-- user`s library visually-hidden-->
-      <div class="btn-wrap--tablet is-hidden">
-        <button class="header-btn header-btn--current" type="button" name="watched" disabled data-btn-watched>
-          watched
-        </button>
-        <button class="header-btn" type="button" name="queue" data-btn-queue>
-          queue
-        </button>
-      </div>
-
   <div class="header__box-nav">
     <!-- !!! Обгортка для позиціонування блоків в My library для таблет і десктоп -->
-    <!-- Тут будуть дві кнопки |Watched & Queue| start  -->
-
-
     <!-- user`s library visually-hidden-->
-    <div class="btn-wrap--tablet is-hidden">
+    <!-- <div class="btn-wrap--tablet is-hidden">
       <button
         class="header-btn header-btn--current"
         type="button"
@@ -35,7 +21,7 @@
       <button class="header-btn" type="button" name="queue" data-btn-queue>
         queue
       </button>
-    </div>
+    </div> -->
 
     <!-- end -->
 
@@ -65,6 +51,24 @@
           </button>
         </li>
       </ul>
+      <ul class="header-nav__sub-menu list is-hidden" id="tablet-sub-menu">
+        <li>
+          <button
+            class="header-btn header-btn--current"
+            type="button"
+            name="watched"
+            disabled
+            data-btn-watched
+          >
+            watched
+          </button>
+        </li>
+        <li>
+          <button class="header-btn" type="button" name="queue" data-btn-queue>
+            queue
+          </button>
+        </li>
+      </ul>
     </nav>
 
     <!-- Serch box -->
@@ -87,29 +91,11 @@
           <use href="./images/icons.svg#icon-search"></use>
         </svg>
       </button>
-
-      <!-- !!!!! ***Якщо будемо використовувати Notiflix, то даний р ***зайвий -->
-      <p class="header__no-search visually-hidden">
-        Sorry, there are no movies matching your search query. Try one more
-        time, please.
-      </p>
     </form>
   </div>
 
-
-      <!-- user`s library   visually-hidden-->
-      <div class="btn-wrap--mobile is-hidden">
-        <button class="header-btn header-btn--current" type="button" name="watched" disabled data-btn-watched>
-          watched
-        </button>
-        <button class="header-btn" type="button" name="queue" data-btn-queue>
-          queue
-        </button>
-      </div>
-
   <div class="header__box-bottom box">
     <!-- !!! Обгортка для позиціонування блоків в My library для мобільних -->
-
     <!-- logo -->
     <div class="logo-wrap--no-margin">
       <a href="" class="logo-link">
@@ -121,19 +107,23 @@
     </div>
 
     <!-- user`s library   visually-hidden-->
-    <div class="btn-wrap--mobile is-hidden">
-      <button
-        class="header-btn header-btn--current"
-        type="button"
-        name="watched"
-        disabled
-        data-btn-watched
-      >
-        watched
-      </button>
-      <button class="header-btn" type="button" name="queue" data-btn-queue>
-        queue
-      </button>
-    </div>
+    <ul class="header-nav__sub-menu list is-hidden" id="mobile-sub-menu">
+      <li>
+        <button
+          class="header-btn header-btn--current"
+          type="button"
+          name="watched"
+          disabled
+          data-btn-watched
+        >
+          watched
+        </button>
+      </li>
+      <li>
+        <button class="header-btn" type="button" name="queue" data-btn-queue>
+          queue
+        </button>
+      </li>
+    </ul>
   </div>
 </div>

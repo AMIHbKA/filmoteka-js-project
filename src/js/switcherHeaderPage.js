@@ -2,9 +2,11 @@
 const refs = {
   myLibraryBtn: document.querySelector('#nav-link-library'),
   homeBtn: document.querySelector('#nav-link-home'),
-  mobileBtnsWrap: document.querySelector('.btn-wrap--mobile'),
-  tabletBtnsWrap: document.querySelector('.btn-wrap--tablet'),
-}
+  mobileBtnsWrap: document.querySelector('#mobile-sub-menu'),
+  tabletBtnsWrap: document.querySelector('#tablet-sub-menu'),
+};
+
+console.log(refs.tabletBtnsWrap);
 
 //подія
 refs.myLibraryBtn.addEventListener('click', onLibraryBtnClick);
@@ -12,22 +14,21 @@ refs.homeBtn.addEventListener('click', onHomeBtnClick);
 
 function onLibraryBtnClick() {
   const screenWidth = window.innerWidth;
-  
+
   refs.myLibraryBtn.classList.add('header-nav__link--current');
   refs.homeBtn.classList.remove('header-nav__link--current');
 
   if (screenWidth < 768) {
     refs.tabletBtnsWrap.classList.add('is-hidden');
     refs.mobileBtnsWrap.classList.remove('is-hidden');
-    
   } else {
     refs.mobileBtnsWrap.classList.add('is-hidden');
-    refs.tabletBtnsWrap.classList.remove('is-hidden'); 
+    refs.tabletBtnsWrap.classList.remove('is-hidden');
   }
 }
 
-
 function onHomeBtnClick() {
+  console.log('click');
   removeWrapsMyLibrary();
   refs.homeBtn.classList.add('header-nav__link--current');
   refs.myLibraryBtn.classList.remove('header-nav__link--current');
@@ -45,13 +46,5 @@ function removeWrapsMyLibrary() {
   refs.mobileBtnsWrap.classList.add('is-hidden');
 }
 
-
 //стилі замість ховера
 //_header.scss 113-117
-
-
-
-
-
-
-
