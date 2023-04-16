@@ -59,12 +59,6 @@
   }
 }
 
-.modal-movie__container {
-  // display: flex;
-  // flex-direction: column;
-  // text-align: left;
-}
-
 .modal-movie__info-block {
   display: flex;
   flex-direction: column;
@@ -75,10 +69,14 @@
   display: grid;
 
   grid-template-columns: 70px auto;
-  //   align-items: baseline;
+  align-items: baseline;
 
-  gap: 83px;
+  gap: 39px;
   color: #8c8c8c;
+
+  @media screen and (min-width: $breakpoint-desktop) {
+  gap: 83px;
+  } 
 }
 
 .modal-movie__title {
