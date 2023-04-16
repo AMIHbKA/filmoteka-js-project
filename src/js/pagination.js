@@ -1,46 +1,40 @@
 import Pagination from 'tui-pagination';
-// import axios from 'axios';
 import { fetchDefaultMovies } from './fetchAPI';
-import 'tui-pagination/dist/tui-pagination.css';
-// import './fetchAPI';
+// import 'tui-pagination/dist/tui-pagination.css';
 import { renderDefaultMovies } from './renderDefaultMovies';
 
 let currentPage = 1;
 const galleryBox = document.querySelector('.movie__list');
 
-// startPagination();
-
 export function startPagination() {
   createDiv();
   fetchDefaultMovies(currentPage)
     .then(function (response) {
-      // обработка успешного запроса
-      // console.log(response);
       const totalPages = response.data.total_pages;
       createPaginationContainer(totalPages);
       response.data.results;
       return;
     })
     .catch(function (error) {
-      // обработка ошибки
       console.log(error);
     });
 }
 
-// function getResponse(apiKey, currentPage) {
-//   return axios.get(
-//     `https://api.themoviedb.org/3/trending/all/day?api_key=${apiKey}&page=${currentPage}`
-//   );
-// }
-
 function createPaginationContainer(totalPages) {
-  const container = document.getElementById('tui-pagination-container');
-  const pagination = new Pagination(container, {
+  const screenWidth = window.innerWidth;
+  const paginationOption = {
     totalItems: totalPages,
     itemsPerPage: 20,
-    visiblePages: 10,
+    visiblePages: 9,
     page: currentPage,
-  });
+    centerAlign: true,
+  };
+  console.log(screenWidth);
+  const container = document.getElementById('tui-pagination-container');
+  if (screenWidth < 768) {
+    paginationOption.visiblePages = 3;
+  }
+  const pagination = new Pagination(container, paginationOption);
 
   pagination.on('afterMove', event => {
     currentPage = event.page;
@@ -52,12 +46,10 @@ function createPaginationContainer(totalPages) {
 }
 
 function createDiv() {
-  document
-    .querySelector('.hero')
-    .insertAdjacentHTML(
-      'beforeend',
-      `<div id="tui-pagination-container" class="tui-pagination"></div>`
-    );
+  galleryBox.insertAdjacentHTML(
+    'afterend',
+    `<div id="tui-pagination-container" class="tui-pagination"></div>`
+  );
 }
 
 function clearList() {

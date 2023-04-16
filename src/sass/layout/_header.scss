@@ -1,10 +1,12 @@
 //загальні стилі на хедер// позиціонування
 header {
-  min-width:320px;
+  min-width: 320px;
   min-height: 230px;
 }
 
 .header__container {
+  position: relative;
+
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -13,55 +15,144 @@ header {
   min-height: 460px;
   padding: 14px 14px 24px;
 
-  background-image: linear-gradient(75deg, rgba(0, 0, 0, 0.1) 9%, rgba(0, 0, 0, 0.3) 100%),
-    url(/src/images/hero_mob_red@1x.webp);
+  overflow: hidden;
+
+  background-image: linear-gradient(
+      75deg,
+      rgba(0, 0, 0, 0.1) 9%,
+      rgba(0, 0, 0, 0.3) 100%
+    ),
+    url('../images/hero_mob_red@1x.webp');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  border-radius: 10px;
+  border-radius: 15px; //10px
 
-  @media screen and (min-width: $breakpoint-tablet) {
-      min-width: 704px;
-      min-height: 222px;
-      padding: 16px;
-  
-      background-image: linear-gradient(180deg, rgba(0, 0, 0, 0) 2%, rgba(0, 0, 0, 0.4) 60%),
-        url(/src/images/hero-bg-tabl@1x.webp);
-    }
-  
-    @media screen and (min-width: $breakpoint-desktop) {
-      max-width: 1216px;
-      min-height: 316px;
-      padding: 16px 32px;
-  
-      background-image: linear-gradient(204deg, rgba(0, 0, 0, 0.1) 2%, rgba(0, 0, 0, 0.3) 60%),
-        url(/src/images/hero_desk_red@1x.webp);
-  
-    }
+  //для респонсивних фонових зображень
+  @media (min-device-pixel-ratio: 2),
+    (min-resolution: 192dpi),
+    (min-resolution: 2dppx) {
+    background-image: linear-gradient(
+        75deg,
+        rgba(0, 0, 0, 0.1) 9%,
+        rgba(0, 0, 0, 0.3) 100%
+      ),
+      url('../images/hero_mob_red@2x.webp');
+  }
 
+  @include tablet-only {
+    min-width: 704px;
+    min-height: 222px;
+    padding: 16px;
+
+    background-image: linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0) 2%,
+        rgba(0, 0, 0, 0.4) 60%
+      ),
+      url('../images/hero-bg-tabl@1x.webp');
+
+    //для респонсивних фонових зображень
+    @media (min-device-pixel-ratio: 2),
+      (min-resolution: 192dpi),
+      (min-resolution: 2dppx) {
+      background-image: linear-gradient(
+          180deg,
+          rgba(0, 0, 0, 0) 2%,
+          rgba(0, 0, 0, 0.4) 60%
+        ),
+        url('../images/hero-bg-tabl@2x.webp');
+    }
+  }
+
+  @include desktop {
+    max-width: 1216px;
+    min-height: 316px;
+    padding: 16px 32px;
+
+    background-image: linear-gradient(
+        204deg,
+        rgba(0, 0, 0, 0.1) 2%,
+        rgba(0, 0, 0, 0.3) 60%
+      ),
+      url('../images/hero_desk_red@1x.webp');
+
+    //для респонсивних фонових зображень
+    @media (min-device-pixel-ratio: 2),
+      (min-resolution: 192dpi),
+      (min-resolution: 2dppx) {
+      background-image: linear-gradient(
+          204deg,
+          rgba(0, 0, 0, 0.1) 2%,
+          rgba(0, 0, 0, 0.3) 60%
+        ),
+        url('../images/hero_desk_red@2x.webp');
+    }
+  }
 }
-
 
 //Навігація
 .header__box-nav {
-  @media screen and (min-width: $breakpoint-tablet) {
-
+  @include tablet-and-up {
     display: flex;
     flex-direction: row-reverse;
     justify-content: flex-end;
+    gap: 4px;
+  }
 
+  @include desktop {
+    gap: 8px;
+  }
+
+  transition: transform $transition-duration $transition-timing-function;
+
+  &--hidden {
+    transform: translateY(-150px);
+  }
+}
+
+.header__box-bottom {
+  transition: transform $transition-duration $transition-timing-function;
+
+  &--hidden {
+    transform: translateY(150px);
   }
 }
 
 .header-nav {
+  display: flex;
+  justify-content: space-between;
   margin-bottom: 8px;
 
   &__list {
     display: flex;
+    flex-grow: 2;
+    gap: 4px;
+
+    @include desktop {
+      gap: 8px;
+    }
   }
 
-  &__item:first-child {
-    margin-right: 4px;
+  // &__item:first-child {
+  //   margin-right: 4px;
+  // }
+
+  // &__item:last-child {
+  //   margin-left: 4px;
+  // }
+
+  @include tablet-and-up {
+    flex-grow: 2;
+    gap: 4px;
+
+    &__item:last-child {
+      margin-left: auto;
+    }
+
+    @include desktop {
+      gap: 8px;
+    }
   }
 }
 
@@ -69,11 +160,10 @@ header {
   display: flex;
   justify-content: center;
 
-
   padding: 10px 22px;
 
   line-height: 1.17;
-  
+
   /* font-size: 12px;
   font-weight: 500;
   font-style: normal; */
@@ -84,22 +174,22 @@ header {
   min-width: 87px;
   text-transform: uppercase;
 
-  transition: color $transition-duration $transition-timing-function, background-color $transition-duration $transition-timing-function;
+  transition: color $transition-duration $transition-timing-function,
+    background-color $transition-duration $transition-timing-function;
 
-  &:hover,
+  /* &:hover,
   &:focus {
     background-color: $color-text-white;
     color: $bg-color-accent;
-  }
+  } */
 
-
-  @media screen and (min-width: $breakpoint-tablet) {
+  @include tablet-only {
     height: 38px;
     padding: 12px 20px;
     align-items: center;
   }
 
-  @media screen and (min-width: $breakpoint-desktop) {
+  @include desktop {
     height: 42px;
     padding: 14px 24px;
     align-items: center;
@@ -109,13 +199,43 @@ header {
 .header-nav__link--current {
   background-color: $color-text-primary;
   color: $color-text-white;
-
 }
 
+.header-nav__button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 34px;
+  width: 34px;
+  min-width: 0;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+
+  --color1: #000;
+  --color2: #000;
+
+  @media screen and (min-width: $breakpoint-tablet) {
+    height: 38px;
+    width: 38px;
+  }
+
+  @media screen and (min-width: $breakpoint-desktop) {
+    height: 42px;
+    width: 42px;
+  }
+}
+
+.header-nav__sub-menu {
+  display: flex;
+
+  @include mobile-only {
+    margin-top: 16px;
+  }
+}
 
 //Форма пошуку
 .search-form {
-
   position: relative;
   width: 235px;
   height: 34px;
@@ -123,43 +243,38 @@ header {
   margin-left: 0;
   margin-right: 0;
 
-  @media screen and (min-width: $breakpoint-tablet) {
-
+  @include tablet-only {
     width: 165px;
     height: 38px;
-    margin-right: 4px;
+    // margin-right: 4px;
   }
 
-  @media screen and (min-width: $breakpoint-desktop) {
-
+  @include desktop {
     width: 187px;
     height: 42px;
-    margin-right: 8px;
+    // margin-right: 8px;
   }
-
 }
 
 .search-form__input {
-
   max-width: 235px;
   width: 100%;
-  
+
   border-style: none;
   border-radius: 100px;
   padding: 10px 14px;
 
-  @media screen and (min-width: $breakpoint-tablet) {
+  @include tablet-only {
     max-width: 165px;
     height: 38px;
     padding: 11px 16px;
   }
 
-  @media screen and (min-width: $breakpoint-desktop) {
+  @include desktop {
     max-width: 187px;
     height: 42px;
     padding: 13px 16px;
   }
-
 }
 
 .search-form__input:focus-visible,
@@ -168,7 +283,6 @@ header {
 }
 
 .search-form__btn {
-
   position: absolute;
   top: 100%;
   left: 100%;
@@ -185,22 +299,17 @@ header {
   display: inline-flex;
   justify-content: center;
   align-items: center;
-
 }
 
-
 .search-form__icon {
-
   transform: scale(1);
   transition: transform $transition-duration $transition-timing-function;
 
-  .search-form:hover &, 
+  .search-form:hover &,
   .search-form:focus & {
     transform: scale(1.5);
   }
- 
 }
-
 
 //Logo
 //
@@ -218,10 +327,8 @@ header {
   justify-content: center;
   align-items: center;
 
-  @media screen and (min-width: $breakpoint-tablet) {
-
+  @include tablet-and-up {
     display: inline-flex;
-
   }
 }
 
@@ -229,12 +336,12 @@ header {
   width: 32px;
   height: 32px;
 
-  @media screen and (min-width: $breakpoint-tablet) {
+  @include tablet-only {
     width: 40px;
     height: 40px;
   }
 
-  @media screen and (min-width: $breakpoint-desktop) {
+  @include desktop {
     width: 59px;
     height: 59px;
   }
@@ -255,16 +362,12 @@ header {
 
   color: $color-text-white;
 
-  @media screen and (min-width: $breakpoint-tablet) {
-
+  @include tablet-only {
     font-size: 40px;
     line-height: 1.17;
-
   }
 
-  @media screen and (min-width: $breakpoint-desktop) {
-
+  @include desktop {
     font-size: 64px;
-
   }
 }
