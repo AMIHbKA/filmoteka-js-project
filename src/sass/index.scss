@@ -1,12 +1,17 @@
-@import './base/common';
 @import './utils/variables';
+@import './base/common';
+@import './base/typography';
 @import './utils/mixins';
 @import './utils/container';
-@import './base/typography';
-@import './layout/header';
-@import './layout/hero';
-@import './layout/footer';
 @import './components/buttons';
 @import './components/modal';
+@import './components/pagination';
 @import './layout/hero';
+@import './layout/header';
+@import './layout/footer';
 @import './components/modalTeam';
+@import './authentication/auth-menu';
+@import './authentication/auth-form';
+@import './authentication/profile';
+@import './utils/visibility-hidden';
+
