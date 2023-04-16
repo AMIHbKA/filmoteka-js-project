@@ -30,28 +30,29 @@
 }
 
 .team-name {
-  margin-top: 5px;
-
+  margin-top: 10px;
+  font-size: 14px;
   font-weight: 700;
 }
 
+.team-role {
+  margin-top: 5px;
+  color: $bg-color-accent;
+}
 .team-modal {
   text-decoration: underline;
 
   cursor: pointer;
 }
 
-.social-list__link {
-  display: flex;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  justify-content: center;
-  align-items: center;
-  color: $bg-color-accent;
-  // &:focus , &:hover{border-radius: 50%; background-color:$AccentColor; color: $PrimaryWhitecolor;}
-}
-
 .icon-github {
-  fill: currentColor;
+  position: absolute;
+  top: 105px;
+  right: -17px;
+  color: black;
+
+  &:hover,
+  &:focus {
+    fill: $bg-color-accent;
+  }
 }
