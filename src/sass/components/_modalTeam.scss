@@ -5,8 +5,10 @@
 .team-wrapper {
   display: flex;
   flex-wrap: wrap;
-  width: 800px;
-  margin: 20px 20px;
+  justify-content: center;
+  width: 240px;
+  margin-bottom: 50px;
+  margin-top: 200px;
   background-color: $bg-color-primary;
   border-radius: 15px;
 }
@@ -18,7 +20,7 @@
   flex-direction: column;
   align-items: center;
   margin: 20px;
-  width: calc((90% - 240px) / 4);
+  width: calc((100% - 30px) / 3);
 }
 
 .team-image {
@@ -47,9 +49,10 @@
 
 .icon-github {
   position: absolute;
-  top: 105px;
+  top: 60px;
   right: -17px;
   color: black;
+  width: 25px;
 
   &:hover,
   &:focus {
