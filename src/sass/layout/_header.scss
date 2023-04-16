@@ -97,6 +97,11 @@ header {
     display: flex;
     flex-direction: row-reverse;
     justify-content: flex-end;
+    gap: 4px;
+  }
+
+  @include desktop {
+    gap: 8px;
   }
 
   transition: transform $transition-duration $transition-timing-function;
@@ -115,25 +120,38 @@ header {
 }
 
 .header-nav {
+  display: flex;
+  justify-content: space-between;
   margin-bottom: 8px;
 
   &__list {
     display: flex;
-  }
-
-  &__item:first-child {
-    margin-right: 4px;
-  }
-
-  &__item:last-child {
-    margin-left: 4px;
-  }
-
-  @media screen and (min-width: $breakpoint-tablet) {
     flex-grow: 2;
+    gap: 4px;
+
+    @include desktop {
+      gap: 8px;
+    }
+  }
+
+  // &__item:first-child {
+  //   margin-right: 4px;
+  // }
+
+  // &__item:last-child {
+  //   margin-left: 4px;
+  // }
+
+  @include tablet-and-up {
+    flex-grow: 2;
+    gap: 4px;
 
     &__item:last-child {
       margin-left: auto;
+    }
+
+    @include desktop {
+      gap: 8px;
     }
   }
 }
@@ -208,6 +226,14 @@ header {
   }
 }
 
+.header-nav__sub-menu {
+  display: flex;
+
+  @include mobile-only {
+    margin-top: 16px;
+  }
+}
+
 //Форма пошуку
 .search-form {
   position: relative;
@@ -220,13 +246,13 @@ header {
   @include tablet-only {
     width: 165px;
     height: 38px;
-    margin-right: 4px;
+    // margin-right: 4px;
   }
 
   @include desktop {
     width: 187px;
     height: 42px;
-    margin-right: 8px;
+    // margin-right: 8px;
   }
 }
 
