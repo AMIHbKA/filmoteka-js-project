@@ -1,5 +1,5 @@
 import { fetchDefaultMovies } from './fetchAPI';
-import { renderDefaultMovies } from './renderDefaultMovies';
+import { renderMovies } from './renderMovies';
 import { modal } from './basicLightBoxModal';
 
 let pageNumber = 1; //для пагинации
@@ -19,7 +19,7 @@ export async function RenderDefaultMoviesOnMainPage() {
     const defaultMoviesArray = queryResult.data.results; // массив с данными по каждому фильму
     // console.log(defaultMoviesArray);
 
-    renderDefaultMovies(defaultMoviesArray);
+    renderMovies(defaultMoviesArray);
   } catch (error) {
     console.log(error.message);
   }

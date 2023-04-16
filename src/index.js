@@ -1,17 +1,12 @@
-import { RenderDefaultMoviesOnMainPage } from './js/gallery';
-import { startPagination } from './js/pagination';
-import AuthMenu from './js/authentication/auth-menu';
-import Authentication from './js/authentication/auth-menu';
-import TmdbApi from './js/tmdbAPI';
+// import { RenderDefaultMoviesOnMainPage } from './js/gallery';
+// import { startPagination } from './js/pagination';
+// import AuthMenu from './js/authentication/auth-menu';
+// import Authentication from './js/authentication/authentication';
+// import TmdbApi from './js/tmdbAPI';
+// import { pagination } from './js/pagination';
 import { Notify } from 'notiflix';
 import * as navigation from './js/switcherHeaderPage';
 import './js/modalTeam';
+import { pageLoad } from './js/app';
 
-const API_KEY = '193148fb3e296bb7bc40d2f930865e2a';
-RenderDefaultMoviesOnMainPage();
-startPagination();
-
-new AuthMenu();
-// new Authentication('#authForm');
-const tmdbApi = new TmdbApi(API_KEY);
-
+pageLoad();
