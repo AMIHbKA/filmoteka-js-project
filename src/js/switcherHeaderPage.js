@@ -19,11 +19,11 @@ function onLibraryBtnClick() {
   refs.homeBtn.classList.remove('header-nav__link--current');
 
   if (screenWidth < 768) {
-    refs.tabletBtnsWrap.classList.add('is-hidden');
-    refs.mobileBtnsWrap.classList.remove('is-hidden');
+    refs.tabletBtnsWrap.classList.add('visibility-hidden');
+    refs.mobileBtnsWrap.classList.remove('visibility-hidden');
   } else {
-    refs.mobileBtnsWrap.classList.add('is-hidden');
-    refs.tabletBtnsWrap.classList.remove('is-hidden');
+    refs.mobileBtnsWrap.classList.add('visibility-hidden');
+    refs.tabletBtnsWrap.classList.remove('visibility-hidden');
   }
 }
 
@@ -42,8 +42,8 @@ function onHomeBtnClick() {
 
 ///кнопка Home  за замовчуванням на початку завантаження, щоб не дубл.
 function removeWrapsMyLibrary() {
-  refs.tabletBtnsWrap.classList.add('is-hidden'); // не реагує на додавання класів
-  refs.mobileBtnsWrap.classList.add('is-hidden');
+  refs.tabletBtnsWrap.classList.add('visibility-hidden'); // не реагує на додавання класів
+  refs.mobileBtnsWrap.classList.add('visibility-hidden');
 }
 
 //стилі замість ховера
