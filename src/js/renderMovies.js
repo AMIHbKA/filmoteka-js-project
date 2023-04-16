@@ -21,10 +21,11 @@ export function renderMovies(defaultMoviesArray) {
         vote_count,
       }) => {
         const poster = `${MOVIE_POSTER_BASE_URL}/${poster_path}`;
+        let year;
         if (release_date ?? first_air_date) {
-          const year = String(release_date ?? first_air_date).slice(0, 4);
+          year = String(release_date ?? first_air_date).slice(0, 4);
         } else {
-          const year = 'Not available';
+          year = 'Not available';
         }
         const genres = genresIdsConvertingToGenres(genre_ids);
         return `
