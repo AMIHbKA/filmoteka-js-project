@@ -5,9 +5,16 @@ import { renderDefaultMovies } from './renderDefaultMovies';
 
 let currentPage = 1;
 const galleryBox = document.querySelector('.movie__list');
+const paginationOption = {
+  totalItems: totalPages,
+  itemsPerPage: 20,
+  visiblePages: 5,
+  page: currentPage,
+  centerAlign: true,
+};
 
 export function startPagination() {
-  createDiv();
+  // createDiv();
   fetchDefaultMovies(currentPage)
     .then(function (response) {
       const totalPages = response.data.total_pages;
@@ -45,12 +52,12 @@ function createPaginationContainer(totalPages) {
   });
 }
 
-function createDiv() {
-  galleryBox.insertAdjacentHTML(
-    'afterend',
-    `<div id="tui-pagination-container" class="tui-pagination"></div>`
-  );
-}
+// function createDiv() {
+//   galleryBox.insertAdjacentHTML(
+//     'afterend',
+//     `<div id="tui-pagination-container" class="tui-pagination"></div>`
+//   );
+// }
 
 function clearList() {
   galleryBox.innerHTML = '';
