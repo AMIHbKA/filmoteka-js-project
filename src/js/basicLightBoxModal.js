@@ -1,12 +1,11 @@
 import * as basicLightbox from 'basiclightbox';
 import 'basiclightbox/dist/basicLightbox.min.css';
 
-
 import { checkFilmInLibrary } from './local-storage-service';
 import { fetchDefaultMovies } from "./fetchAPI";
 import { genresIdsConvertingToGenres } from "./genresIdsConvertingToGenres";
-import { addFilmToLibrary, checkFilmInLibrary } from "./local-storage-service"
-
+import { addFilmToLibrary, checkFilmInLibrary } from "./local-storage-service";
+import { openTrailerModal } from "./openTrailerModal"
 
 let pageNumber = 1; // для пагинации
 const galleryBox = document.querySelector('.movie__list');
@@ -76,7 +75,7 @@ export async function onMoviesGalleryBoxClick(event) {
                             <li class="modal-movie__info-item">
                               <span class="modal-movie__text">Year</span>
                               <span class="modal-movie__year"
-                                >${release_date ?? 'No information'}</span
+                                >${String(release_date || first_air_date).slice(0, 4)}</span
                               >
                             </li>
 
@@ -135,8 +134,12 @@ export async function onMoviesGalleryBoxClick(event) {
                       });
                     instance.element().querySelector(".modal-movie__add-queue-btn").addEventListener('click', () => {
                         addFilmToLibrary(data, "queue");
-                      });
+                    });
                     
+                    //клик на кнопку WATCH TRAILER в модалке фильма
+                    instance.element().querySelector(".modal-movie__trailer-btn").addEventListener('click', () => {
+                        openTrailerModal(selectedMovieId);
+                    });
                 },
                 onClose: (instance) => { 
                     window.removeEventListener('keydown', closeModal);
@@ -160,3 +163,6 @@ export async function onMoviesGalleryBoxClick(event) {
         }
         catch(error) {console.log(error.message); }
 };
+
+
+
