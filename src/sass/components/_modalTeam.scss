@@ -5,12 +5,9 @@
 .team-wrapper {
   display: flex;
   flex-wrap: wrap;
-
+  width: 800px;
   margin: -20px;
-
-  width: 900px;
-  height: 500px;
-  background-color: floralwhite;
+  background-color: $bg-color-primary;
   border-radius: 15px;
 }
 
@@ -20,14 +17,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-
   margin: 20px;
-
-  width: calc((100% - 80px) / 2);
+  width: calc((90% - 240px) / 4);
 }
 
 .team-image {
-  margin-bottom: 10px;
+  margin-top: 10px;
 
   width: 100%;
 
@@ -35,12 +30,10 @@
 }
 
 .team-name {
-  margin-bottom: 5px;
+  margin-top: 5px;
 
   font-weight: 700;
 }
-
-// footer
 
 .team-modal {
   text-decoration: underline;
