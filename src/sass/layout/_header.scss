@@ -159,11 +159,11 @@ header {
   transition: color $transition-duration $transition-timing-function,
     background-color $transition-duration $transition-timing-function;
 
-  &:hover,
+  /* &:hover,
   &:focus {
     background-color: $color-text-white;
     color: $bg-color-accent;
-  }
+  } */
 
   @include tablet-only {
     height: 38px;
