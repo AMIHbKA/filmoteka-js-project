@@ -5,9 +5,21 @@
 <div class="header__container">
   <include src="./partials/authentication/auth-menu.html"></include>
 
+
+      <!-- user`s library visually-hidden-->
+      <div class="btn-wrap--tablet is-hidden">
+        <button class="header-btn header-btn--current" type="button" name="watched" disabled data-btn-watched>
+          watched
+        </button>
+        <button class="header-btn" type="button" name="queue" data-btn-queue>
+          queue
+        </button>
+      </div>
+
   <div class="header__box-nav">
     <!-- !!! Обгортка для позиціонування блоків в My library для таблет і десктоп -->
     <!-- Тут будуть дві кнопки |Watched & Queue| start  -->
+
 
     <!-- user`s library visually-hidden-->
     <!-- <div class="btn-wrap--tablet">
@@ -83,6 +95,17 @@
       </p>
     </form>
   </div>
+
+
+      <!-- user`s library   visually-hidden-->
+      <div class="btn-wrap--mobile is-hidden">
+        <button class="header-btn header-btn--current" type="button" name="watched" disabled data-btn-watched>
+          watched
+        </button>
+        <button class="header-btn" type="button" name="queue" data-btn-queue>
+          queue
+        </button>
+      </div>
 
   <div class="header__box-bottom box">
     <!-- !!! Обгортка для позиціонування блоків в My library для мобільних -->

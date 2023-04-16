@@ -79,8 +79,11 @@
 
   display: flex;
   margin-left: auto;
-
-  @media screen and (max-width: 767px) {
-    display: none;
-  }
+ 
 }
+
+
+.is-hidden {
+  display: none;
+}
+
