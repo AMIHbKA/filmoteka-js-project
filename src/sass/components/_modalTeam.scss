@@ -40,3 +40,18 @@
 
   cursor: pointer;
 }
+
+.social-list__link {
+  display: flex;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  color: $bg-color-accent;
+  // &:focus , &:hover{border-radius: 50%; background-color:$AccentColor; color: $PrimaryWhitecolor;}
+}
+
+.icon-github {
+  fill: currentColor;
+}
