@@ -6,16 +6,67 @@ import { renderMovies } from './renderMovies';
 let currentPage = 1;
 const galleryBox = document.querySelector('.movie__list');
 export let paginationOption = {
-  totalItems: 1,
+  totalItems: 1000,
   itemsPerPage: 20,
   visiblePages: 5,
   // page: currentPage,
   centerAlign: true,
 };
 
-const container = document.getElementById('tui-pagination-container');
-export const pagination = new Pagination(container, paginationOption);
+// export const pagination = new Pagination(container, paginationOption);
 
+export class tuiPagination {
+  constructor() {
+    this._container = document.querySelector('#tui-pagination-container');
+    this._itemsPerPage = 20;
+    this._centerAlign = true;
+    this._totalItems = 1;
+    this._visiblePages = 5;
+  }
+
+  set totalItems(items) {
+    this._totalItems = items;
+  }
+
+  get totalItems() {
+    return this._totalItems;
+  }
+
+  set container(containerRef) {
+    this._container = containerRef;
+  }
+
+  get container() {
+    return this._container;
+  }
+
+  set itemsPerPage(items) {
+    this._itemsPerPage = items;
+  }
+
+  get itemsPerPage() {
+    return this._itemsPerPage;
+  }
+
+  set visiblePages(pages) {
+    this._itemsPerPage = pages;
+  }
+
+  get visiblePages() {
+    return this._visiblePages;
+  }
+
+  start() {
+    const pagination = new Pagination(this._container, {
+      itemsPerPage: this._itemsPerPage,
+      centerAlign: this._centerAlign,
+      totalItems: this._totalItems,
+      visiblePages: this._visiblePages,
+    });
+    debugger;
+    console.log(pagination);
+  }
+}
 // export function startPagination() {
 //   // createDiv();
 //   fetchDefaultMovies(currentPage)

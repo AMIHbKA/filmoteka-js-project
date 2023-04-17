@@ -3,27 +3,29 @@
 // import AuthMenu from './js/authentication/auth-menu';
 // import Authentication from './js/authentication/authentication';
 import TmdbApi from './js/tmdbAPI';
-// import { pagination } from './js/pagination';
+
 import { Notify } from 'notiflix';
 import * as navigation from './js/switcherHeaderPage';
 import './js/modalTeam';
 import { renderMovies } from './js/renderMovies';
 // import { pageLoad } from './js/app';
-import { pagination, clearMoviesList, paginationOption } from './js/pagination';
+import { tuiPagination } from './js/pagination';
 
 const API_KEY = '193148fb3e296bb7bc40d2f930865e2a';
 const api = new TmdbApi(API_KEY);
+const pagination = new tuiPagination();
+console.log(api);
+console.log(pagination);
 
-function pageLoad() {
+async function pageLoad() {
   try {
-    // debugger;
-    const response = api.fetchTrendingMovies(4).then(response => {
-      //   debugger;
+    const response = await api.fetchTrendingMovies(4).then(response => {
       const totalPages = response.total_pages;
-      paginationOption.totalItems = totalPages;
-      console.log(paginationOption.totalItems);
-      console.log(response.results);
+
+      pagination.totalItems = totalPages;
+      pagination.start();
       renderMovies(response.results);
+      pagination.on('afterMove', ({ page }) => {});
     });
 
     // pagination.on('afterMove', eventData => {
