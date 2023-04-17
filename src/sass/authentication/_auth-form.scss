@@ -1,14 +1,24 @@
 .auth-form {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-
   transform: rotateY(180deg);
 
   --elements-gap: 16px;
 
   @media screen and (min-width: $breakpoint-tablet) and (max-width: $breakpoint-desktop) {
     --elements-gap: 10px;
+  }
+}
+
+.auth-form__wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  scale: 1;
+
+  transition: scale $transition-duration $transition-timing-function;
+
+  &--hidden {
+    scale: 0;
   }
 }
 
@@ -107,6 +117,23 @@
 
   border-style: none;
   border-radius: 100px;
+}
+
+.auth-form__loader {
+  display: flex;
+  justify-content: center;
+
+  padding-top: 130px;
+
+  transition: scale $transition-duration $transition-timing-function;
+
+  @media screen and (min-width: $breakpoint-tablet) and (max-width: $breakpoint-desktop) {
+    padding-top: 80px;
+  }
+
+  &--hidden {
+    scale: 0;
+  }
 }
 
 @keyframes shake {
