@@ -7,53 +7,22 @@
   }
 }
 
-.btn-wrap--mobile {
-  margin-top: 16px;
-  display: flex;
-  justify-content: center;
-
-  @include tablet-and-up {
-    display: none;
-  }
-}
-//стилі для мобільної версії // кінець
-
 //загальні стилі
 .header-btn {
-  justify-content: center;
-  align-items: center;
-
-  height: 34px;
-  padding: 10px 23px;
-  gap: 10px;
-
   border-style: none;
-  cursor: pointer;
-
-  font-weight: 500;
-  line-height: 1.17;
-  text-transform: uppercase;
-  border-radius: 100px;
-
+  
+  color: $bg-color-accent;
+  background-color: $color-text-white;
+    
   transition: color $transition-duration $transition-timing-function,
     background-color $transition-duration $transition-timing-function,
     transform $transition-duration $transition-timing-function;
 
   &:hover,
   &:focus {
-    color: $bg-color-accent;
-    background-color: $color-text-white;
+    //color: $color-text-white;
+    //background-color: $bg-color-accent;
     transform: scale(0.95);
-  }
-
-  @include tablet-only {
-    height: 38px;
-    padding: 12px 23px;
-  }
-
-  @include desktop {
-    height: 42px;
-    padding: 14px 32px;
   }
 }
 
@@ -69,14 +38,34 @@
   background-color: $bg-color-accent;
   color: $color-text-white;
   box-shadow: 0px 0px 7px rgba(27, 27, 27, 0.15);
+
 }
 
-///СТИЛІ ДЛЯ ТАБЛЕТА
-.btn-wrap--tablet {
-  @include mobile-only {
-    display: none;
+//загальні стилі для кнопки
+.default-btn {
+
+  justify-content: center;
+  align-items: center;
+
+  height: 34px;
+  padding: 10px 23px;
+  border-radius: 100px;
+  line-height: 1.17;
+  font-weight: 500;
+  text-transform: uppercase;
+  cursor: pointer;
+
+  @include tablet-only {
+    height: 38px;
+    padding: 12px 23px;
+    align-items: center;
   }
 
-  display: flex;
-  margin-left: auto;
+  @include desktop {
+    height: 42px;
+    padding: 14px 24px;
+    align-items: center;
+  }
 }
+
+
