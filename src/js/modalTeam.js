@@ -100,7 +100,7 @@ const modal = basicLightbox.create(`
 </div>
 <div class="team-card">
     <img src=${userUrl} alt="User" class="team-image">
-    <p class="team-name">Serhii Dezh</p>
+    <p class="team-name">Serhii Dezhornyuk</p>
     <p class="team-role">Devoloper</p>
     <a class="social-list__link" href="https://github.com/SergiyDezh" target="_blank" rel="noopener noreferrer">
      <svg class="icon-github" width="30" height="30">
