@@ -20,7 +20,7 @@ export class tuiPagination {
     this._container = document.querySelector('#tui-pagination-container');
     this._itemsPerPage = 20;
     this._centerAlign = true;
-    this._totalItems = 200;
+    this._totalItems = 1;
     this._visiblePages = 5;
     this._pagination = null;
   }
@@ -72,6 +72,14 @@ export class tuiPagination {
 
   onAfterMove(callback) {
     this._pagination.on('afterMove', callback);
+  }
+
+  offBeforeMove(callback) {
+    this._pagination.off('beforeMove', callback);
+  }
+
+  offAfterMove(callback) {
+    this._pagination.off('afterMove', callback);
   }
 }
 // export function startPagination() {

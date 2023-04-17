@@ -15,31 +15,24 @@ import { tuiPagination, clearMoviesList } from './js/pagination';
 const API_KEY = '193148fb3e296bb7bc40d2f930865e2a';
 const api = new TmdbApi(API_KEY);
 const pagination = new tuiPagination();
-pagination.start();
 
 async function pageLoad() {
-  try {
-    await api.fetchTrendingMovies().then(response => {
-      const totalPages = response.total_pages;
-      console.log('await');
-      pagination.totalItems = totalPages;
-      pagination.start();
-      pagination.onBeforeMove(event => {
-        console.log('asdfasdf', event);
-      });
-
-      renderMovies(response.results);
-    });
-
-    // pagination.on('afterMove', eventData => {
-    //   api.fetchTrendingMovies().then(response);
-    // });
-  } catch (error) {
-    Notify.failure(error.message);
-  }
+  const response = await api.fetchTrendingMovies();
+  console.log(response.total_pages);
+  pagination.totalItems = response.total_pages;
+  pagination.start();
+  pagination.onBeforeMove(handleAfterMove);
+  renderMovies(response.results);
 }
 
 // // new Authentication('#authForm');
 
 pageLoad();
-// pagination.start();
+async function handleAfterMove({ page }) {
+  const response = await api.fetchTrendingMovies(page);
+  console.log(response.total_pages);
+  pagination.totalItems = response.total_pages;
+  pagination.start();
+  pagination.onBeforeMove(handleAfterMove);
+  renderMovies(response.results);
+}
