@@ -31,7 +31,7 @@ const modal = basicLightbox.create(`
 <div class="team-card">
     <img src=${userUrl} alt="User" class="team-image">
     <p class="team-name">Tetiana Rudenko</p>
-    <p class="team-role">Devoloper</p>
+    <p class="team-role">Scrum Master</p>
     <a class="social-list__link" href="https://github.com/TetianaRudenko" target="_blank" rel="noopener noreferrer">
      <svg class="icon-github" width="30" height="30">
      <use href="${Icons}#icon-github"></use>
