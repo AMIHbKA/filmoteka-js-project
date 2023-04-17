@@ -5,13 +5,13 @@ import { renderMovies } from './renderMovies';
 
 let currentPage = 1;
 const galleryBox = document.querySelector('.movie__list');
-export let paginationOption = {
-  totalItems: 1000,
-  itemsPerPage: 20,
-  visiblePages: 5,
-  // page: currentPage,
-  centerAlign: true,
-};
+// export let paginationOption = {
+//   totalItems: 20,
+//   itemsPerPage: 20,
+//   visiblePages: 5,
+//   // page: currentPage,
+//   centerAlign: true,
+// };
 
 // export const pagination = new Pagination(container, paginationOption);
 
@@ -20,8 +20,9 @@ export class tuiPagination {
     this._container = document.querySelector('#tui-pagination-container');
     this._itemsPerPage = 20;
     this._centerAlign = true;
-    this._totalItems = 1;
+    this._totalItems = 200;
     this._visiblePages = 5;
+    this._pagination = null;
   }
 
   set totalItems(items) {
@@ -49,7 +50,7 @@ export class tuiPagination {
   }
 
   set visiblePages(pages) {
-    this._itemsPerPage = pages;
+    this._visiblePages = pages;
   }
 
   get visiblePages() {
@@ -57,14 +58,20 @@ export class tuiPagination {
   }
 
   start() {
-    const pagination = new Pagination(this._container, {
+    this._pagination = new Pagination(this._container, {
       itemsPerPage: this._itemsPerPage,
       centerAlign: this._centerAlign,
       totalItems: this._totalItems,
       visiblePages: this._visiblePages,
     });
-    debugger;
-    console.log(pagination);
+  }
+
+  onBeforeMove(callback) {
+    this._pagination.on('beforeMove', callback);
+  }
+
+  onAfterMove(callback) {
+    this._pagination.on('afterMove', callback);
   }
 }
 // export function startPagination() {
