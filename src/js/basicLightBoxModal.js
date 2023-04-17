@@ -5,7 +5,7 @@ import { checkFilmInLibrary } from './local-storage-service';
 import { fetchDefaultMovies } from "./fetchAPI";
 import { genresIdsConvertingToGenres } from "./genresIdsConvertingToGenres";
 import { addFilmToLibrary, checkFilmInLibrary } from "./local-storage-service";
-import { openTrailerModal } from "./openTrailerModal"
+import { openTrailerModal } from "./openTrailerModal";
 
 let pageNumber = 1; // для пагинации
 const galleryBox = document.querySelector('.movie__list');
