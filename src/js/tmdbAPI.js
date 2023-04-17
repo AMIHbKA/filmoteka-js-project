@@ -32,13 +32,14 @@ export default class TmdbApi {
 
   async searchMovies(query, page = 1) {
     if (!query.trim()) {
-      console.log('Unable to search for an empty string');
-      return;
+      throw new Error('Unable to search for an empty string');
     }
 
-    if (query === this.lastSearch) {
-      return;
-    }
+    // if (query === this.lastSearch) {
+    //   return;
+    // } else {
+    //   this.lastSearch = query;
+    // }
 
     const cacheKey = `search-movies-${query}-${page}`;
     if (this.cache.has(cacheKey)) {
@@ -73,6 +74,7 @@ export default class TmdbApi {
     const cacheKey = `trending-movies-${page}`;
     if (this.cache.has(cacheKey)) {
       this.totalPages = this.cache.get(`${cacheKey}-totalPages`);
+      console.log(`${cacheKey}-totalPages кеш есть`);
       return this.cache.get(cacheKey);
     }
 
@@ -90,6 +92,8 @@ export default class TmdbApi {
       this.totalPages = response.data.total_pages;
       this.cache.set(cacheKey, response.data);
       this.cache.set(`${cacheKey}-totalPages`, response.data.total_pages);
+      console.log(`${cacheKey}-totalPages добавлен`);
+      console.log(this.cache);
       return response.data;
     } catch (error) {
       throw new Error(error.message);

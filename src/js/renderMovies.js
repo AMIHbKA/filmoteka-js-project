@@ -22,7 +22,7 @@ export function renderMovies(defaultMoviesArray) {
         vote_count,
       }) => {
         let poster = poster_path;
-        console.log(poster);
+
         if (poster) {
           poster = `${MOVIE_POSTER_BASE_URL}/${poster_path}`;
         } else {
