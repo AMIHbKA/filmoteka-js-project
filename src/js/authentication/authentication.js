@@ -167,37 +167,11 @@ export default class Authentication {
     this.resetForm();
   }
 
-  async handleGithubAuth(e) {
+  async handleGithubAuth() {
     try {
       await this.firebase.githubAuth();
     } catch (error) {
-      let errorMessage = '';
-
-      console.dir(error);
-
-      switch (error.code) {
-        case 'auth/account-exists-with-different-credential':
-          errorMessage = 'Account already exists with different credential';
-          break;
-        case 'auth/cancelled-popup-request':
-          errorMessage = 'Cancelled popup request';
-          break;
-        case 'auth/operation-not-allowed':
-          errorMessage = 'Operation not allowed';
-          break;
-        case 'auth/popup-blocked':
-          errorMessage = 'Popup blocked';
-          break;
-        case 'auth/popup-closed-by-user':
-          errorMessage = 'Popup closed by user';
-          break;
-        default:
-          errorMessage = 'Something went wrong';
-      }
-
-      Notify.failure(errorMessage, {
-        clickToClose: true,
-      });
+      this.handleProviderAuthError(error);
 
       return;
     }
@@ -205,8 +179,48 @@ export default class Authentication {
     this.onLoginCallback();
   }
 
-  async handleGoogleAuth(e) {
-    e.preventDefault();
+  async handleGoogleAuth() {
+    try {
+      await this.firebase.googleAuth();
+    } catch (error) {
+      this.handleProviderAuthError(error);
+
+      return;
+    }
+
+    this.onLoginCallback();
+  }
+
+  handleProviderAuthError(error) {
+    let errorMessage = '';
+
+    console.dir(error);
+
+    switch (error.code) {
+      case 'auth/account-exists-with-different-credential':
+        errorMessage = 'Account already exists with different credential';
+        break;
+      case 'auth/cancelled-popup-request':
+        errorMessage = 'Cancelled popup request';
+        break;
+      case 'auth/operation-not-allowed':
+        errorMessage = 'Operation not allowed';
+        break;
+      case 'auth/popup-blocked':
+        errorMessage = 'Popup blocked';
+        break;
+      case 'auth/popup-closed-by-user':
+        errorMessage = 'Popup closed by user';
+        break;
+      case 'auth/unauthorized-domain':
+        errorMessage = 'Unauthorized domain';
+      default:
+        errorMessage = 'Something went wrong';
+    }
+
+    Notify.failure(errorMessage, {
+      clickToClose: true,
+    });
   }
 
   resetForm() {
