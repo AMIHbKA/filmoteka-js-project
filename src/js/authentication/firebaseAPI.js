@@ -4,7 +4,8 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  onAuthStateChanged,
+  signInWithPopup,
+  GithubAuthProvider,
 } from 'firebase/auth';
 
 export default class FirebaseAPI {
@@ -42,6 +43,10 @@ export default class FirebaseAPI {
 
   logout() {
     return this.auth.signOut();
+  }
+
+  githubAuth() {
+    return signInWithPopup(this.auth, new GithubAuthProvider());
   }
 
   handleAuthStateChanged(user) {
