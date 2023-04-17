@@ -16,6 +16,8 @@ export default class Authentication {
   }
 
   buildRefs() {
+    this.refs.authFormWrapper = document.querySelector('.auth-form__wrapper');
+    this.refs.authFormLoader = document.querySelector('.auth-form__loader');
     this.refs.form = document.querySelector('.auth-form__form');
     this.refs.submitButton = document.querySelector('#submit');
     this.refs.loginButton = document.querySelector('#login');
@@ -52,6 +54,10 @@ export default class Authentication {
     );
   }
 
+  isAuthenticated() {
+    return this.firebase.isAuthenticated();
+  }
+
   onLoginButtonClick() {
     this.action = 'login';
     this.clickSubmitButton();
@@ -60,10 +66,6 @@ export default class Authentication {
   onRegisterButtonClick() {
     this.action = 'register';
     this.clickSubmitButton();
-  }
-
-  isAuthenticated() {
-    return this.firebase.isAuthenticated();
   }
 
   async onLogoutButtonClick() {
@@ -96,6 +98,8 @@ export default class Authentication {
   }
 
   async processLogin(email, password) {
+    this.showLoader();
+
     try {
       await this.firebase.login(email, password);
     } catch (error) {
@@ -118,20 +122,25 @@ export default class Authentication {
           errorMessage = 'Something went wrong';
       }
 
-      this.shakeInputs();
+      this.hideLoader(() => {
+        this.shakeInputs();
 
-      Notify.failure(errorMessage, {
-        clickToClose: true,
+        Notify.failure(errorMessage, {
+          clickToClose: true,
+        });
       });
 
       return;
     }
 
-    this.onLoginCallback();
     this.resetForm();
+
+    this.hideLoader(this.onLoginCallback.bind(this));
   }
 
   async processRegister(email, password) {
+    this.showLoader();
+
     try {
       await this.firebase.register(email, password);
     } catch (error) {
@@ -154,41 +163,52 @@ export default class Authentication {
           errorMessage = 'Something went wrong';
       }
 
-      this.shakeInputs();
+      this.hideLoader(() => {
+        this.shakeInputs();
 
-      Notify.failure(errorMessage, {
-        clickToClose: true,
+        Notify.failure(errorMessage, {
+          clickToClose: true,
+        });
       });
 
       return;
     }
 
-    this.onLoginCallback();
     this.resetForm();
+
+    this.hideLoader(this.onLoginCallback.bind(this));
   }
 
   async handleGithubAuth() {
+    this.showLoader();
+
     try {
       await this.firebase.githubAuth();
     } catch (error) {
+      this.hideLoader();
       this.handleProviderAuthError(error);
 
       return;
     }
 
     this.onLoginCallback();
+    this.hideLoader();
   }
 
   async handleGoogleAuth() {
+    this.showLoader();
+
     try {
       await this.firebase.googleAuth();
     } catch (error) {
+      this.hideLoader();
       this.handleProviderAuthError(error);
 
       return;
     }
 
     this.onLoginCallback();
+    this.hideLoader();
   }
 
   handleProviderAuthError(error) {
@@ -235,5 +255,29 @@ export default class Authentication {
         'auth-form__inputs-wrapper--shake'
       );
     }, 500);
+  }
+
+  showLoader() {
+    this.refs.authFormWrapper.classList.add('auth-form__wrapper--hidden');
+
+    setTimeout(() => {
+      this.refs.authFormWrapper.classList.add('visibility-hidden');
+      this.refs.authFormLoader.classList.remove('visibility-hidden');
+      this.refs.authFormLoader.classList.remove('auth-form__loader--hidden');
+    }, 250);
+  }
+
+  hideLoader(callback) {
+    this.refs.authFormLoader.classList.add('auth-form__loader--hidden');
+
+    setTimeout(() => {
+      this.refs.authFormLoader.classList.add('visibility-hidden');
+      this.refs.authFormWrapper.classList.remove('visibility-hidden');
+      this.refs.authFormWrapper.classList.remove('auth-form__wrapper--hidden');
+
+      if (callback) {
+        setTimeout(callback, 250);
+      }
+    }, 250);
   }
 }

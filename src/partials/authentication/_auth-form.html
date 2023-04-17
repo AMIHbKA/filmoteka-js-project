@@ -1,67 +1,84 @@
 <div class="auth-form auth-menu__flipper">
-  <div class="auth-form__head auth-menu__head">
-    <h2 class="auth-form__title auth-menu__title">Sign In / Register</h2>
-  </div>
-
-  <div class="auth-form__providers">
-    <ul class="auth-form__list">
-      <li class="auth-form__list-item">
-        <a
-          id="github-auth"
-          class="header-btn auth-form__button auth-form__button--black"
-          href="#"
-          >Github</a
-        >
-      </li>
-      <li class="auth-form__list-item">
-        <a
-          id="google-auth"
-          class="header-btn auth-form__button auth-form__button--red"
-          href="#"
-          >Google</a
-        >
-      </li>
-    </ul>
-  </div>
-
-  <form class="auth-form__form">
-    <div class="auth-form__inputs-wrapper">
-      <input
-        class="auth-form__input"
-        type="email"
-        name="email"
-        placeholder="Email"
-        required
-      />
-      <input
-        class="auth-form__input"
-        type="password"
-        name="password"
-        placeholder="Password"
-        required
-      />
-      <button id="submit" class="visibility-hidden" type="submit">
-        Sign In
-      </button>
+  <div class="auth-form__wrapper">
+    <div class="auth-form__head auth-menu__head">
+      <h2 class="auth-form__title auth-menu__title">Sign In / Register</h2>
     </div>
 
-    <div class="auth-form__buttons-wrapper">
+    <div class="auth-form__providers">
       <ul class="auth-form__list">
         <li class="auth-form__list-item">
-          <button id="login" class="header-btn auth-form__button" type="button">
-            Sign In
-          </button>
+          <a
+            id="github-auth"
+            class="header-btn auth-form__button auth-form__button--black"
+            href="#"
+            >Github</a
+          >
         </li>
         <li class="auth-form__list-item">
-          <button
-            id="register"
-            class="header-btn auth-form__button auth-form__button--transparent"
-            type="button"
+          <a
+            id="google-auth"
+            class="header-btn auth-form__button auth-form__button--red"
+            href="#"
+            >Google</a
           >
-            Register
-          </button>
         </li>
       </ul>
     </div>
-  </form>
+
+    <form class="auth-form__form">
+      <div class="auth-form__inputs-wrapper">
+        <input
+          class="auth-form__input"
+          type="email"
+          name="email"
+          placeholder="Email"
+          required
+        />
+        <input
+          class="auth-form__input"
+          type="password"
+          name="password"
+          placeholder="Password"
+          required
+        />
+        <button id="submit" class="visibility-hidden" type="submit">
+          Sign In
+        </button>
+      </div>
+
+      <div class="auth-form__buttons-wrapper">
+        <ul class="auth-form__list">
+          <li class="auth-form__list-item">
+            <button
+              id="login"
+              class="header-btn auth-form__button"
+              type="button"
+            >
+              Sign In
+            </button>
+          </li>
+          <li class="auth-form__list-item">
+            <button
+              id="register"
+              class="header-btn auth-form__button auth-form__button--transparent"
+              type="button"
+            >
+              Register
+            </button>
+          </li>
+        </ul>
+      </div>
+    </form>
+  </div>
+  <div class="auth-form__loader auth-form__loader--hidden visibility-hidden">
+    <div class="loader">
+      <div class="loader__container">
+        <div class="loader__film">
+          <img class="loader__film-img" src="./images/film_white.png" alt="" />
+          <img class="loader__film-img" src="./images/film_white.png" alt="" />
+        </div>
+        <img class="loader__camera" src="./images/camera_white.png" alt="" />
+      </div>
+    </div>
+  </div>
 </div>
