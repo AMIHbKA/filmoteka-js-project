@@ -11,24 +11,58 @@
   margin-top: 200px;
   background-color: $bg-color-primary;
   border-radius: 15px;
+
+    @media screen and (min-width: $breakpoint-tablet) and (max-width: 1279px) {
+        width: 600px;
+        height: 800px;
+        margin-top: 100px;
+
+      }
+
+             @media screen and (min-width: $breakpoint-desktop) {
+               width: 900px;
+               height: 700px;
+               margin-top: 75px;
+               margin-bottom: 75px;
+             }
 }
 
 .team-card {
   position: relative;
-
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 20px;
   width: calc((100% - 30px) / 3);
+
+    @media screen and (min-width: $breakpoint-tablet) and (max-width: 1279px) {
+      margin-top: 10px;
+      margin-bottom: 10px;
+      margin-right: 40px;
+      margin-left: 40px;
+      }
+
+             @media screen and (min-width: $breakpoint-desktop) {
+              width: 150px;
+              height: 170px;
+              margin: 30px;
+             }
 }
 
 .team-image {
   margin-top: 10px;
-
   width: 100%;
-
   border-radius: 50%;
+
+    @media screen and (min-width: $breakpoint-tablet) and (max-width: 1279px) {
+        width: 80px;
+        height: 80px;
+      }
+
+             @media screen and (min-width: $breakpoint-desktop) {
+              width: 120px;
+                height: 120px;
+             }
 }
 
 .team-name {

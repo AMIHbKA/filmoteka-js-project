@@ -7,43 +7,26 @@
 
   <div class="header__box-nav">
     <!-- !!! Обгортка для позиціонування блоків в My library для таблет і десктоп -->
-    <!-- user`s library visually-hidden-->
-    <!-- <div class="btn-wrap--tablet visibility-hidden">
-      <button
-        class="header-btn header-btn--current"
-        type="button"
-        name="watched"
-        disabled
-        data-btn-watched
-      >
-        watched
-      </button>
-      <button class="header-btn" type="button" name="queue" data-btn-queue>
-        queue
-      </button>
-    </div> -->
-
-    <!-- end -->
-
+    
     <!-- nav-list  -->
     <nav class="header-nav" data-menu>
-      <ul class="header-nav__list list">
+      <ul class="header-nav__list">
         <li class="header-nav__item">
           <a
             id="nav-link-home"
-            class="header-nav__link link header-nav__link--current"
+            class="header-nav__link header-nav__link--current default-btn"
             href="#"
             >Home</a
           >
         </li>
         <li class="header-nav__item">
-          <a id="nav-link-library" class="header-nav__link link" href="#"
-            >MY LIBRARY</a
+          <a id="nav-link-library" class="header-nav__link default-btn" href="#"
+            >My library</a
           >
         </li>
         <li class="header-nav__item">
           <button
-            class="header-nav__link header-nav__button auth-menu__button auth-menu__button--open"
+            class="header-nav__link header-nav__button default-btn auth-menu__button auth-menu__button--open"
           >
             <svg class="header-nav__icon" width="23" height="23">
               <use href="./images/icons.svg#icon-person"></use>
@@ -52,12 +35,12 @@
         </li>
       </ul>
       <ul
-        class="header-nav__sub-menu list visibility-hidden"
+        class="header-nav__sub-menu visibility-hidden"
         id="tablet-sub-menu"
       >
         <li>
           <button
-            class="header-btn header-btn--current"
+            class="header-btn header-btn--current default-btn"
             type="button"
             name="watched"
             disabled
@@ -67,7 +50,7 @@
           </button>
         </li>
         <li>
-          <button class="header-btn" type="button" name="queue" data-btn-queue>
+          <button class="header-btn default-btn" type="button" name="queue" data-btn-queue>
             queue
           </button>
         </li>
@@ -86,7 +69,7 @@
       />
 
       <button
-        class="button search-form__btn btn--join"
+        class="button search-form__btn"
         type="submit"
         aria-label="search"
       >
@@ -111,12 +94,12 @@
 
     <!-- user`s library   visually-hidden-->
     <ul
-      class="header-nav__sub-menu list visibility-hidden"
+      class="header-nav__sub-menu visibility-hidden"
       id="mobile-sub-menu"
     >
       <li>
         <button
-          class="header-btn header-btn--current"
+          class="header-btn header-btn--current default-btn"
           type="button"
           name="watched"
           disabled
@@ -126,7 +109,7 @@
         </button>
       </li>
       <li>
-        <button class="header-btn" type="button" name="queue" data-btn-queue>
+        <button class="header-btn default-btn" type="button" name="queue" data-btn-queue>
           queue
         </button>
       </li>
