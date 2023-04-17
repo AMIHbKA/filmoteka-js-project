@@ -9,22 +9,12 @@ import {
   GoogleAuthProvider,
 } from 'firebase/auth';
 
-export default class FirebaseAPI {
-  constructor(onLoginCallback, onLogoutCallback) {
-    this.FIREBASE_CONFIG = {
-      apiKey: 'AIzaSyCUzIbYrWt1gRDF2DKq0tM78ENX5LnPctw',
-      authDomain: 'filmoteka-js-project-8.firebaseapp.com',
-      projectId: 'filmoteka-js-project-8',
-      storageBucket: 'filmoteka-js-project-8.appspot.com',
-      messagingSenderId: '369220874407',
-      appId: '1:369220874407:web:8dd7500aa59f5f3bad2b82',
-      measurementId: 'G-B22P5WY8Z9',
-    };
-
+export default class FirebaseAuthAPI {
+  constructor(config, onLoginCallback, onLogoutCallback) {
     this.onLoginCallback = onLoginCallback;
     this.onLogoutCallback = onLogoutCallback;
 
-    this.app = initializeApp(this.FIREBASE_CONFIG);
+    this.app = initializeApp(config);
     this.auth = getAuth(this.app);
 
     this.auth.onAuthStateChanged(this.handleAuthStateChanged.bind(this));
@@ -32,6 +22,10 @@ export default class FirebaseAPI {
 
   isAuthenticated() {
     return this.auth.currentUser ? true : false;
+  }
+
+  getAuth() {
+    return this.auth;
   }
 
   login(email, password) {

@@ -1,9 +1,15 @@
-import FirebaseAPI from './firebaseAPI.js';
+import FIREBASE_CONFIG from '../firebaseApis/firebaseConfig.js';
+import FirebaseAuthAPI from '../firebaseApis/firebaseAuthAPI.js';
 import { Notify } from 'notiflix';
 
 export default class Authentication {
   constructor(onLoginCallback, onLogoutCallback) {
-    this.firebase = new FirebaseAPI(onLoginCallback, onLogoutCallback);
+    console.log(FIREBASE_CONFIG);
+    this.firebaseAuth = new FirebaseAuthAPI(
+      FIREBASE_CONFIG,
+      onLoginCallback,
+      onLogoutCallback
+    );
 
     this.onLoginCallback = onLoginCallback;
     this.onLogoutCallback = onLogoutCallback;
@@ -55,7 +61,7 @@ export default class Authentication {
   }
 
   isAuthenticated() {
-    return this.firebase.isAuthenticated();
+    return this.firebaseAuth.isAuthenticated();
   }
 
   onLoginButtonClick() {
@@ -70,7 +76,7 @@ export default class Authentication {
 
   async onLogoutButtonClick() {
     try {
-      await this.firebase.logout();
+      await this.firebaseAuth.logout();
     } catch (error) {
       Notify.failure('Something went wrong', {
         clickToClose: true,
@@ -101,7 +107,7 @@ export default class Authentication {
     this.showLoader();
 
     try {
-      await this.firebase.login(email, password);
+      await this.firebaseAuth.login(email, password);
     } catch (error) {
       let errorMessage = '';
 
@@ -142,7 +148,7 @@ export default class Authentication {
     this.showLoader();
 
     try {
-      await this.firebase.register(email, password);
+      await this.firebaseAuth.register(email, password);
     } catch (error) {
       let errorMessage = '';
 
@@ -183,7 +189,7 @@ export default class Authentication {
     this.showLoader();
 
     try {
-      await this.firebase.githubAuth();
+      await this.firebaseAuth.githubAuth();
     } catch (error) {
       this.hideLoader();
       this.handleProviderAuthError(error);
@@ -199,7 +205,7 @@ export default class Authentication {
     this.showLoader();
 
     try {
-      await this.firebase.googleAuth();
+      await this.firebaseAuth.googleAuth();
     } catch (error) {
       this.hideLoader();
       this.handleProviderAuthError(error);
