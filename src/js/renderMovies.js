@@ -1,4 +1,5 @@
 import { genresIdsConvertingToGenres } from './genresIdsConvertingToGenres';
+import placeholder from '../images/placeholders/poster-placeholder.jpg';
 
 const galleryBox = document.querySelector('.movie__list');
 const MOVIE_POSTER_BASE_URL = 'https://image.tmdb.org/t/p/w400';
@@ -20,21 +21,25 @@ export function renderMovies(defaultMoviesArray) {
         vote_average,
         vote_count,
       }) => {
-        const poster = `${MOVIE_POSTER_BASE_URL}/${poster_path}`;
-        let year;
-        if (release_date ?? first_air_date) {
-          year = String(release_date ?? first_air_date).slice(0, 4);
+        let poster = poster_path;
+        console.log(poster);
+        if (poster) {
+          poster = `${MOVIE_POSTER_BASE_URL}/${poster_path}`;
         } else {
+          poster = placeholder;
+        }
+
+        let year = release_date ?? first_air_date;
+        if (!year) {
           year = 'Not available';
+        } else {
+          year = String(year).slice(0, 4);
         }
         const genres = genresIdsConvertingToGenres(genre_ids);
         return `
                 <li class="movie__item" id="${id}">
                     <div class="movie__wrapper">
-                        <img class="movie__poster" src="${
-                          poster ??
-                          './images/placeholders/poster-placeholder.jpg'
-                        }" alt="${
+                        <img class="movie__poster" src="${poster}" alt="${
           title ?? name ?? 'No poster'
         }" loading="lazy"/>
                     

@@ -17,7 +17,7 @@ const api = new TmdbApi(API_KEY);
 function pageLoad() {
   try {
     // debugger;
-    const response = api.fetchTrendingMovies(2).then(response => {
+    const response = api.fetchTrendingMovies(4).then(response => {
       //   debugger;
       const totalPages = response.total_pages;
       paginationOption.totalItems = totalPages;
