@@ -1,0 +1,32 @@
+.loader {
+  display: flex;
+  justify-content: center;
+
+  &__container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 40px;
+  }
+
+  &__film {
+    position: absolute;
+    top: -30px;
+    left: 0;
+    display: flex;
+  }
+
+  &__film-img {
+    animation: rotate 1.5s linear infinite;
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
