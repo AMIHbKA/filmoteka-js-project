@@ -1,45 +1,43 @@
-import { Notify } from "notiflix";
+import LocalStorageAPI from './localStorageAPI';
+const localStorageAPI = new LocalStorageAPI();
 
-const ERROR_MESSAGE = "Oops, something went wrong. Try again later."
+export function addFilmToLibrary(film, key) {
+  if (localStorageAPI.check(key, film.id)) {
+    localStorageAPI.remove(key, film.id);
+    addButton(key);
+    return;
+  }
 
-export function addFilmToLibrary(newFilm, key) {
-    try {
-        const savedData = JSON.parse(localStorage.getItem(key));
-        let storageData = [];
-
-        if (savedData) {
-            storageData = storageData.concat(savedData);
-        }
-        
-        storageData.push(newFilm);
-        localStorage.setItem(key, JSON.stringify(storageData));
-        disableButton(key);
-
-    } catch (error) {
-        Notify.failure(ERROR_MESSAGE);
-    }
+  localStorageAPI.add(film, key);
+  doneButton(key);
 }
 
 export function checkFilmInLibrary(key, id) {
-    try {
-        const savedData = JSON.parse(localStorage.getItem(key));
-        if (savedData && savedData.find(movie => movie.id === id)) {
-            disableButton(key);
-        };
-        
-    } catch (error) {
-        Notify.failure(ERROR_MESSAGE);
-    }
+  if (localStorageAPI.check(key, id)) {
+    doneButton(key);
+  }
 }
 
-function disableButton(key) {
-    if (key === "watched") {
-        document.querySelector('.modal-movie__add-watched-btn').textContent = 'Watched';
-        document.querySelector('.modal-movie__add-watched-btn').setAttribute("disabled", "true");
-    }
+function doneButton(key) {
+  if (key === 'watched') {
+    document.querySelector('.modal-movie__add-watched-btn').textContent =
+      'Watched';
+  }
 
-    if (key === "queue") {
-        document.querySelector('.modal-movie__add-queue-btn').textContent ='In queue';
-        document.querySelector('.modal-movie__add-queue-btn').setAttribute("disabled", "true");
-    }
+  if (key === 'queue') {
+    document.querySelector('.modal-movie__add-queue-btn').textContent =
+      'In queue';
+  }
+}
+
+function addButton(key) {
+  if (key === 'watched') {
+    document.querySelector('.modal-movie__add-watched-btn').textContent =
+      'Add to watched';
+  }
+
+  if (key === 'queue') {
+    document.querySelector('.modal-movie__add-queue-btn').textContent =
+      'Add to queue';
+  }
 }
