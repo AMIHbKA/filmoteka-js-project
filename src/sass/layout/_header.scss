@@ -119,6 +119,7 @@ header {
   }
 }
 
+
 .header-nav {
   display: flex;
   justify-content: space-between;
@@ -149,26 +150,33 @@ header {
   }
 }
 
+
+.header-nav__item {
+  transition: transform $transition-duration $transition-timing-function;
+
+  &:hover,
+  &:focus {
+    transform: scale(0.95);
+  }
+}
+
+.header-nav__item--margin:first-child {
+  margin-right: 4px;
+
+  @include desktop {
+    margin-right: 8px;
+  }
+}
+
+
 .header-nav__link {
   display: flex;
-
+  min-width: 87px;
   color: $color-text-primary;
   background-color: $color-text-white;
-  
-  min-width: 87px;
-
-  transition: color $transition-duration $transition-timing-function,
-    background-color $transition-duration $transition-timing-function,
-    transform $transition-duration $transition-timing-function;
-
-    &:hover,
-    &:focus {
-      //color: $bg-color-accent;
-      //background-color: $color-text-white; 
-      transform: scale(0.95);
-    }
-
 }
+
+
 
 .header-nav__link--current {
   background-color: $color-text-primary;
