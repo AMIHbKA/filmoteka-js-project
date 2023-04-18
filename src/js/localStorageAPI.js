@@ -4,6 +4,8 @@ export default class LocalStorageAPI {
   constructor() {
     this.storageData = [];
     this.ERROR_MESSAGE = 'Oops, something went wrong. Try again later.';
+    this.keyW = "watched";
+    this.keyQ = "queue"
   }
 
   getStoredDataByKey(key) {
