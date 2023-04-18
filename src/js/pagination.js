@@ -13,7 +13,16 @@ export class tuiPagination {
     this._totalItems = 1;
     this._visiblePages = 5;
     this._pagination = null;
-    this.eventList = new Set();
+    // this.eventList = new Set();
+    this._template = {
+      moveButton: '<a href="#" class="tui-page-btn tui-{{type}}">' + '</a>',
+      disabledMoveButton:
+        '<span class="tui-page-btn tui-is-disabled tui-{{type}}">' + '</span>',
+      moreButton:
+        '<a href="#" class="tui-page-btn tui-{{type}}-is-ellip">' +
+        '<span>...</span>' +
+        '</a>',
+    };
   }
 
   set totalItems(items) {
@@ -54,6 +63,7 @@ export class tuiPagination {
       centerAlign: this._centerAlign,
       totalItems: this._totalItems,
       visiblePages: this._visiblePages,
+      template: this._template,
     });
   }
 
@@ -62,35 +72,47 @@ export class tuiPagination {
   }
 
   onBeforeMove(callback) {
-    if (this.eventList.has(`onBeforeMove-${callback.name}`)) {
-      console.log(`Уже есть onBeforeMove-${callback.name}`);
-      // return;
-    }
-
+    // if (this.eventList.has(`onBeforeMove-${callback.name}`)) {
+    //   console.log(`Уже есть onBeforeMove-${callback.name}`);
+    //   // return;
+    // }
     this._pagination.on('beforeMove', callback);
-    this.eventList.add(`onBeforeMove-${callback.name}`);
+
+    // this.eventList.add(`onBeforeMove-${callback.name}`);
   }
 
   onAfterMove(callback) {
-    if (this.eventList.has(`onAfterMove-${callback.name}`)) {
-      console.log(`Уже есть onAfterMove-${callback.name}`);
-      return;
-    }
+    // if (this.eventList.has(`onAfterMove-${callback.name}`)) {
+    //   console.log(`Уже есть onAfterMove-${callback.name}`);
+    //   return;
+    // }
     this._pagination.on('afterMove', callback);
-    this.eventList.add(`onAfterMove-${callback.name}`);
+
+    // this.eventList.add(`onAfterMove-${callback.name}`);
   }
 
   offBeforeMove(callback) {
     this._pagination.off('beforeMove', callback);
-    this.eventList.delete(`onBeforeMove-${callback.name}`);
+    // this.eventList.delete(`onBeforeMove-${callback.name}`);
   }
 
   offAfterMove(callback) {
     this._pagination.off('afterMove', callback);
-    this.eventList.delete(`onAfterMove-${callback.name}`);
+    // this.eventList.delete(`onAfterMove-${callback.name}`);
   }
 }
 
 export function clearMoviesList() {
   galleryBox.innerHTML = '';
+}
+
+export function scrollToTop() {
+  const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+  if (scrollTop > 0) {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  }
+  console.log(scrollTop);
 }
