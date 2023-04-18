@@ -19,7 +19,7 @@ galleryBox.addEventListener('click', onMovieCardClickHandler);
 
 async function onMovieCardClickHandler(event) {
   event.preventDefault();
-
+  console.log('click');
   if (!event.target.closest('li')) {
     return;
   }

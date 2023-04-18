@@ -4,6 +4,7 @@ import TmdbApi from './js/tmdbAPI';
 import { Notify } from 'notiflix';
 import * as navigation from './js/switcherHeaderPage';
 import './js/modalTeam';
+import './js/basicLightBoxModal';
 
 new AuthMenu();
 
