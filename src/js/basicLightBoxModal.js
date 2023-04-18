@@ -57,7 +57,7 @@ async function onMovieCardClickHandler(event) {
       id,
       backdrop_path,
     } = response;
-    console.log(genres);
+    console.log(response);
 
     const instance = basicLightbox.create(
       `
@@ -152,13 +152,13 @@ async function onMovieCardClickHandler(event) {
             .element()
             .querySelector('.modal-movie__add-watched-btn')
             .addEventListener('click', () => {
-              addFilmToLibrary(data, 'watched');
+              addFilmToLibrary(response, 'watched');
             });
           instance
             .element()
             .querySelector('.modal-movie__add-queue-btn')
             .addEventListener('click', () => {
-              addFilmToLibrary(data, 'queue');
+              addFilmToLibrary(response, 'queue');
             });
 
           //клик на кнопку WATCH TRAILER в модалке фильма
@@ -178,7 +178,7 @@ async function onMovieCardClickHandler(event) {
     instance.show();
     checkFilmInLibrary('watched', id);
     checkFilmInLibrary('queue', id);
-    return (data = {
+    return (response = {
       poster_path,
       title,
       name,
