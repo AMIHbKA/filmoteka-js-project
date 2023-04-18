@@ -13,5 +13,4 @@ startPagination();
 
 new AuthMenu();
 // new Authentication('#authForm');
-const tmdbApi = new TmdbApi(API_KEY);
-
+const api = new TmdbApi(API_KEY);
