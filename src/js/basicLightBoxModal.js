@@ -2,16 +2,18 @@ import * as basicLightbox from 'basiclightbox';
 import 'basiclightbox/dist/basicLightbox.min.css';
 
 import { checkFilmInLibrary } from './local-storage-service';
-import { fetchDefaultMovies } from "./fetchAPI";
-import { genresIdsConvertingToGenres } from "./genresIdsConvertingToGenres";
-import { addFilmToLibrary, checkFilmInLibrary } from "./local-storage-service";
-import { openTrailerModal } from "./openTrailerModal"
+import { fetchDefaultMovies } from './fetchAPI';
+import { genresIdsConvertingToGenres } from './genresIdsConvertingToGenres';
+import { addFilmToLibrary, checkFilmInLibrary } from './local-storage-service';
+import { openTrailerModal } from './openTrailerModal';
 
 let pageNumber = 1; // для пагинации
 const galleryBox = document.querySelector('.movie__list');
 
-galleryBox.addEventListener('click', onMoviesGalleryBoxClick);
-
+// galleryBox.addEventListener('click', onMoviesGalleryBoxClick);
+galleryBox.addEventListener('click', e => {
+  console.log(e.target);
+});
 export async function onMoviesGalleryBoxClick(event) {
   event.preventDefault();
   pageNumber = 1;
@@ -75,7 +77,10 @@ export async function onMoviesGalleryBoxClick(event) {
                             <li class="modal-movie__info-item">
                               <span class="modal-movie__text">Year</span>
                               <span class="modal-movie__year"
-                                >${String(release_date || first_air_date).slice(0, 4)}</span
+                                >${String(release_date || first_air_date).slice(
+                                  0,
+                                  4
+                                )}</span
                               >
                             </li>
 
@@ -125,44 +130,51 @@ export async function onMoviesGalleryBoxClick(event) {
                 </div>
                 `,
 
-            {
-                onShow: (instance) => { 
-                    window.addEventListener('keydown', closeModal);
-                    
-                    instance.element().querySelector(".modal-movie__add-watched-btn").addEventListener('click', () => {
-                        addFilmToLibrary(data, "watched");
-                      });
-                    instance.element().querySelector(".modal-movie__add-queue-btn").addEventListener('click', () => {
-                        addFilmToLibrary(data, "queue");
-                    });
-                    
-                    //клик на кнопку WATCH TRAILER в модалке фильма
-                    instance.element().querySelector(".modal-movie__trailer-btn").addEventListener('click', () => {
-                        openTrailerModal(selectedMovieId);
-                    });
-                },
-                onClose: (instance) => { 
-                    window.removeEventListener('keydown', closeModal);
-                },
-            }
-        );
-        
-        instance.show();
-        checkFilmInLibrary("watched", id);
-        checkFilmInLibrary("queue", id);
-        return data = {
-            poster_path, 
-            title, 
-            name,
-            first_air_date, 
-            original_title, 
-            genre_ids, 
-            release_date,
-            id,
-        };
-        }
-        catch(error) {console.log(error.message); }
-};
+      {
+        onShow: instance => {
+          window.addEventListener('keydown', closeModal);
 
+          instance
+            .element()
+            .querySelector('.modal-movie__add-watched-btn')
+            .addEventListener('click', () => {
+              addFilmToLibrary(data, 'watched');
+            });
+          instance
+            .element()
+            .querySelector('.modal-movie__add-queue-btn')
+            .addEventListener('click', () => {
+              addFilmToLibrary(data, 'queue');
+            });
 
+          //клик на кнопку WATCH TRAILER в модалке фильма
+          instance
+            .element()
+            .querySelector('.modal-movie__trailer-btn')
+            .addEventListener('click', () => {
+              openTrailerModal(selectedMovieId);
+            });
+        },
+        onClose: instance => {
+          window.removeEventListener('keydown', closeModal);
+        },
+      }
+    );
 
+    instance.show();
+    checkFilmInLibrary('watched', id);
+    checkFilmInLibrary('queue', id);
+    return (data = {
+      poster_path,
+      title,
+      name,
+      first_air_date,
+      original_title,
+      genre_ids,
+      release_date,
+      id,
+    });
+  } catch (error) {
+    console.log(error.message);
+  }
+}

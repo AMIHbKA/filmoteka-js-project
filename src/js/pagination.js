@@ -5,16 +5,6 @@ import { renderMovies } from './renderMovies';
 
 let currentPage = 1;
 const galleryBox = document.querySelector('.movie__list');
-// export let paginationOption = {
-//   totalItems: 20,
-//   itemsPerPage: 20,
-//   visiblePages: 5,
-//   // page: currentPage,
-//   centerAlign: true,
-// };
-
-// export const pagination = new Pagination(container, paginationOption);
-
 export class tuiPagination {
   constructor() {
     this._container = document.querySelector('#tui-pagination-container');
@@ -67,6 +57,10 @@ export class tuiPagination {
     });
   }
 
+  reset(page = 1) {
+    this._pagination.reset(page);
+  }
+
   onBeforeMove(callback) {
     if (this.eventList.has(`onBeforeMove-${callback.name}`)) {
       console.log(`Уже есть onBeforeMove-${callback.name}`);
@@ -96,51 +90,6 @@ export class tuiPagination {
     this.eventList.delete(`onAfterMove-${callback.name}`);
   }
 }
-// export function startPagination() {
-//   // createDiv();
-//   fetchDefaultMovies(currentPage)
-//     .then(function (response) {
-//       const totalPages = response.data.total_pages;
-//       createPaginationContainer(totalPages);
-//       response.data.results;
-//       return;
-//     })
-//     .catch(function (error) {
-//       console.log(error);
-//     });
-// }
-
-// function createPaginationContainer(totalPages) {
-//   const screenWidth = window.innerWidth;
-//   const paginationOption = {
-//     totalItems: totalPages,
-//     itemsPerPage: 20,
-//     visiblePages: 9,
-//     page: currentPage,
-//     centerAlign: true,
-//   };
-//   console.log(screenWidth);
-//   const container = document.getElementById('tui-pagination-container');
-//   if (screenWidth < 768) {
-//     paginationOption.visiblePages = 3;
-//   }
-//   const pagination = new Pagination(container, paginationOption);
-
-//   pagination.on('afterMove', event => {
-//     currentPage = event.page;
-//     fetchDefaultMovies(currentPage).then(r => {
-//       clearList();
-//       renderMovies(r.data.results);
-//     });
-//   });
-// }
-
-// function createDiv() {
-//   galleryBox.insertAdjacentHTML(
-//     'afterend',
-//     `<div id="tui-pagination-container" class="tui-pagination"></div>`
-//   );
-// }
 
 export function clearMoviesList() {
   galleryBox.innerHTML = '';

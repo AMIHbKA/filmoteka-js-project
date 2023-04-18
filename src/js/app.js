@@ -13,8 +13,9 @@ const pagination = new tuiPagination();
 const refs = {
   homeButton: document.querySelector('#nav-link-home'),
   form: document.querySelector('#search-form'),
+  query: document.querySelector('.search-form__input'),
 };
-
+const formData = new FormData(refs.form);
 refs.homeButton.addEventListener('click', onHomeButtonClick);
 
 export async function onHomeButtonClick() {
@@ -33,8 +34,9 @@ export async function pageLoad() {
   await api
     .fetchTrendingMovies()
     .then(response => {
-      pagination.totalItems = response.total_pages;
+      pagination.totalItems = response.total_results;
       pagination.start();
+      // pagination.reset(response.total_results);
       pagination.onBeforeMove(trendingHandler);
       clearMoviesList();
       renderMovies(response.results);
@@ -42,18 +44,13 @@ export async function pageLoad() {
       console.log('pageLoad end');
     })
     .catch(error => Notify.failure(error.message));
-  // console.log(response.total_pages);
 }
 
-// // new Authentication('#authForm');
-
-// pageLoad();
-
-export async function trendingHandler({ page }) {
+async function trendingHandler({ page }) {
   await api
     .fetchTrendingMovies(page)
     .then(response => {
-      pagination.totalItems = response.total_pages;
+      pagination.totalItems = response.total_results;
 
       clearMoviesList();
       renderMovies(response.results);
@@ -68,23 +65,42 @@ function clearMoviesList() {
 
 refs.form.addEventListener('submit', event => {
   event.preventDefault();
-  const formData = new FormData(refs.form);
-  const query = formData.get('searchQuery');
-  searchingHandler(query);
+  searchButtonClick(refs.query.value);
 });
 
-async function searchingHandler(query) {
+async function searchButtonClick(query) {
+  console.log(query);
   await api
     .searchMovies(query)
     .then(response => {
-      pagination.totalItems = response.total_pages;
-      console.log(pagination.totalItems);
+      // pagination.totalItems = response.total_results;
+      pagination.totalItems = response.total_results;
+      pagination.start();
+      pagination.onBeforeMove(searchingHandler);
+      // pagination.reset(response.total_results);
 
-      pagination.reset();
-      //   pagination.onBeforeMove(trendingHandler);
+      // pagination.reset(response.total_results);
+      console.log(pagination);
+
       clearMoviesList();
       renderMovies(response.results);
       console.log(response.results);
     })
-    .catch(error => Notify.failure(error.message));
+    .catch(error => {
+      Notify.failure(error.message);
+    });
+}
+
+async function searchingHandler({ page }, query) {
+  query = refs.query.value;
+  await api
+    .searchMovies(query, page)
+    .then(response => {
+      clearMoviesList();
+      renderMovies(response.results);
+      console.log(response.results);
+    })
+    .catch(error => {
+      Notify.failure(error.message);
+    });
 }
