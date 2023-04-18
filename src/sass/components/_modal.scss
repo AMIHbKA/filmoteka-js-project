@@ -42,6 +42,8 @@
 .modal-movie__poster {
   margin: 0 auto;
   display: block;
+  position: relative;
+  text-align: center;
   width: 240px;
   height: 357px;
   margin-bottom: 20px;
@@ -57,6 +59,42 @@
     width: 375px;
     height: 478px;
   }
+}
+
+.modal-movie__trailer-btn {
+  display: block;
+  position: absolute;
+  padding: 0;
+  margin: 0;
+  align-items: center;
+  border: none;
+  top: 227px;
+  left: 140px;
+  width: 240px;
+  height: 357px;
+  transform: translate(-50%, -50%);
+  background: rgba(59, 59, 59, 0.573);
+  border-radius: $border-radius-film-img;
+  opacity: 0.5;
+
+  @media screen and (min-width: $breakpoint-tablet) {
+      top: 226px;
+      left: 168px;
+      width: 264px;
+      height: 374px;
+    }
+  
+    @media screen and (min-width: $breakpoint-desktop) {
+      top: 279px;
+      left: 203px;
+      width: 375px;
+      height: 478px;
+    }
+
+  &:hover {
+      fill: red;
+      opacity: 1;
+    }
 }
 
 .modal-movie__info-block {
