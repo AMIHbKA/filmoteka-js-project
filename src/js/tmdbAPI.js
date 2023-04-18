@@ -60,7 +60,7 @@ export default class TmdbApi {
       console.log(response);
       return response.data;
     } catch (error) {
-      console.log(error);
+      console.error(error.message);
       throw new Error(error.message);
     }
   }
@@ -74,7 +74,7 @@ export default class TmdbApi {
     }
 
     try {
-      const response = await axios.get(`${this.baseUrl}trending/all/day`, {
+      const response = await axios.get(`${this.baseUrl}trending/movie/day`, {
         params: { api_key: this.apiKey, page },
       });
 
@@ -128,7 +128,7 @@ export default class TmdbApi {
       console.log(response);
       return response.data;
     } catch (error) {
-      console.log(error);
+      console.error(error.message);
       throw new Error(error.message);
     }
   }
