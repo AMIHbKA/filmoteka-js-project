@@ -1,6 +1,6 @@
 import * as basicLightbox from 'basiclightbox';
 import 'basiclightbox/dist/basicLightbox.min.css';
-// import '../sass/components/_customBackdrop.scss';
+import '../sass/components/_customBackdrop.scss';
 import Icons from '../images/icons.svg';
 import { checkFilmInLibrary } from './local-storage-service';
 import { fetchDefaultMovies } from './fetchAPI';
@@ -60,7 +60,6 @@ async function onMovieCardClickHandler(event) {
       backdrop_path,
     } = response;
     console.log(response);
-    console.log('genres', genres);
 
     const instance = basicLightbox.create(
       `
@@ -188,13 +187,18 @@ async function onMovieCardClickHandler(event) {
       const windowWidth = window.innerWidth;
       let backdrop = '';
       if (windowWidth < 768) {
-        backdrop = `url('${backdropURL}${backdrop_path}')`;
+        backdrop = `'${backdropURL}w300${backdrop_path}'`;
+      } else if (windowWidth < 1280) {
+        backdrop = `'${backdropURL}w780${backdrop_path}'`;
+      } else if (windowWidth >= 1280) {
+        backdrop = `'${backdropURL}w1280${backdrop_path}'`;
       }
 
-      lightboxContainer.style.backgroundImage = `url('${backdropURL}${backdrop_path}')`;
-      console.log(`url('${backdropURL}${backdrop_path}')`);
-
-      console.dir(lightboxContainer);
+      lightboxContainer.style.backgroundImage = `linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.5) 0%,
+      rgba(0, 0, 0, 0.8) 100%
+    ), url('${backdropURL}w1280${backdrop_path}')`;
     })();
 
     // instance.show();
