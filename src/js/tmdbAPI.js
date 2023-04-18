@@ -6,7 +6,7 @@ export default class TmdbApi {
     this.baseUrl = 'https://api.themoviedb.org/3/';
     this.cache = new Map();
     this.lastSearch = '';
-    this.totalPages = 0;
+    this.totalResults = 1;
   }
 
   #checkForHttpError(response, errorMessages) {
@@ -26,23 +26,18 @@ export default class TmdbApi {
     }
   }
 
-  getTotalPages() {
-    return this.totalPages;
+  getTotalResults() {
+    return this.totalResults;
   }
 
   async searchMovies(query, page = 1) {
     if (!query.trim()) {
-      console.log('Unable to search for an empty string');
-      return;
-    }
-
-    if (query === this.lastSearch) {
-      return;
+      throw new Error('Unable to search for an empty string');
     }
 
     const cacheKey = `search-movies-${query}-${page}`;
     if (this.cache.has(cacheKey)) {
-      this.totalPages = this.cache.get(`${cacheKey}-totalPages`);
+      this.totalResults = this.cache.get(`${cacheKey}-totalResults`);
       return this.cache.get(cacheKey);
     }
 
@@ -59,9 +54,10 @@ export default class TmdbApi {
       });
 
       this.lastSearch = query;
-      this.totalPages = response.data.total_pages;
+      this.totalResults = response.data.total_results;
       this.cache.set(cacheKey, response.data);
-      this.cache.set(`${cacheKey}-totalPages`, response.data.total_pages);
+      this.cache.set(`${cacheKey}-totalResults`, response.data.total_pages);
+      console.log(response);
       return response.data;
     } catch (error) {
       console.log(error);
@@ -72,7 +68,8 @@ export default class TmdbApi {
   async fetchTrendingMovies(page = 1) {
     const cacheKey = `trending-movies-${page}`;
     if (this.cache.has(cacheKey)) {
-      this.totalPages = this.cache.get(`${cacheKey}-totalPages`);
+      this.totalResults = this.cache.get(`${cacheKey}-totalResults`);
+      console.log(`${cacheKey}-totalResults кеш есть`);
       return this.cache.get(cacheKey);
     }
 
@@ -87,11 +84,51 @@ export default class TmdbApi {
         404: 'Search result not successful. The resource you requested could not be found.',
       });
 
-      this.totalPages = response.data.total_pages;
+      this.totalResults = response.data.total_pages;
       this.cache.set(cacheKey, response.data);
-      this.cache.set(`${cacheKey}-totalPages`, response.data.total_pages);
+      this.cache.set(`${cacheKey}-totalResults`, response.data.total_pages);
+      console.log(`${cacheKey}-totalResults добавлен`);
+      console.log(this.cache);
+      console.log(response);
       return response.data;
     } catch (error) {
+      throw new Error(error.message);
+    }
+  }
+
+  getTotalResults() {
+    return this.totalResults;
+  }
+
+  async getMovieById(movieId, lng = 'en-US') {
+    if (!movieId) {
+      throw new Error('Unable to search movie without id');
+    }
+
+    const cacheKey = `movie-by-id-${movieId}`;
+    if (this.cache.has(cacheKey)) {
+      console.log(`movie-by-id-${movieId} уже есть`);
+      return this.cache.get(cacheKey);
+    }
+
+    try {
+      const response = await axios.get(`${this.baseUrl}/movie/${movieId}`, {
+        params: { api_key: this.apiKey, language: lng },
+      });
+
+      this.#checkForHttpError(response, {
+        400: `Bad request`,
+        401: 'Unauthorized request',
+        404: 'Search result not successful. Enter the correct movie name.',
+        200: 'Sorry, there are no movies matching your search query. Try one more time, please.',
+      });
+
+      this.totalResults = 1;
+      this.cache.set(cacheKey, response.data);
+      console.log(response);
+      return response.data;
+    } catch (error) {
+      console.log(error);
       throw new Error(error.message);
     }
   }
