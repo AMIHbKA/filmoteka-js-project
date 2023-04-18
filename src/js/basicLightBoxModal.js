@@ -1,5 +1,6 @@
 import * as basicLightbox from 'basiclightbox';
 import 'basiclightbox/dist/basicLightbox.min.css';
+import '../sass/components/_customBackdrop.scss';
 import Icons from '../images/icons.svg';
 import { checkFilmInLibrary } from './local-storage-service';
 import { fetchDefaultMovies } from './fetchAPI';
@@ -14,6 +15,7 @@ const api = new TmdbApi(API_KEY);
 let response;
 let pageNumber = 1; // для пагинации
 const galleryBox = document.querySelector('.movie__list');
+const backdropURL = 'https://image.tmdb.org/t/p/'; //w300 w780 w1280 original
 
 galleryBox.addEventListener('click', onMovieCardClickHandler);
 
@@ -171,11 +173,35 @@ async function onMovieCardClickHandler(event) {
         },
         onClose: instance => {
           window.removeEventListener('keydown', closeModal);
+
+          // remove custom backdrop
+          // document.body.removeChild(backdrop);
         },
       }
     );
 
-    instance.show();
+    (async () => {
+      await instance.show();
+      const lightboxContainer = document.querySelector('.basicLightbox');
+      //lightboxContainer.style.backgroundImage = `url('${backdropURL}${backdrop_path}')`;
+      const windowWidth = window.innerWidth;
+      let backdrop = '';
+      if (windowWidth < 768) {
+        backdrop = `'${backdropURL}w300${backdrop_path}'`;
+      } else if (windowWidth < 1280) {
+        backdrop = `'${backdropURL}w780${backdrop_path}'`;
+      } else if (windowWidth >= 1280) {
+        backdrop = `'${backdropURL}w1280${backdrop_path}'`;
+      }
+
+      lightboxContainer.style.backgroundImage = `linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.5) 0%,
+      rgba(0, 0, 0, 0.8) 100%
+    ), url('${backdropURL}w1280${backdrop_path}')`;
+    })();
+
+    // instance.show();
     checkFilmInLibrary('watched', id);
     checkFilmInLibrary('queue', id);
     return (response = {
