@@ -1,8 +1,12 @@
-// import { RenderDefaultMoviesOnMainPage } from './js/gallery';
-// import { startPagination } from './js/pagination';
-// import AuthMenu from './js/authentication/auth-menu';
-// import Authentication from './js/authentication/authentication';
+import AuthMenu from './js/authentication/auth-menu';
+import Authentication from './js/authentication/auth-menu';
+import TmdbApi from './js/tmdbAPI';
+import { Notify } from 'notiflix';
+import * as navigation from './js/switcherHeaderPage';
+import './js/modalTeam';
 
-import { onHomeButtonClick, pageLoad } from './js/app';
+new AuthMenu();
+
+import { pageLoad } from './js/app';
 
 pageLoad();
