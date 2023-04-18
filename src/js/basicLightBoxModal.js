@@ -1,6 +1,6 @@
 import * as basicLightbox from 'basiclightbox';
 import 'basiclightbox/dist/basicLightbox.min.css';
-
+import Icons from '../images/icons.svg';
 import { checkFilmInLibrary } from './local-storage-service';
 import { fetchDefaultMovies } from './fetchAPI';
 import { genresIdsConvertingToGenres } from './genresIdsConvertingToGenres';
@@ -64,7 +64,7 @@ async function onMovieCardClickHandler(event) {
                 <div class="modal">
                     <button class="modal-movie__close-btn">
                         <svg class="modal-movie__svg-close-btn" width="14" height="14">
-                            <use href="./images/icons.svg#icon-close"></use>
+                            <use href="${Icons}#icon-close-black"></use>
                         </svg>
                     </button>
 
@@ -141,6 +141,12 @@ async function onMovieCardClickHandler(event) {
       {
         onShow: instance => {
           window.addEventListener('keydown', closeModal);
+          instance
+            .element()
+            .querySelector('.modal-movie__close-btn')
+            .addEventListener('click', () => {
+              instance.close();
+            });
 
           instance
             .element()
