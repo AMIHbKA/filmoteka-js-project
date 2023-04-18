@@ -1,29 +1,30 @@
 import Pagination from 'tui-pagination';
 import { fetchDefaultMovies } from './fetchAPI';
-// import 'tui-pagination/dist/tui-pagination.css';
 import { renderDefaultMovies } from './renderDefaultMovies';
+import { fetchTwentyOneMoviesOnBigScreen } from './fetchTwentyOneMoviesOnBigScreen';
 
 let currentPage = 1;
 const galleryBox = document.querySelector('.movie__list');
 const screenWidth = window.innerWidth;
 
-export function startPagination() {
+// export function startPagination() {
+//   createContainer();
+//   fetchMoviesOnFullPage(currentPage)
+//     .then(function (response) {
+//       const totalItems = response.data.total_results;
+//       const totalPages = response.data.total_pages;
+//       createPaginationButtons(totalItems, totalPages);
+
+//       return;
+//     })
+//     .catch(function (error) {
+//       console.log(error);
+//     });
+// }
+
+export function createPaginationButtons(totalItems, totalPages) {
   createContainer();
-  fetchDefaultMovies(currentPage)
-    .then(function (response) {
-      const totalItems = response.data.total_results;
-      const totalPages = response.data.total_pages;
-      createPaginationButtons(totalItems, totalPages);
 
-      response.data.results;
-      return;
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-}
-
-function createPaginationButtons(totalItems, totalPages) {
   const paginationOption = {
     totalItems: totalItems,
     itemsPerPage: 20,
@@ -52,10 +53,22 @@ function createPaginationButtons(totalItems, totalPages) {
   pagination.on('afterMove', event => {
     currentPage = event.page;
     scrollToTop();
+    if (window.innerWidth >= 1280) {
+      fetchTwentyOneMoviesOnBigScreen(currentPage)
+        .then(response => {
+          customPaginationButtons(totalPages);
+          clearList();
+          renderDefaultMovies(response.moviesArrPerPage);
+          return;
+        })
+        .catch(console.log);
+      return;
+    }
     fetchDefaultMovies(currentPage).then(response => {
       customPaginationButtons(totalPages);
       clearList();
       renderDefaultMovies(response.data.results);
+      return;
     });
   });
 }
