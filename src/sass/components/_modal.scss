@@ -235,6 +235,7 @@
 }
 .modal-movie__youtube-trailer{
   width: 240px;
+  border-style: none;
   
     @include tablet-and-up {
       width: 704px;
