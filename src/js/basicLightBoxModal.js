@@ -3,7 +3,6 @@ import 'basiclightbox/dist/basicLightbox.min.css';
 import '../sass/components/_customBackdrop.scss';
 import Icons from '../images/icons.svg';
 import { checkFilmInLibrary } from './local-storage-service';
-import { fetchDefaultMovies } from './fetchAPI';
 import { genresIdsConvertingToGenres } from './genresIdsConvertingToGenres';
 import { addFilmToLibrary, checkFilmInLibrary } from './local-storage-service';
 import { openTrailerModal } from './openTrailerModal';
@@ -13,7 +12,6 @@ import TmdbApi from './tmdbAPI';
 const API_KEY = '193148fb3e296bb7bc40d2f930865e2a';
 const api = new TmdbApi(API_KEY);
 let response;
-let pageNumber = 1; // для пагинации
 const galleryBox = document.querySelector('.movie__list');
 const backdropURL = 'https://image.tmdb.org/t/p/'; //w300 w780 w1280 original
 
@@ -173,9 +171,6 @@ async function onMovieCardClickHandler(event) {
         },
         onClose: instance => {
           window.removeEventListener('keydown', closeModal);
-
-          // remove custom backdrop
-          // document.body.removeChild(backdrop);
         },
       }
     );
@@ -183,7 +178,7 @@ async function onMovieCardClickHandler(event) {
     (async () => {
       await instance.show();
       const lightboxContainer = document.querySelector('.basicLightbox');
-      //lightboxContainer.style.backgroundImage = `url('${backdropURL}${backdrop_path}')`;
+
       const windowWidth = window.innerWidth;
       let backdrop = `'${backdropURL}w1280${backdrop_path}'`;
       if (windowWidth < 768) {
@@ -199,7 +194,6 @@ async function onMovieCardClickHandler(event) {
     ), url('${backdropURL}w1280${backdrop_path}')`;
     })();
 
-    // instance.show();
     checkFilmInLibrary('watched', id);
     checkFilmInLibrary('queue', id);
     return (response = {
