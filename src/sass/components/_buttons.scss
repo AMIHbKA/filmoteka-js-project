@@ -8,40 +8,6 @@
 }
 
 //загальні стилі
-.header-btn {
-  border-style: none;
-  
-  color: $bg-color-accent;
-  background-color: $color-text-white;
-    
-  transition: color $transition-duration $transition-timing-function,
-    background-color $transition-duration $transition-timing-function,
-    transform $transition-duration $transition-timing-function;
-
-  &:hover,
-  &:focus {
-    //color: $color-text-white;
-    //background-color: $bg-color-accent;
-    transform: scale(0.95);
-  }
-}
-
-.header-btn:first-child {
-  margin-right: 4px;
-
-  @include desktop {
-    margin-right: 8px;
-  }
-}
-
-.header-btn--current {
-  background-color: $bg-color-accent;
-  color: $color-text-white;
-  box-shadow: 0px 0px 7px rgba(27, 27, 27, 0.15);
-
-}
-
-//загальні стилі для кнопки
 .default-btn {
 
   justify-content: center;
@@ -67,5 +33,49 @@
     align-items: center;
   }
 }
+
+//Стилі кнопок ==== watched/queue =======
+
+#tablet-sub-menu,
+#mobile-sub-menu {
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+input[type=radio] {
+  display: none;
+}
+
+input[type=radio]:checked+.header-btn {
+  background-color: $bg-color-accent;
+  color: $color-text-white;
+  box-shadow: 0px 0px 7px rgba(27, 27, 27, 0.15);
+}
+
+.header-btn {
+  color: $bg-color-accent;
+  background-color: $color-text-white;
+    
+  transition: color $transition-duration $transition-timing-function,
+  background-color $transition-duration $transition-timing-function;
+
+  &:hover,
+  &:focus {
+    color: $color-text-white;
+    background-color: $bg-color-accent;
+  } 
+}
+
+/* .header-btn--current {
+  background-color: $bg-color-accent;
+  color: $color-text-white;
+  box-shadow: 0px 0px 7px rgba(27, 27, 27, 0.15);
+
+} */
+
+
+
 
 

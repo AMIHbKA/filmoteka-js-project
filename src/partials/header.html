@@ -38,21 +38,13 @@
         class="header-nav__sub-menu visibility-hidden"
         id="tablet-sub-menu"
       >
-        <li>
-          <button
-            class="header-btn header-btn--current default-btn"
-            type="button"
-            name="watched"
-            disabled
-            data-btn-watched
-          >
-            watched
-          </button>
+        <li class="header-nav__item header-nav__item--margin">
+          <input type='radio' name='tabletBtn' value="watched" checked id='3'>
+          <label class='default-btn header-btn' for='3'>watched </label>
         </li>
-        <li>
-          <button class="header-btn default-btn" type="button" name="queue" data-btn-queue>
-            queue
-          </button>
+        <li class="header-nav__item header-nav__item--margin">
+          <input type='radio' name='tabletBtn' value="queue" id='4'>
+          <label for='4' class='default-btn header-btn '>queue </label>
         </li>
       </ul>
     </nav>
@@ -97,21 +89,13 @@
       class="header-nav__sub-menu visibility-hidden"
       id="mobile-sub-menu"
     >
-      <li>
-        <button
-          class="header-btn header-btn--current default-btn"
-          type="button"
-          name="watched"
-          disabled
-          data-btn-watched
-        >
-          watched
-        </button>
+      <li class="header-nav__item header-nav__item--margin">
+          <input type='radio' name='mobileBtn' value="watched" checked id='1'>
+          <label class='default-btn header-btn' for='1'>watched </label>
       </li>
-      <li>
-        <button class="header-btn default-btn" type="button" name="queue" data-btn-queue>
-          queue
-        </button>
+      <li class="header-nav__item header-nav__item--margin">
+        <input type='radio' name='mobileBtn' value="queue" id='2'>
+        <label for='2' class='default-btn header-btn'>queue </label>
       </li>
     </ul>
   </div>

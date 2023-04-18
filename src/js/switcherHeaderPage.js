@@ -4,15 +4,15 @@ const refs = {
   homeBtn: document.querySelector('#nav-link-home'),
   mobileBtnsWrap: document.querySelector('#mobile-sub-menu'),
   tabletBtnsWrap: document.querySelector('#tablet-sub-menu'),
-  watchedBtn: document.querySelector('button[name="watched"]'),
-  queueBtn: document.querySelector('button[name="queue"]'),
+  //watchedBtn: document.querySelector('button[name="watched"]'),
+  //queueBtn: document.querySelector('button[name="queue"]'),
 };
 
 //подія
 refs.myLibraryBtn.addEventListener('click', onLibraryBtnClick);
 refs.homeBtn.addEventListener('click', onHomeBtnClick);
-refs.watchedBtn.addEventListener('click', onWatchedBtnClick);
-refs.queueBtn.addEventListener('click', onQueueBtnClick);
+/* refs.watchedBtn.addEventListener('click', onWatchedBtnClick);
+refs.queueBtn.addEventListener('click', onQueueBtnClick); */
 
 function onLibraryBtnClick() {
   const screenWidth = window.innerWidth;
@@ -48,11 +48,11 @@ function removeWrapsMyLibrary() {
   refs.mobileBtnsWrap.classList.add('visibility-hidden');
 }
 
-function onWatchedBtnClick() {
+/* function onWatchedBtnClick() {
   refs.queueBtn.classList.remove('header-btn--current');
   refs.watchedBtn.classList.add('header-btn--current');
 }
 function onQueueBtnClick() {
   refs.queueBtn.classList.add('header-btn--current');
   refs.watchedBtn.classList.remove('header-btn--current');
-}
+} */
