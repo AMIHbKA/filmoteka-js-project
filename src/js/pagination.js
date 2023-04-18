@@ -1,36 +1,22 @@
 import Pagination from 'tui-pagination';
 import { fetchDefaultMovies } from './fetchAPI';
 // import 'tui-pagination/dist/tui-pagination.css';
-import { renderDefaultMovies } from './renderDefaultMovies';
+import { renderMovies } from './renderMovies';
 
 let currentPage = 1;
 const galleryBox = document.querySelector('.movie__list');
 const screenWidth = window.innerWidth;
 
-export function startPagination() {
-  createContainer();
-  fetchDefaultMovies(currentPage)
-    .then(function (response) {
-      const totalItems = response.data.total_results;
-      const totalPages = response.data.total_pages;
-      createPaginationButtons(totalItems, totalPages);
-
-      response.data.results;
-      return;
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-}
-
-function createPaginationButtons(totalItems, totalPages) {
-  const paginationOption = {
-    totalItems: totalItems,
-    itemsPerPage: 20,
-    visiblePages: 9,
-    page: currentPage,
-    centerAlign: true,
-    template: {
+export class tuiPagination {
+  constructor() {
+    this._container = document.querySelector('#tui-pagination-container');
+    this._itemsPerPage = 20;
+    this._centerAlign = true;
+    this._totalItems = 20;
+    this._visiblePages = 9;
+    this._pagination = null;
+    // this.eventList = new Set();
+    this._template = {
       moveButton: '<a href="#" class="tui-page-btn tui-{{type}}">' + '</a>',
       disabledMoveButton:
         '<span class="tui-page-btn tui-is-disabled tui-{{type}}">' + '</span>',
@@ -38,40 +24,110 @@ function createPaginationButtons(totalItems, totalPages) {
         '<a href="#" class="tui-page-btn tui-{{type}}-is-ellip">' +
         '<span>...</span>' +
         '</a>',
-    },
-  };
-
-  const container = document.getElementById('tui-pagination-container');
-  if (screenWidth < 768) {
-    paginationOption.visiblePages = 5;
+    };
+    this.totalPages = Math.floor(this.totalItems / this.itemsPerPage);
   }
 
-  const pagination = new Pagination(container, paginationOption);
-  customPaginationButtons(totalPages);
+  set totalItems(items) {
+    this._totalItems = items;
+  }
 
-  pagination.on('afterMove', event => {
-    currentPage = event.page;
-    scrollToTop();
-    fetchDefaultMovies(currentPage).then(response => {
-      customPaginationButtons(totalPages);
-      clearList();
-      renderDefaultMovies(response.data.results);
+  get totalItems() {
+    return this._totalItems;
+  }
+
+  set container(containerRef) {
+    this._container = containerRef;
+  }
+
+  get container() {
+    return this._container;
+  }
+
+  set itemsPerPage(items) {
+    this._itemsPerPage = items;
+  }
+
+  get itemsPerPage() {
+    return this._itemsPerPage;
+  }
+
+  set visiblePages(pages) {
+    this._visiblePages = pages;
+  }
+
+  get visiblePages() {
+    return this._visiblePages;
+  }
+
+  start() {
+    const screenWidth = window.innerWidth;
+    if (screenWidth < 768) {
+      this._visiblePages = 5;
+    }
+
+    this._pagination = new Pagination(this._container, {
+      itemsPerPage: this._itemsPerPage,
+      centerAlign: this._centerAlign,
+      totalItems: this._totalItems,
+      visiblePages: this._visiblePages,
+      template: this._template,
     });
-  });
+    this.totalPages = Math.floor(this.totalItems / this.itemsPerPage);
+  }
+
+  reset(page = 1) {
+    this.totalPages = Math.floor(this.totalItems / this.itemsPerPage);
+    this._pagination.reset(page);
+  }
+
+  onBeforeMove(callback) {
+    // if (this.eventList.has(`onBeforeMove-${callback.name}`)) {
+    //   console.log(`Уже есть onBeforeMove-${callback.name}`);
+    //   // return;
+    // }
+    this._pagination.on('beforeMove', callback);
+
+    // this.eventList.add(`onBeforeMove-${callback.name}`);
+  }
+
+  onAfterMove(callback) {
+    // if (this.eventList.has(`onAfterMove-${callback.name}`)) {
+    //   console.log(`Уже есть onAfterMove-${callback.name}`);
+    //   return;
+    // }
+    this._pagination.on('afterMove', callback);
+
+    // this.eventList.add(`onAfterMove-${callback.name}`);
+  }
+
+  offBeforeMove(callback) {
+    this._pagination.off('beforeMove', callback);
+    // this.eventList.delete(`onBeforeMove-${callback.name}`);
+  }
+
+  offAfterMove(callback) {
+    this._pagination.off('afterMove', callback);
+    // this.eventList.delete(`onAfterMove-${callback.name}`);
+  }
 }
 
-function createContainer() {
-  galleryBox.insertAdjacentHTML(
-    'afterend',
-    `<div id="tui-pagination-container" class="tui-pagination"></div>`
-  );
-}
-
-function clearList() {
+export function clearMoviesList() {
   galleryBox.innerHTML = '';
 }
 
-function customPaginationButtons(totalPages) {
+export function scrollToTop() {
+  const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+  if (scrollTop > 0) {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  }
+  console.log(scrollTop);
+}
+
+export function customPaginationButtons(totalPages) {
   rebuildLastButton(totalPages);
   rebuildFirstButton();
 }
@@ -80,7 +136,7 @@ function rebuildFirstButton() {
   const firstButton = document.querySelector('.tui-first');
   const firstChildButton = document.querySelector('.tui-first-child');
   firstButton.textContent = 1;
-
+  console.log('rebuildFirstButton');
   if (Number(firstChildButton.innerText) === 1) {
     firstButton.classList.add('hidden');
     document.querySelector('.tui-prev').style.translate = '0';
@@ -88,6 +144,7 @@ function rebuildFirstButton() {
   }
 
   firstButton.classList.remove('hidden');
+  console.log(screenWidth);
   if (screenWidth < 768) {
     document.querySelector('.tui-prev').style.translate = '0';
     return;
@@ -98,6 +155,7 @@ function rebuildFirstButton() {
 }
 
 function rebuildLastButton(totalPages) {
+  console.log('rebuildLastButton');
   const lastButton = document.querySelector('.tui-last');
   const lastChildButton = document.querySelector('.tui-last-child');
   lastButton.textContent = totalPages;
@@ -116,13 +174,3 @@ function rebuildLastButton(totalPages) {
   document.querySelector('.tui-next').style.translate = '100%';
   return;
 }
-
-const scrollToTop = () => {
-  const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-  if (scrollTop > 0) {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
-  }
-};
