@@ -7,7 +7,7 @@ const baseUrl = 'https://api.themoviedb.org/3/';
 export async function fetchDefaultMovies(pageNumber) {
   try {
     return await axios.get(
-      `${baseUrl}trending/all/day?api_key=${API_KEY}&page=${pageNumber}`
+      `${baseUrl}trending/movie/day?api_key=${API_KEY}&language=en-US&include_image_language=en,null&page=${pageNumber}`
     );
   } catch (error) {
     console.error(error);
@@ -23,11 +23,5 @@ export async function fetchMovieTrailer(movieId) {
     // console.log(result)
   } catch (error) {
     console.error(error);
-
-    // if (error.response.status === 404) {
-    //     console.log(error.data.results.length)
-    //     alert("Oops, there is not trailer")
-    // }
   }
 }
-//
