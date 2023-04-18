@@ -1,20 +1,26 @@
 import * as basicLightbox from 'basiclightbox';
 import 'basiclightbox/dist/basicLightbox.min.css';
-
+import '../sass/components/_customBackdrop.scss';
+import Icons from '../images/icons.svg';
 import { checkFilmInLibrary } from './local-storage-service';
-import { fetchDefaultMovies } from "./fetchAPI";
-import { genresIdsConvertingToGenres } from "./genresIdsConvertingToGenres";
-import { addFilmToLibrary, checkFilmInLibrary } from "./local-storage-service";
-import { openTrailerModal } from "./openTrailerModal";
+import { fetchDefaultMovies } from './fetchAPI';
+import { genresIdsConvertingToGenres } from './genresIdsConvertingToGenres';
+import { addFilmToLibrary, checkFilmInLibrary } from './local-storage-service';
+import { openTrailerModal } from './openTrailerModal';
+import { Notify } from 'notiflix';
+import TmdbApi from './tmdbAPI';
 
+const API_KEY = '193148fb3e296bb7bc40d2f930865e2a';
+const api = new TmdbApi(API_KEY);
+let response;
 let pageNumber = 1; // для пагинации
 const galleryBox = document.querySelector('.movie__list');
+const backdropURL = 'https://image.tmdb.org/t/p/'; //w300 w780 w1280 original
 
-galleryBox.addEventListener('click', onMoviesGalleryBoxClick);
+galleryBox.addEventListener('click', onMovieCardClickHandler);
 
-export async function onMoviesGalleryBoxClick(event) {
+async function onMovieCardClickHandler(event) {
   event.preventDefault();
-  pageNumber = 1;
 
   if (!event.target.closest('li')) {
     return;
@@ -28,11 +34,15 @@ export async function onMoviesGalleryBoxClick(event) {
       instance.close();
     }
 
-    const queryResult = await fetchDefaultMovies(pageNumber);
-    const defaultMoviesArray = queryResult.data.results; // массив с данными по каждому фильму
+    const selectedMovieId = event.target.closest('li').getAttribute('id');
+    console.log(selectedMovieId);
 
-    const selectedMovie = event.target.closest('li');
-    const selectedMovieId = Number(selectedMovie.getAttribute('id'));
+    try {
+      response = await api.getMovieById(selectedMovieId);
+    } catch (error) {
+      Notify.failure(error.message);
+      return;
+    }
 
     const {
       poster_path,
@@ -42,19 +52,21 @@ export async function onMoviesGalleryBoxClick(event) {
       vote_count,
       popularity,
       original_title,
-      genre_ids,
+      genres,
       overview,
       first_air_date,
       release_date,
       id,
-    } = defaultMoviesArray.find(movie => movie.id === selectedMovieId);
+      backdrop_path,
+    } = response;
+    console.log(response);
 
     const instance = basicLightbox.create(
       `
                 <div class="modal">
                     <button class="modal-movie__close-btn">
                         <svg class="modal-movie__svg-close-btn" width="14" height="14">
-                            <use href="./images/icons.svg#icon-close"></use>
+                            <use href="${Icons}#icon-close-black"></use>
                         </svg>
                     </button>
 
@@ -75,7 +87,10 @@ export async function onMoviesGalleryBoxClick(event) {
                             <li class="modal-movie__info-item">
                               <span class="modal-movie__text">Year</span>
                               <span class="modal-movie__year"
-                                >${String(release_date || first_air_date).slice(0, 4)}</span
+                                >${String(release_date || first_air_date).slice(
+                                  0,
+                                  4
+                                )}</span
                               >
                             </li>
 
@@ -106,7 +121,7 @@ export async function onMoviesGalleryBoxClick(event) {
                             <li class="modal-movie__info-item">
                               <span class="modal-movie__text">Genre</span>
                               <span class="modal-movie__genre"
-                                >${genresIdsConvertingToGenres(genre_ids)}</span
+                                >${genresIdsConvertingToGenres(genres)}</span
                               >
                             </li>
                           </ul>
@@ -125,44 +140,82 @@ export async function onMoviesGalleryBoxClick(event) {
                 </div>
                 `,
 
-            {
-                onShow: (instance) => { 
-                    window.addEventListener('keydown', closeModal);
-                    
-                    instance.element().querySelector(".modal-movie__add-watched-btn").addEventListener('click', () => {
-                        addFilmToLibrary(data, "watched");
-                      });
-                    instance.element().querySelector(".modal-movie__add-queue-btn").addEventListener('click', () => {
-                        addFilmToLibrary(data, "queue");
-                    });
-                    
-                    //клик на кнопку WATCH TRAILER в модалке фильма
-                    instance.element().querySelector(".modal-movie__trailer-btn").addEventListener('click', () => {
-                        openTrailerModal(selectedMovieId);
-                    });
-                },
-                onClose: (instance) => { 
-                    window.removeEventListener('keydown', closeModal);
-                },
-            }
-        );
-        
-        instance.show();
-        checkFilmInLibrary("watched", id);
-        checkFilmInLibrary("queue", id);
-        return data = {
-            poster_path, 
-            title, 
-            name,
-            first_air_date, 
-            original_title, 
-            genre_ids, 
-            release_date,
-            id,
-        };
-        }
-        catch(error) {console.log(error.message); }
-};
+      {
+        onShow: instance => {
+          window.addEventListener('keydown', closeModal);
+          instance
+            .element()
+            .querySelector('.modal-movie__close-btn')
+            .addEventListener('click', () => {
+              instance.close();
+            });
 
+          instance
+            .element()
+            .querySelector('.modal-movie__add-watched-btn')
+            .addEventListener('click', () => {
+              addFilmToLibrary(response, 'watched');
+            });
+          instance
+            .element()
+            .querySelector('.modal-movie__add-queue-btn')
+            .addEventListener('click', () => {
+              addFilmToLibrary(response, 'queue');
+            });
 
+          //клик на кнопку WATCH TRAILER в модалке фильма
+          instance
+            .element()
+            .querySelector('.modal-movie__trailer-btn')
+            .addEventListener('click', () => {
+              openTrailerModal(selectedMovieId);
+            });
+        },
+        onClose: instance => {
+          window.removeEventListener('keydown', closeModal);
 
+          // remove custom backdrop
+          // document.body.removeChild(backdrop);
+        },
+      }
+    );
+
+    (async () => {
+      await instance.show();
+      const lightboxContainer = document.querySelector('.basicLightbox');
+      //lightboxContainer.style.backgroundImage = `url('${backdropURL}${backdrop_path}')`;
+      const windowWidth = window.innerWidth;
+      let backdrop = '';
+      if (windowWidth < 768) {
+        backdrop = `'${backdropURL}w300${backdrop_path}'`;
+      } else if (windowWidth < 1280) {
+        backdrop = `'${backdropURL}w780${backdrop_path}'`;
+      } else if (windowWidth >= 1280) {
+        backdrop = `'${backdropURL}w1280${backdrop_path}'`;
+      }
+
+      lightboxContainer.style.backgroundImage = `linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.5) 0%,
+      rgba(0, 0, 0, 0.8) 100%
+    ), url('${backdropURL}w1280${backdrop_path}')`;
+    })();
+
+    // instance.show();
+    checkFilmInLibrary('watched', id);
+    checkFilmInLibrary('queue', id);
+    return (response = {
+      poster_path,
+      title,
+      name,
+      first_air_date,
+      original_title,
+      // genre_ids,
+      genres,
+      release_date,
+      id,
+    });
+  } catch (error) {
+    console.log(error.message);
+  }
+}

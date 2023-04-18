@@ -7,9 +7,25 @@ export function addFilmToLibrary(film, key) {
     addButton(key);
     return;
   }
-
+  
   localStorageAPI.add(film, key);
   doneButton(key);
+
+  if (key === localStorageAPI.keyW) {
+    if (localStorageAPI.check(localStorageAPI.keyQ, film.id)) {
+      localStorageAPI.remove(localStorageAPI.keyQ, film.id);
+      addButton(localStorageAPI.keyQ);
+      return;
+    }
+  }
+
+  if (key === localStorageAPI.keyQ) {
+    if (localStorageAPI.check(localStorageAPI.keyW, film.id)) {
+      localStorageAPI.remove(localStorageAPI.keyW, film.id);
+      addButton(localStorageAPI.keyW);
+      return;
+    }
+  }
 }
 
 export function checkFilmInLibrary(key, id) {
@@ -19,25 +35,25 @@ export function checkFilmInLibrary(key, id) {
 }
 
 function doneButton(key) {
-  if (key === 'watched') {
+  if (key === localStorageAPI.keyW) {
     document.querySelector('.modal-movie__add-watched-btn').textContent =
-      'Watched';
+      `In ${localStorageAPI.keyW}`;
   }
 
-  if (key === 'queue') {
+  if (key === localStorageAPI.keyQ) {
     document.querySelector('.modal-movie__add-queue-btn').textContent =
-      'In queue';
+    `In ${localStorageAPI.keyQ}`;
   }
 }
 
 function addButton(key) {
-  if (key === 'watched') {
+  if (key === localStorageAPI.keyW) {
     document.querySelector('.modal-movie__add-watched-btn').textContent =
-      'Add to watched';
+    `Add to ${localStorageAPI.keyW}`;
   }
 
-  if (key === 'queue') {
+  if (key === localStorageAPI.keyQ) {
     document.querySelector('.modal-movie__add-queue-btn').textContent =
-      'Add to queue';
+    `Add to ${localStorageAPI.keyQ}`;
   }
 }

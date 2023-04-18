@@ -231,6 +231,7 @@ header {
 .search-form__input {
   max-width: 235px;
   width: 100%;
+  color: inherit;
 
   border-style: none;
   border-radius: 100px;
@@ -246,6 +247,13 @@ header {
     max-width: 187px;
     height: 42px;
     padding: 13px 16px;
+  }
+}
+.search-form__input::placeholder {
+  color:currentColor;
+  font-size: 12px;
+  @include tablet-and-up {
+    font-size: 14px;
   }
 }
 

@@ -4,11 +4,9 @@ const refs = {
   homeBtn: document.querySelector('#nav-link-home'),
   mobileBtnsWrap: document.querySelector('#mobile-sub-menu'),
   tabletBtnsWrap: document.querySelector('#tablet-sub-menu'),
-  watchedBtn:document.querySelector('button[name="watched"]'),
-  queueBtn:document.querySelector('button[name="queue"]'),
+  watchedBtn: document.querySelector('button[name="watched"]'),
+  queueBtn: document.querySelector('button[name="queue"]'),
 };
-
-console.log(refs.tabletBtnsWrap);
 
 //подія
 refs.myLibraryBtn.addEventListener('click', onLibraryBtnClick);
@@ -46,7 +44,7 @@ function onHomeBtnClick() {
 
 ///кнопка Home  за замовчуванням на початку завантаження, щоб не дубл.
 function removeWrapsMyLibrary() {
-  refs.tabletBtnsWrap.classList.add('visibility-hidden'); 
+  refs.tabletBtnsWrap.classList.add('visibility-hidden');
   refs.mobileBtnsWrap.classList.add('visibility-hidden');
 }
 
@@ -58,5 +56,3 @@ function onQueueBtnClick() {
   refs.queueBtn.classList.add('header-btn--current');
   refs.watchedBtn.classList.remove('header-btn--current');
 }
-
-
