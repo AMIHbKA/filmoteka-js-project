@@ -3,7 +3,12 @@ import { Notify } from 'notiflix';
 // import './js/modalTeam';
 import { renderMovies } from './renderMovies';
 // import { pageLoad } from './js/app';
-import { tuiPagination, clearMoviesList, scrollToTop } from './pagination';
+import {
+  tuiPagination,
+  clearMoviesList,
+  scrollToTop,
+  customPaginationButtons,
+} from './pagination';
 
 const galleryBox = document.querySelector('.movie__list');
 const API_KEY = '193148fb3e296bb7bc40d2f930865e2a';
@@ -36,7 +41,7 @@ export async function pageLoad() {
     .then(response => {
       pagination.totalItems = response.total_results;
       pagination.start();
-      // pagination.reset(response.total_results);
+      customPaginationButtons(response.total_pages);
       pagination.onBeforeMove(trendingHandler);
       clearMoviesList();
       renderMovies(response.results);

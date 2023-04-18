@@ -5,13 +5,15 @@ import { renderMovies } from './renderMovies';
 
 let currentPage = 1;
 const galleryBox = document.querySelector('.movie__list');
+const screenWidth = window.innerWidth;
+
 export class tuiPagination {
   constructor() {
     this._container = document.querySelector('#tui-pagination-container');
     this._itemsPerPage = 20;
     this._centerAlign = true;
-    this._totalItems = 1;
-    this._visiblePages = 5;
+    this._totalItems = 20;
+    this._visiblePages = 9;
     this._pagination = null;
     // this.eventList = new Set();
     this._template = {
@@ -23,6 +25,7 @@ export class tuiPagination {
         '<span>...</span>' +
         '</a>',
     };
+    this.totalPages = Math.floor(this.totalItems / this.itemsPerPage);
   }
 
   set totalItems(items) {
@@ -58,6 +61,11 @@ export class tuiPagination {
   }
 
   start() {
+    const screenWidth = window.innerWidth;
+    if (screenWidth < 768) {
+      this._visiblePages = 5;
+    }
+
     this._pagination = new Pagination(this._container, {
       itemsPerPage: this._itemsPerPage,
       centerAlign: this._centerAlign,
@@ -65,9 +73,11 @@ export class tuiPagination {
       visiblePages: this._visiblePages,
       template: this._template,
     });
+    this.totalPages = Math.floor(this.totalItems / this.itemsPerPage);
   }
 
   reset(page = 1) {
+    this.totalPages = Math.floor(this.totalItems / this.itemsPerPage);
     this._pagination.reset(page);
   }
 
@@ -115,4 +125,52 @@ export function scrollToTop() {
     });
   }
   console.log(scrollTop);
+}
+
+export function customPaginationButtons(totalPages) {
+  rebuildLastButton(totalPages);
+  rebuildFirstButton();
+}
+
+function rebuildFirstButton() {
+  const firstButton = document.querySelector('.tui-first');
+  const firstChildButton = document.querySelector('.tui-first-child');
+  firstButton.textContent = 1;
+  console.log('rebuildFirstButton');
+  if (Number(firstChildButton.innerText) === 1) {
+    firstButton.classList.add('hidden');
+    document.querySelector('.tui-prev').style.translate = '0';
+    return;
+  }
+
+  firstButton.classList.remove('hidden');
+  console.log(screenWidth);
+  if (screenWidth < 768) {
+    document.querySelector('.tui-prev').style.translate = '0';
+    return;
+  }
+
+  document.querySelector('.tui-prev').style.translate = '-100%';
+  return;
+}
+
+function rebuildLastButton(totalPages) {
+  console.log('rebuildLastButton');
+  const lastButton = document.querySelector('.tui-last');
+  const lastChildButton = document.querySelector('.tui-last-child');
+  lastButton.textContent = totalPages;
+
+  if (Number(lastChildButton.innerText) === totalPages) {
+    lastButton.classList.add('hidden');
+    document.querySelector('.tui-next').style.translate = '0';
+    return;
+  }
+
+  lastButton.classList.remove('hidden');
+  if (screenWidth < 768) {
+    document.querySelector('.tui-next').style.translate = '0';
+    return;
+  }
+  document.querySelector('.tui-next').style.translate = '100%';
+  return;
 }
