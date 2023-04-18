@@ -5,35 +5,27 @@ export default class LocalStorageAPI {
     this.storageData = [];
     this.ERROR_MESSAGE = 'Oops, something went wrong. Try again later.';
   }
+
+  getStoredDataByKey(key) {
+    try {
+      const storedDataJson = localStorage.getItem(key);
+
+      return storedDataJson && storedDataJson.length
+        ? JSON.parse(localStorage.getItem(key))
+        : null;
+    } catch (error) {
+      Notify.failure(this.ERROR_MESSAGE);
+      console.log(error.message);
+    }
+  }
+
   add(newFilm, key) {
     try {
-      const savedData = JSON.parse(localStorage.getItem(key));
+      const dataToStore = this.getStoredDataByKey(key) ?? [];
 
-      if (savedData) {
-        this.storageData = this.storageData.concat(savedData);
-      }
+      dataToStore.push(newFilm);
 
-      this.storageData.push(newFilm);
-      localStorage.setItem(key, JSON.stringify(this.storageData));
-    } catch (error) {
-      Notify.failure(this.ERROR_MESSAGE);
-      console.log(error.message);
-    }
-  }
-
-  save(data, key) {
-    try {
-      this.storageData = data;
-      localStorage.setItem(key, JSON.stringify(this.storageData));
-    } catch (error) {
-      Notify.failure(this.ERROR_MESSAGE);
-      console.log(error.message);
-    }
-  }
-
-  getByKey(key) {
-    try {
-      // код отримання масиву з localStorage, якщо він є
+      localStorage.setItem(key, JSON.stringify(dataToStore));
     } catch (error) {
       Notify.failure(this.ERROR_MESSAGE);
       console.log(error.message);
@@ -42,12 +34,15 @@ export default class LocalStorageAPI {
 
   remove(key, id) {
     try {
-      const savedData = JSON.parse(localStorage.getItem(key));
-      if (savedData && savedData.find(movie => movie.id === id)) {
-        const filmToRemove = savedData.find(movie => movie.id === id);
-        savedData.splice(savedData.indexOf(filmToRemove), 1);
-        this.save(savedData, key);
+      const dataToStore = this.getStoredDataByKey(key) ?? [];
+
+      if (dataToStore.find(movie => movie.id === id)) {
+        const filmToRemove = dataToStore.find(movie => movie.id === id);
+
+        dataToStore.splice(dataToStore.indexOf(filmToRemove), 1);
       }
+
+      localStorage.setItem(key, JSON.stringify(dataToStore));
     } catch (error) {
       Notify.failure(this.ERROR_MESSAGE);
       console.log(error.message);
@@ -55,15 +50,12 @@ export default class LocalStorageAPI {
   }
 
   check(key, id) {
-    try {
-      const savedData = JSON.parse(localStorage.getItem(key));
-      if (savedData && savedData.find(movie => movie.id === id)) {
-        return true;
-      }
-      return false;
-    } catch (error) {
-      Notify.failure(this.ERROR_MESSAGE);
-      console.log(error.message);
+    const storedData = this.getStoredDataByKey(key);
+
+    if (storedData && storedData.find(movie => movie.id === id)) {
+      return true;
     }
+
+    return false;
   }
 }
