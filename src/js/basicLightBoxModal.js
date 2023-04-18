@@ -3,7 +3,6 @@ import 'basiclightbox/dist/basicLightbox.min.css';
 import '../sass/components/_customBackdrop.scss';
 import Icons from '../images/icons.svg';
 import { checkFilmInLibrary } from './local-storage-service';
-import { fetchDefaultMovies } from './fetchAPI';
 import { genresIdsConvertingToGenres } from './genresIdsConvertingToGenres';
 import { addFilmToLibrary, checkFilmInLibrary } from './local-storage-service';
 import { openTrailerModal } from './openTrailerModal';
@@ -13,7 +12,6 @@ import TmdbApi from './tmdbAPI';
 const API_KEY = '193148fb3e296bb7bc40d2f930865e2a';
 const api = new TmdbApi(API_KEY);
 let response;
-let pageNumber = 1; // для пагинации
 const galleryBox = document.querySelector('.movie__list');
 const backdropURL = 'https://image.tmdb.org/t/p/'; //w300 w780 w1280 original
 
@@ -21,7 +19,7 @@ galleryBox.addEventListener('click', onMovieCardClickHandler);
 
 async function onMovieCardClickHandler(event) {
   event.preventDefault();
-
+  console.log('click');
   if (!event.target.closest('li')) {
     return;
   }
@@ -71,7 +69,9 @@ async function onMovieCardClickHandler(event) {
                     </button>
 
                     <div class="modal-movie__poster-container">
-                        <img class="modal-movie__poster" src="https://image.tmdb.org/t/p/w400/${poster_path}" alt="${title || name}" />
+                        <img class="modal-movie__poster" src="https://image.tmdb.org/t/p/w400/${poster_path}" alt="${
+        title || name
+      }" />
                         <button class="modal-movie__trailer-btn"><span><svg width='68' height='48' viewBox='0 0 68 48'><path d='M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55 C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19 C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z'></path><path d='M 45,24 27,14 27,34' fill='#fff'></path></svg></span></button>
                     </div>
 
@@ -171,9 +171,6 @@ async function onMovieCardClickHandler(event) {
         },
         onClose: instance => {
           window.removeEventListener('keydown', closeModal);
-
-          // remove custom backdrop
-          // document.body.removeChild(backdrop);
         },
       }
     );
@@ -181,15 +178,13 @@ async function onMovieCardClickHandler(event) {
     (async () => {
       await instance.show();
       const lightboxContainer = document.querySelector('.basicLightbox');
-      //lightboxContainer.style.backgroundImage = `url('${backdropURL}${backdrop_path}')`;
+
       const windowWidth = window.innerWidth;
-      let backdrop = '';
+      let backdrop = `'${backdropURL}w1280${backdrop_path}'`;
       if (windowWidth < 768) {
         backdrop = `'${backdropURL}w300${backdrop_path}'`;
       } else if (windowWidth < 1280) {
         backdrop = `'${backdropURL}w780${backdrop_path}'`;
-      } else if (windowWidth >= 1280) {
-        backdrop = `'${backdropURL}w1280${backdrop_path}'`;
       }
 
       lightboxContainer.style.backgroundImage = `linear-gradient(
@@ -199,7 +194,6 @@ async function onMovieCardClickHandler(event) {
     ), url('${backdropURL}w1280${backdrop_path}')`;
     })();
 
-    // instance.show();
     checkFilmInLibrary('watched', id);
     checkFilmInLibrary('queue', id);
     return (response = {
