@@ -1,15 +1,15 @@
 import * as basicLightbox from 'basiclightbox';
 import Icons from '../images/icons.svg';
-import DianaImg from '../images/users/DianaShevtsova.png';
-import AndriyImg from '../images/users/AndriyKarpishyn.png';
-import IvanImg from '../images/users/IvanKlimov.png';
-import KonstantinImg from '../images/users/KonstantinMartynenko.png';
-import OleksandrSImg from '../images/users/OleksandrShutyak.png';
-import OleksandrTImg from '../images/users/OleksandrTymchenko.png';
-import SerhiiDImg from '../images/users/SerhiiDezhornyuk.png';
-import SerhiiSImg from '../images/users/SerhiiSkliarov.png';
-import TetianaImg from '../images/users/TetianaRudenko.png';
-import VadymImg from '../images/users/VadymGermanyuk.png';
+import DianaImg from '../images/users/DianaShevtsova.webp';
+import AndriyImg from '../images/users/AndriyKarpishyn.webp';
+import IvanImg from '../images/users/IvanKlimov.webp';
+import KonstantinImg from '../images/users/KonstantinMartynenko.webp';
+import OleksandrSImg from '../images/users/OleksandrShutyak.webp';
+import OleksandrTImg from '../images/users/OleksandrTymchenko.webp';
+import SerhiiDImg from '../images/users/SerhiiDezhornyuk.webp';
+import SerhiiSImg from '../images/users/SerhiiSkliarov.webp';
+import TetianaImg from '../images/users/TetianaRudenko.webp';
+import VadymImg from '../images/users/VadymGermanyuk.webp';
 
 
 
