@@ -5,13 +5,15 @@ const baseUrl = 'https://api.themoviedb.org/3/';
 
 // запрос трендовых фильмов дня для рендера на главную страницу
 export async function fetchDefaultMovies(pageNumber) {
-  try {
-    return await axios.get(
-      `${baseUrl}trending/movie/day?api_key=${API_KEY}&language=en-US&include_image_language=en,null&page=${pageNumber}`
-    );
-  } catch (error) {
-    console.error(error);
-  }
+  // try {
+  return await axios.get(
+    `${baseUrl}trending/movie/day?api_key=${API_KEY}&language=en-US&include_image_language=en,null&page=${pageNumber}`
+  );
+  // } catch (error) {
+  //   // console.error(error);
+  //   console.log(error.toJSON());
+  //   return;
+  // }
 }
 
 // запрос трейлера по ID
