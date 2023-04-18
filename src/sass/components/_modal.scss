@@ -227,4 +227,21 @@
         color: $color-text-white;
         border: none;
     }
+
+    &:disabled {
+        background-color: $color-text-footer;
+        color: $color-text-secondary;
+    }
+}
+.modal-movie__youtube-trailer{
+  width: 240px;
+  
+    @include tablet-and-up {
+      width: 704px;
+      height: 450px;
+    }
+  
+    @include desktop {
+      width: 806px;
+    }
 }
