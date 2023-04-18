@@ -32,6 +32,7 @@ export default class TmdbApi {
 
   async searchMovies(query, page = 1) {
     if (!query.trim()) {
+      console.error(error.message);
       throw new Error('Unable to search for an empty string');
     }
 
@@ -66,7 +67,7 @@ export default class TmdbApi {
       console.log(response);
       return response.data;
     } catch (error) {
-      console.log(error);
+      console.error(error.message);
       throw new Error(error.message);
     }
   }
@@ -80,7 +81,7 @@ export default class TmdbApi {
     }
 
     try {
-      const response = await axios.get(`${this.baseUrl}trending/all/day`, {
+      const response = await axios.get(`${this.baseUrl}trending/movie/day`, {
         params: { api_key: this.apiKey, page },
       });
 
@@ -95,8 +96,10 @@ export default class TmdbApi {
       this.cache.set(`${cacheKey}-totalResults`, response.data.total_pages);
       console.log(`${cacheKey}-totalResults добавлен`);
       console.log(this.cache);
+      console.log(response);
       return response.data;
     } catch (error) {
+      console.error(error.message);
       throw new Error(error.message);
     }
   }

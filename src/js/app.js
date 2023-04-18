@@ -43,7 +43,10 @@ export async function pageLoad() {
 
       console.log('pageLoad end');
     })
-    .catch(error => Notify.failure(error.message));
+    .catch(error => {
+      console.error(error.message);
+      Notify.failure(error.message);
+    });
 }
 
 async function trendingHandler({ page }) {
@@ -51,12 +54,15 @@ async function trendingHandler({ page }) {
     .fetchTrendingMovies(page)
     .then(response => {
       pagination.totalItems = response.total_results;
-
+      console.log(response.total_results);
       clearMoviesList();
       renderMovies(response.results);
       console.log(response.results);
     })
-    .catch(error => Notify.failure(error.message));
+    .catch(error => {
+      console.error(error.message);
+      Notify.failure(error.message);
+    });
 }
 
 function clearMoviesList() {
@@ -87,6 +93,7 @@ async function searchButtonClick(query) {
       console.log(response.results);
     })
     .catch(error => {
+      console.error(error.message);
       Notify.failure(error.message);
     });
 }
@@ -101,6 +108,7 @@ async function searchingHandler({ page }, query) {
       console.log(response.results);
     })
     .catch(error => {
+      console.error(error.message);
       Notify.failure(error.message);
     });
 }
