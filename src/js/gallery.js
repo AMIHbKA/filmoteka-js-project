@@ -18,7 +18,7 @@ export async function RenderDefaultMoviesOnMainPage() {
 
     const defaultMoviesArray = queryResult.data.results; // массив с данными по каждому фильму
     // console.log(defaultMoviesArray);
-    console.log('queryResult', queryResult);
+
     renderDefaultMovies(defaultMoviesArray);
   } catch (error) {
     console.log(error.message);
