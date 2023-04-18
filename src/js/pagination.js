@@ -112,10 +112,6 @@ export class tuiPagination {
   }
 }
 
-export function clearMoviesList() {
-  galleryBox.innerHTML = '';
-}
-
 export function scrollToTop() {
   const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
   if (scrollTop > 0) {

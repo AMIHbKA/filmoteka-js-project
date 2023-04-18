@@ -5,7 +5,6 @@ import { renderMovies } from './renderMovies';
 // import { pageLoad } from './js/app';
 import {
   tuiPagination,
-  clearMoviesList,
   scrollToTop,
   customPaginationButtons,
 } from './pagination';
