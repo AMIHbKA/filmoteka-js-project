@@ -267,9 +267,10 @@
         border: none;
     }
 
-    &:disabled {
-        background-color: $color-text-footer;
-        color: $color-text-secondary;
+    &--active {
+      background-color: $bg-color-accent;
+      color: $color-text-white;
+      border: none;
     }
 }
 .modal-movie__youtube-trailer{
