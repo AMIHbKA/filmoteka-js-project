@@ -8,12 +8,24 @@ import { addFilmToLibrary, checkFilmInLibrary } from './local-storage-service';
 import { openTrailerModal } from './openTrailerModal';
 import { Notify } from 'notiflix';
 import TmdbApi from './tmdbAPI';
+import placeholder from '../images/placeholders/poster-placeholder.jpg';
 
 const API_KEY = '193148fb3e296bb7bc40d2f930865e2a';
 const api = new TmdbApi(API_KEY);
 let response;
 const galleryBox = document.querySelector('.movie__list');
 const backdropURL = 'https://image.tmdb.org/t/p/'; //w300 w780 w1280 original
+let imageUrl = 'https://image.tmdb.org/t/p/';
+const windowWidth = window.innerWidth;
+// "poster_sizes":["w92","w154","w185","w342","w500","w780","original"]
+
+if (windowWidth < 768) {
+  imageUrl += 'w342/';
+} else if (windowWidth < 1280) {
+  imageUrl += 'w500/';
+} else {
+  imageUrl += 'w780/';
+}
 
 galleryBox.addEventListener('click', onMovieCardClickHandler);
 
@@ -33,7 +45,6 @@ async function onMovieCardClickHandler(event) {
     }
 
     const selectedMovieId = event.target.closest('li').getAttribute('id');
-    // console.log(selectedMovieId);
 
     try {
       response = await api.getMovieById(selectedMovieId);
@@ -43,7 +54,7 @@ async function onMovieCardClickHandler(event) {
     }
 
     const {
-      poster_path,
+      poster_path: poster,
       title,
       name,
       vote_average,
@@ -60,6 +71,13 @@ async function onMovieCardClickHandler(event) {
     } = response;
     // console.log(response);
     const genreIds = genres_ids ?? genres;
+    if (poster) {
+      poster_path = `${imageUrl}/${poster}`;
+    } else {
+      poster_path = placeholder;
+    }
+
+    // console.log(poster_path);
 
     const instance = basicLightbox.create(
       `
@@ -71,7 +89,7 @@ async function onMovieCardClickHandler(event) {
                     </button>
 
                     <div class="modal-movie__poster-container">
-                        <img class="modal-movie__poster" src="https://image.tmdb.org/t/p/w400/${poster_path}" alt="${
+                        <img class="modal-movie__poster" src="${poster_path}" alt="${
         title || name
       }" />
                         <button class="modal-movie__trailer-btn"><span><svg width='68' height='48' viewBox='0 0 68 48'><path d='M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55 C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19 C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z'></path><path d='M 45,24 27,14 27,34' fill='#fff'></path></svg></span></button>
@@ -181,7 +199,6 @@ async function onMovieCardClickHandler(event) {
       await instance.show();
       const lightboxContainer = document.querySelector('.basicLightbox');
 
-      const windowWidth = window.innerWidth;
       let backdrop = `'${backdropURL}w1280${backdrop_path}'`;
       if (windowWidth < 768) {
         backdrop = `'${backdropURL}w300${backdrop_path}'`;
@@ -201,7 +218,7 @@ async function onMovieCardClickHandler(event) {
 
     checkFilmInLibrary('watched', id);
     checkFilmInLibrary('queue', id);
-    // console.log('response', response);
+
     return (response = {
       poster_path,
       title,
