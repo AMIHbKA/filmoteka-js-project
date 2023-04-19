@@ -20,18 +20,18 @@ const windowWidth = window.innerWidth;
 // "poster_sizes":["w92","w154","w185","w342","w500","w780","original"]
 
 if (windowWidth < 768) {
-  imageUrl += 'w342/';
+  imageUrl += 'w342';
 } else if (windowWidth < 1280) {
-  imageUrl += 'w500/';
+  imageUrl += 'w500';
 } else {
-  imageUrl += 'w780/';
+  imageUrl += 'w780';
 }
 
 galleryBox.addEventListener('click', onMovieCardClickHandler);
 
 async function onMovieCardClickHandler(event) {
   event.preventDefault();
-  console.log('click');
+  // console.log('click');
   if (!event.target.closest('li')) {
     return;
   }
@@ -69,15 +69,15 @@ async function onMovieCardClickHandler(event) {
       id,
       backdrop_path,
     } = response;
-    console.log(response);
+    // console.log(response);
     const genreIds = genres_ids ?? genres;
-    console.log(poster);
+    // console.log(poster);
     if (poster) {
       poster_path = `${imageUrl}/${poster}`;
     } else {
       poster_path = placeholder;
     }
-    console.log(poster);
+    // console.log(poster);
     const instance = basicLightbox.create(
       `
                 <div class="modal">
