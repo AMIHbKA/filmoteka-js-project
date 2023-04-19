@@ -167,7 +167,6 @@ export default class Profile {
   async performDatabaseConsistency() {
     const localData = this.getUserDataFromLocalStorage();
     const firestoreData = await this.getUserDataFromFirestore();
-
     if (localData === false || firestoreData === false) {
       Notify.failure(this.ERROR_MESSAGE, {
         clickToClose: true,
@@ -372,10 +371,16 @@ export default class Profile {
       return false;
     }
 
-    const jsonedLocalWatched = JSON.stringify(localWatched);
-    const jsonedLocalQueue = JSON.stringify(localQueue);
-    const jsonedFirestoreWatched = JSON.stringify(firestoreWatched);
-    const jsonedFirestoreQueue = JSON.stringify(firestoreQueue);
+    const jsonedLocalWatched = JSON.stringify(
+      this.sortObjectKeys(localWatched)
+    );
+    const jsonedLocalQueue = JSON.stringify(this.sortObjectKeys(localQueue));
+    const jsonedFirestoreWatched = JSON.stringify(
+      this.sortObjectKeys(firestoreWatched)
+    );
+    const jsonedFirestoreQueue = JSON.stringify(
+      this.sortObjectKeys(firestoreQueue)
+    );
 
     if (jsonedLocalWatched !== jsonedFirestoreWatched) {
       return false;
@@ -386,6 +391,22 @@ export default class Profile {
     }
 
     return true;
+  }
+
+  sortObjectKeys(obj) {
+    if (Array.isArray(obj)) {
+      return obj.map(item => this.sortObjectKeys(item));
+    } else if (typeof obj === 'object' && obj !== null) {
+      return Object.keys(obj)
+        .sort()
+        .reduce((sortedObj, key) => {
+          sortedObj[key] = this.sortObjectKeys(obj[key]);
+
+          return sortedObj;
+        }, {});
+    }
+
+    return obj;
   }
 
   getSuccessCheckmarkMarkup() {
