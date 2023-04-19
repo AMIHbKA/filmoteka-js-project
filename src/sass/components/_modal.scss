@@ -219,6 +219,26 @@
   position: absolute;
   top: 8px;
   right: 8px;
+  z-index: 2;
+
+  &:hover,
+    &:focus {
+      color: #b92f2c;
+      border: 1px solid #b92f2c;
+    }
+
+        &:hover .modal-movie__svg-close-btn,
+        &:focus .modal-movie__svg-close-btn {
+          stroke: #b92f2c;
+          transform: scale(2.2);
+          transform: rotate(360deg);
+        }
+}
+
+.modal-movie__svg-close-btn {
+  stroke: #000;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: rotate(0deg);
 }
 
 .modal-movie__buttons-wrapper {
