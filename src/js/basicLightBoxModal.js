@@ -19,7 +19,7 @@ galleryBox.addEventListener('click', onMovieCardClickHandler);
 
 async function onMovieCardClickHandler(event) {
   event.preventDefault();
-  console.log('click');
+  // console.log('click');
   if (!event.target.closest('li')) {
     return;
   }
@@ -33,7 +33,7 @@ async function onMovieCardClickHandler(event) {
     }
 
     const selectedMovieId = event.target.closest('li').getAttribute('id');
-    console.log(selectedMovieId);
+    // console.log(selectedMovieId);
 
     try {
       response = await api.getMovieById(selectedMovieId);
@@ -50,14 +50,16 @@ async function onMovieCardClickHandler(event) {
       vote_count,
       popularity,
       original_title,
-      genres: genres_ids,
+      genres_ids,
+      genres,
       overview,
       first_air_date,
       release_date,
       id,
       backdrop_path,
     } = response;
-    console.log(response);
+    // console.log(response);
+    const genreIds = genres_ids ?? genres;
 
     const instance = basicLightbox.create(
       `
@@ -119,7 +121,7 @@ async function onMovieCardClickHandler(event) {
                             <li class="modal-movie__info-item">
                               <span class="modal-movie__text">Genre</span>
                               <span class="modal-movie__genre"
-                                >${genresIdsConvertingToGenres(genre_ids)}</span
+                                >${genresIdsConvertingToGenres(genreIds)}</span
                               >
                             </li>
                           </ul>
@@ -199,13 +201,15 @@ async function onMovieCardClickHandler(event) {
 
     checkFilmInLibrary('watched', id);
     checkFilmInLibrary('queue', id);
+    // console.log('response', response);
     return (response = {
       poster_path,
       title,
       name,
       first_air_date,
       original_title,
-      genres_ids,
+      genresIds: genres_ids,
+      genres,
       release_date,
       id,
       overview,
@@ -214,6 +218,6 @@ async function onMovieCardClickHandler(event) {
       vote_count,
     });
   } catch (error) {
-    console.log(error.message);
+    // console.log(error.message);
   }
 }

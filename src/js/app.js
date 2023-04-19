@@ -16,6 +16,9 @@ const api = new TmdbApi(API_KEY);
 const pagination = new tuiPagination();
 const localStorage = new LocalStorageAPI();
 const screenWidth = window.innerWidth;
+let checkedButton = WATCHED_KEY;
+let watchedRadioRef = '';
+let queueRadioRef = '';
 
 const refs = {
   homeButton: document.querySelector('#nav-link-home'),
@@ -36,22 +39,7 @@ refs.form.addEventListener('submit', event => {
   searchButtonClick(refs.query.value);
 });
 
-let watchedRadioRef = document.querySelector('[for="3"]');
-let queueRadioRef = document.querySelector('[for="4"]');
-
-watchedRadioRef.addEventListener('click', myLibraryButtonsClickHandler);
-
-queueRadioRef.addEventListener('click', myLibraryButtonsClickHandler);
-
-refs.myLibraryButton.addEventListener('click', () => {
-  if (screenWidth < 768) {
-    watchedRadioRef = document.querySelector('[for="1"]');
-    watchedRadioRef.addEventListener('click', myLibraryButtonsClickHandler);
-
-    queueRadioRef = document.querySelector('[for="2"]');
-    queueRadioRef.addEventListener('click', myLibraryButtonsClickHandler);
-  }
-});
+refs.myLibraryButton.addEventListener('click', myLibraryButtonClickHandler);
 
 export async function onHomeButtonClick() {
   refs.homeButton.disabled = true;
@@ -163,17 +151,46 @@ function removePlaceholder() {
   }
 }
 
-function myLibraryButtonsClickHandler(event) {
+function myLibraryButtonClickHandler() {
+  if (screenWidth < 768) {
+    watchedRadioRef = document.querySelector('[for="1"]');
+    watchedRadioRef.addEventListener('click', buttonsWatchedQueueClickHandler);
+
+    queueRadioRef = document.querySelector('[for="2"]');
+    queueRadioRef.addEventListener('click', buttonsWatchedQueueClickHandler);
+  } else {
+    watchedRadioRef = document.querySelector('[for="3"]');
+    queueRadioRef = document.querySelector('[for="4"]');
+
+    watchedRadioRef.addEventListener('click', buttonsWatchedQueueClickHandler);
+    queueRadioRef.addEventListener('click', buttonsWatchedQueueClickHandler);
+  }
+  if (watchedRadioRef.control.checked) {
+    renderLibrary(WATCHED_KEY);
+  } else {
+    renderLibrary(QUEUE_KEY);
+  }
+}
+
+function buttonsWatchedQueueClickHandler(event) {
+  console.log('click');
+  event.target.control.defaultValue;
+  renderLibrary(event.target.control.defaultValue);
+}
+
+function renderLibrary(libraryButton) {
   clearMoviesList();
   removePlaceholder();
-  pagination.reset(0);
+  pagination.reset();
   let currentKey = '';
-  switch (event.target.control.defaultValue) {
+  switch (libraryButton) {
     case WATCHED_KEY:
       currentKey = WATCHED_KEY;
+      checkedButton = WATCHED_KEY;
       break;
     case QUEUE_KEY:
       currentKey = QUEUE_KEY;
+      checkedButton = QUEUE_KEY;
       break;
   }
 
@@ -184,6 +201,5 @@ function myLibraryButtonsClickHandler(event) {
     return;
   }
 
-  console.log('storage', storage);
   renderMovies(storage);
 }

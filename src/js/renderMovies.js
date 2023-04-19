@@ -5,12 +5,13 @@ const galleryBox = document.querySelector('.movie__list');
 const MOVIE_POSTER_BASE_URL = 'https://image.tmdb.org/t/p/w400';
 
 export function renderMovies(defaultMoviesArray) {
-  console.log(defaultMoviesArray);
+  // console.log(defaultMoviesArray);
   const markup = defaultMoviesArray
     .map(
       ({
         poster_path,
         genre_ids,
+        genresIds,
         genres,
         id,
         original_title,
@@ -37,7 +38,7 @@ export function renderMovies(defaultMoviesArray) {
         } else {
           year = String(year).slice(0, 4);
         }
-        console.log(genre_ids, genres);
+        // console.log(genre_ids, genresIds, genres);
         const genresArr = genresIdsConvertingToGenres(genre_ids ?? genres);
         return `
                 <li class="movie__item" id="${id}">

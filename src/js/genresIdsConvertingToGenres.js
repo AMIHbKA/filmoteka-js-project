@@ -4,11 +4,11 @@ import { genresIds } from './data/genres';
 
 export const genresIdsConvertingToGenres = genresIdsArray => {
   const eachMovieGenresArray = [];
-  console.log('genresIdsArray', genresIdsArray);
+  // console.log('genresIdsArray', genresIdsArray);
   genresIdsArray.map(genreId => {
-    console.log('genreId', genreId);
+    // console.log('genreId', genreId);
     genresIds.map(genre => {
-      console.log('genre', genre);
+      // console.log('genre', genre);
       if (genreId === genre.id) {
         eachMovieGenresArray.push(genre.name);
       } else if (typeof genreId === 'object' && genreId != null) {
