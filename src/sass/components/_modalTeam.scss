@@ -3,12 +3,14 @@
 }
 
 .team-wrapper {
+  overflow-x: hidden;
+  overflow-y: auto;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   width: 240px;
   margin-bottom: 50px;
-  margin-top: 200px;
+  margin-top: 1400px;
   background-color: $bg-color-primary;
   border-radius: 15px;
 

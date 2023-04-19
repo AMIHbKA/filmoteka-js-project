@@ -2,11 +2,22 @@ import { Notify } from 'notiflix';
 
 export default class LocalStorageAPI {
   constructor() {
-    this.storageData = [];
     this.ERROR_MESSAGE = 'Oops, something went wrong. Try again later.';
     this.keyW = 'watched';
     this.keyQ = 'queue';
     this.lastKey = '';
+  }
+
+  getValueByKey(key) {
+    return localStorage.getItem(key);
+  }
+
+  setValueByKey(key, value) {
+    localStorage.setItem(key, value);
+  }
+
+  removeValueByKey(key) {
+    localStorage.removeItem(key);
   }
 
   getStoredDataByKey(key) {
@@ -19,6 +30,21 @@ export default class LocalStorageAPI {
       this.items = 0;
       Notify.failure(this.ERROR_MESSAGE);
       console.log(error.message);
+
+      return false;
+    }
+  }
+
+  setStoredDataByKey(key, value) {
+    try {
+      localStorage.setItem(key, JSON.stringify(value));
+
+      return true;
+    } catch (error) {
+      Notify.failure(this.ERROR_MESSAGE);
+      console.log(error.message);
+
+      return false;
     }
   }
 
@@ -29,6 +55,8 @@ export default class LocalStorageAPI {
       dataToStore.push(newFilm);
 
       localStorage.setItem(key, JSON.stringify(dataToStore));
+
+      window.dispatchEvent(new Event('localStorageUpdated'));
     } catch (error) {
       Notify.failure(this.ERROR_MESSAGE);
       console.log(error.message);
@@ -46,6 +74,8 @@ export default class LocalStorageAPI {
       }
 
       localStorage.setItem(key, JSON.stringify(dataToStore));
+
+      window.dispatchEvent(new Event('localStorageUpdated'));
     } catch (error) {
       Notify.failure(this.ERROR_MESSAGE);
       console.log(error.message);

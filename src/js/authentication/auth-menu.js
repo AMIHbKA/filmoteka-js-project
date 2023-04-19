@@ -1,16 +1,32 @@
+import { initializeApp } from 'firebase/app';
 import Authentication from '../authentication/authentication';
+import Profile from './profile';
 export default class AuthMenu {
   constructor() {
-    this.authentication = new Authentication(
-      this.showProfile.bind(this),
-      this.showLoginForm.bind(this)
+    this.FIREBASE_CONFIG = {
+      apiKey: 'AIzaSyCUzIbYrWt1gRDF2DKq0tM78ENX5LnPctw',
+      authDomain: 'filmoteka-js-project-8.firebaseapp.com',
+      projectId: 'filmoteka-js-project-8',
+      storageBucket: 'filmoteka-js-project-8.appspot.com',
+      messagingSenderId: '369220874407',
+      appId: '1:369220874407:web:8dd7500aa59f5f3bad2b82',
+      measurementId: 'G-B22P5WY8Z9',
+    };
+
+    this.app = initializeApp(this.FIREBASE_CONFIG);
+
+    new Authentication(
+      this.app,
+      this.handleLogin.bind(this),
+      this.handleLogout.bind(this)
     );
+
+    this.profile = new Profile(this.app);
 
     this.refs = {};
 
     this.buildRefs();
     this.hangListeners();
-    this.initMenu();
   }
 
   buildRefs() {
@@ -36,12 +52,14 @@ export default class AuthMenu {
     );
   }
 
-  initMenu() {
-    if (this.authentication.isAuthenticated()) {
-      this.showProfile();
-    } else {
-      this.showLoginForm();
-    }
+  handleLogin() {
+    this.showProfile();
+    this.profile.handleLogin();
+  }
+
+  handleLogout() {
+    this.showLoginForm();
+    this.profile.handleLogout();
   }
 
   openMenu() {

@@ -3,6 +3,53 @@
     <h2 class="profile__title auth-menu__title">Data Synchronization</h2>
   </div>
 
+  <div class="profile__body">
+    <div class="profile__spinner">
+      <svg class="spinner" viewBox="0 0 50 50">
+        <circle
+          class="path"
+          cx="25"
+          cy="25"
+          r="20"
+          fill="none"
+          stroke-width="5"
+        ></circle>
+      </svg>
+    </div>
+
+    <div
+      class="profile__consistent profile__consistent--hidden visibility-hidden"
+    >
+      <div class="profile__checkmark"></div>
+      <span class="profile__message profile__status"></span>
+    </div>
+
+    <div
+      class="profile__syncs-options profile__syncs-options--hidden visibility-hidden"
+    >
+      <span class="profile__message">Choose a data sync option:</span>
+
+      <ul class="profile__syncs-list">
+        <li class="profile__syncs-item header-nav__item">
+          <a
+            id="from-cloud-to-local"
+            class="profile__syncs-button header-btn auth-form__button auth-form__button--black default-btn"
+            href="#"
+            >From Cloud to Local</a
+          >
+        </li>
+        <li class="profile__syncs-item header-nav__item">
+          <a
+            id="from-local-to-cloud"
+            class="profile__syncs-button header-btn auth-form__button auth-form__button--red default-btn"
+            href="#"
+            >From Local To Cloud</a
+          >
+        </li>
+      </ul>
+    </div>
+  </div>
+
   <button
     id="logout"
     class="header-btn auth-form__button default-btn"
