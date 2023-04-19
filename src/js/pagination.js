@@ -1,10 +1,5 @@
 import Pagination from 'tui-pagination';
-import { fetchDefaultMovies } from './fetchAPI';
-// import 'tui-pagination/dist/tui-pagination.css';
-import { renderMovies } from './renderMovies';
 
-let currentPage = 1;
-const galleryBox = document.querySelector('.movie__list');
 const screenWidth = window.innerWidth;
 
 export class tuiPagination {
@@ -25,7 +20,12 @@ export class tuiPagination {
         '<span>...</span>' +
         '</a>',
     };
-    this.totalPages = Math.floor(this.totalItems / this.itemsPerPage);
+    this._totalPages = Math.floor(this.totalItems / this.itemsPerPage);
+    this._visible = true;
+  }
+
+  set totalPages(items) {
+    this._totalPages = Math.floor(this.totalItems / this.itemsPerPage);
   }
 
   set totalItems(items) {
@@ -60,6 +60,14 @@ export class tuiPagination {
     return this._visiblePages;
   }
 
+  visible() {
+    if (!state) {
+      this._container.style.display = 'none';
+    } else {
+      this._container.style.display = 'block';
+    }
+  }
+
   start() {
     const screenWidth = window.innerWidth;
     if (screenWidth < 768) {
@@ -73,7 +81,7 @@ export class tuiPagination {
       visiblePages: this._visiblePages,
       template: this._template,
     });
-    this.totalPages = Math.floor(this.totalItems / this.itemsPerPage);
+    this._totalPages = Math.floor(this.totalItems / this.itemsPerPage);
   }
 
   reset(page = 1) {
@@ -120,7 +128,7 @@ export function scrollToTop() {
       behavior: 'smooth',
     });
   }
-  console.log(scrollTop);
+  // console.log(scrollTop);
 }
 
 export function customPaginationButtons(totalPages) {
@@ -132,7 +140,7 @@ function rebuildFirstButton() {
   const firstButton = document.querySelector('.tui-first');
   const firstChildButton = document.querySelector('.tui-first-child');
   firstButton.textContent = 1;
-  console.log('rebuildFirstButton');
+  // console.log('rebuildFirstButton');
   if (Number(firstChildButton.innerText) === 1) {
     firstButton.classList.add('hidden');
     document.querySelector('.tui-prev').style.translate = '0';
@@ -151,7 +159,7 @@ function rebuildFirstButton() {
 }
 
 function rebuildLastButton(totalPages) {
-  console.log('rebuildLastButton');
+  // console.log('rebuildLastButton');
   const lastButton = document.querySelector('.tui-last');
   const lastChildButton = document.querySelector('.tui-last-child');
   lastButton.textContent = totalPages;

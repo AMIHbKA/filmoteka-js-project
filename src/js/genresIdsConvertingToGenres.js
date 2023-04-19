@@ -6,6 +6,7 @@ export const genresIdsConvertingToGenres = genresIdsArray => {
   const eachMovieGenresArray = [];
 
   genresIdsArray.map(genreId => {
+    console.log(genreId);
     genresIds.map(genre => {
       if (genreId === genre.id) {
         eachMovieGenresArray.push(genre.name);
@@ -19,5 +20,3 @@ export const genresIdsConvertingToGenres = genresIdsArray => {
   });
   return eachMovieGenresArray.join(', ');
 };
-
-
