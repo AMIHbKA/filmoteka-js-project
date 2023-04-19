@@ -84,7 +84,7 @@ async function onMovieCardClickHandler(event) {
                 <div class="modal">
                     <button class="modal-movie__close-btn">
                         <svg class="modal-movie__svg-close-btn" width="14" height="14">
-                            <use href="${Icons}#icon-close"></use>
+                            <use href="${Icons}#icon-close-black"></use>
                         </svg>
                     </button>
 
