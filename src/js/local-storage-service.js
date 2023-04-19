@@ -53,7 +53,7 @@ function doneButton(key) {
 
     document
       .querySelector('.modal-movie__add-queue-btn')
-      .classList.add('modal-movie__add-watched-btn--active');
+      .classList.add('modal-movie__add-queue-btn--active');
 
   }
 }
@@ -77,7 +77,7 @@ function addButton(key) {
 
     document
       .querySelector('.modal-movie__add-queue-btn')
-      .classList.add('modal-movie__add-watched-btn--active');
+      .classList.remove('modal-movie__add-queue-btn--active');
 
   }
 }
