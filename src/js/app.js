@@ -104,7 +104,7 @@ async function searchButtonClick(query) {
 
       pagination.totalItems = response.total_results;
       if (response.total_results < 21) {
-        console.log('poisk', response.total_results);
+        // console.log('poisk', response.total_results);
         clearMoviesList();
         renderMovies(response.results);
         pagination.container.innerHTML = '';
