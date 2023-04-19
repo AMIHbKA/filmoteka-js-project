@@ -183,7 +183,6 @@ function buttonsWatchedQueueClickHandler(event) {
 export function renderLibrary(libraryButton) {
   clearMoviesList();
   removePlaceholder();
-  pagination.reset();
   let currentKey = '';
   switch (libraryButton) {
     case WATCHED_KEY:
@@ -204,17 +203,26 @@ export function renderLibrary(libraryButton) {
     return;
   }
 
+  pagination.totalItems = storage.length;
+  pagination.start();
+  pagination.onBeforeMove(paginationLocalStorageHandler);
+  removePlaceholder();
+  removePlaceholder();
+  clearMoviesList();
+  paginationVisibility(response.total_results);
   renderMovies(storage);
 }
 
 function paginationVisibility(totalResults) {
   console.log('poisk', totalResults);
   if (totalResults < 21) {
-    // clearMoviesList();
-    // renderMovies(response.results);
     pagination.container.innerHTML = '';
     return;
   }
 }
 
-function paginationLocalStorageHandler() {}
+function paginationLocalStorageHandler({ page }, key) {}
+
+// clearMoviesList();
+// paginationVisibility(response.total_results);
+// renderMovies(response.results);
