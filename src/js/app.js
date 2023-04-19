@@ -47,7 +47,7 @@ export async function onHomeButtonClick() {
     removePlaceholder();
     await pageLoad();
   } catch (error) {
-    console.error(error);
+    // console.error(error);
   } finally {
     // Включаем кнопку
     refs.homeButton.disabled = false;
@@ -67,7 +67,7 @@ export async function pageLoad() {
       renderMovies(response.results);
     })
     .catch(error => {
-      console.error(error.message);
+      // console.error(error.message);
       Notify.failure(error.message);
     });
   scrollToTop();
@@ -86,7 +86,7 @@ async function trendingHandler({ page }) {
       //      console.log(response.results);
     })
     .catch(error => {
-      console.error(error.message);
+      // console.error(error.message);
       Notify.failure(error.message);
     });
 }
@@ -121,7 +121,7 @@ async function searchButtonClick(query) {
       }
     })
     .catch(error => {
-      console.error(error.message);
+      // console.error(error.message);
       Notify.failure(error.message);
     });
 }
@@ -139,7 +139,7 @@ async function searchingHandler({ page }, query) {
       // console.log(response.results);
     })
     .catch(error => {
-      console.error(error.message);
+      // console.error(error.message);
       Notify.failure(error.message);
     });
 }
@@ -183,7 +183,7 @@ function myLibraryButtonClickHandler() {
 }
 
 function buttonsWatchedQueueClickHandler(event) {
-  console.log('click');
+  // console.log('click');
   event.target.control.defaultValue;
   renderLibrary(event.target.control.defaultValue);
 }
@@ -196,18 +196,18 @@ export function renderLibrary(libraryButton) {
     case WATCHED_KEY:
       currentKey = WATCHED_KEY;
       localStorage.lastKey = currentKey;
-      console.log('localStorage.lastKey', localStorage.lastKey);
+      // console.log('localStorage.lastKey', localStorage.lastKey);
       checkedButton = WATCHED_KEY;
       break;
     case QUEUE_KEY:
       localStorage.lastKey = QUEUE_KEY;
-      console.log('localStorage.lastKey', localStorage.lastKey);
+      // console.log('localStorage.lastKey', localStorage.lastKey);
       checkedButton = QUEUE_KEY;
       break;
   }
 
   const storage = localStorage.getStoredDataByKey(localStorage.lastKey);
-  console.log(storage);
+  // console.log(storage);
   if (!storage || storage.length === 0) {
     emptyLibrary();
 
@@ -223,7 +223,7 @@ export function renderLibrary(libraryButton) {
     pagination.start();
     customPaginationButtons(Math.ceil());
     pagination.onBeforeMove(paginationLocalStorageHandler);
-    console.log('pagination.lastKey', localStorage.lastKey);
+    // console.log('pagination.lastKey', localStorage.lastKey);
     const data = localStorage.getPageData(
       localStorage.lastKey,
       pagination.itemsPerPage
@@ -233,7 +233,7 @@ export function renderLibrary(libraryButton) {
 }
 
 function paginationLocalStorageHandler({ page }) {
-  console.log(page);
+  // console.log(page);
   const data = localStorage.getPageData(
     localStorage.lastKey,
     pagination.itemsPerPage,

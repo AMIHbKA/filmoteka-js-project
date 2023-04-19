@@ -29,7 +29,7 @@ export default class LocalStorageAPI {
     } catch (error) {
       this.items = 0;
       Notify.failure(this.ERROR_MESSAGE);
-      console.log(error.message);
+      // console.log(error.message);
 
       return false;
     }
@@ -42,7 +42,7 @@ export default class LocalStorageAPI {
       return true;
     } catch (error) {
       Notify.failure(this.ERROR_MESSAGE);
-      console.log(error.message);
+      // console.log(error.message);
 
       return false;
     }
@@ -59,7 +59,7 @@ export default class LocalStorageAPI {
       window.dispatchEvent(new Event('localStorageUpdated'));
     } catch (error) {
       Notify.failure(this.ERROR_MESSAGE);
-      console.log(error.message);
+      // console.log(error.message);
     }
   }
 
@@ -78,7 +78,7 @@ export default class LocalStorageAPI {
       window.dispatchEvent(new Event('localStorageUpdated'));
     } catch (error) {
       Notify.failure(this.ERROR_MESSAGE);
-      console.log(error.message);
+      // console.log(error.message);
     }
   }
 
@@ -99,14 +99,14 @@ export default class LocalStorageAPI {
     }
 
     const totalPages = Math.ceil(data.length / itemsPerPage);
-    console.log('totalPages', totalPages);
+    // console.log('totalPages', totalPages);
     if (totalPages > 1) {
       const endSlice = itemsPerPage * page;
-      console.log('endSlice', endSlice);
+      // console.log('endSlice', endSlice);
       const beginSlice = endSlice - itemsPerPage;
-      console.log('beginSlice', beginSlice);
+      // console.log('beginSlice', beginSlice);
       const dataOnPage = data.slice(beginSlice, endSlice);
-      console.log('dataOnPage', dataOnPage);
+      // console.log('dataOnPage', dataOnPage);
       return dataOnPage;
     } else {
       return data;

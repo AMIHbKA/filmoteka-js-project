@@ -148,7 +148,7 @@ function rebuildFirstButton() {
   }
 
   firstButton.classList.remove('hidden');
-  console.log(screenWidth);
+  // console.log(screenWidth);
   if (screenWidth < 768) {
     document.querySelector('.tui-prev').style.translate = '0';
     return;

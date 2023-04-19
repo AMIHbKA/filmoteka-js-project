@@ -31,7 +31,7 @@ galleryBox.addEventListener('click', onMovieCardClickHandler);
 
 async function onMovieCardClickHandler(event) {
   event.preventDefault();
-  // console.log('click');
+  console.log('click');
   if (!event.target.closest('li')) {
     return;
   }
@@ -69,7 +69,7 @@ async function onMovieCardClickHandler(event) {
       id,
       backdrop_path,
     } = response;
-    // console.log(response);
+    console.log(response);
     const genreIds = genres_ids ?? genres;
     if (poster) {
       poster_path = `${imageUrl}/${poster}`;
@@ -77,7 +77,7 @@ async function onMovieCardClickHandler(event) {
       poster_path = placeholder;
     }
 
-    // console.log(poster_path);
+    console.log(poster_path);
 
     const instance = basicLightbox.create(
       `
