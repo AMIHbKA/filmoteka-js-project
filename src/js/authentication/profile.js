@@ -12,7 +12,10 @@ export default class Profile {
     this.KEY_QUEUE = 'queue';
 
     this.app = app;
-    this.firestore = new FirestoreAPI(app);
+    this.firestore = new FirestoreAPI(
+      app,
+      this.handleSnapshotUpdate.bind(this)
+    );
     this.localStorage = new LocalStorageAPI();
 
     this.refs = {};
@@ -61,6 +64,17 @@ export default class Profile {
   handleLogout() {
     this.revokeDataConsistency();
     this.hideDataConsistentStatus();
+  }
+
+  handleSnapshotUpdate(firestoreData) {
+    const dataToStore = {
+      watched: firestoreData?.watched ?? [],
+      queue: firestoreData?.queue ?? [],
+    };
+
+    if (this.storeDataFromFirestoreToLocalStorage(dataToStore)) {
+      this.updateShowedFilmsList();
+    }
   }
 
   showSpinner() {

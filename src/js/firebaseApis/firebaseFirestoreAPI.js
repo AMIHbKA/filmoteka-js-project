@@ -1,24 +1,54 @@
 import { getAuth } from 'firebase/auth';
-import { getFirestore, getDoc, setDoc, doc } from 'firebase/firestore';
+import {
+  getFirestore,
+  getDoc,
+  setDoc,
+  doc,
+  onSnapshot,
+} from 'firebase/firestore';
 
 export default class FirebaseFirestoreAPI {
-  constructor(app) {
+  constructor(app, onSnapshotCallback) {
+    this.onSnapshotCallback = onSnapshotCallback;
     this.auth = getAuth(app);
     this.db = getFirestore(app);
+    this.userId = null;
+    this.userDataRef = null;
+
+    this.unsubscribe = null;
+
+    this.auth.onAuthStateChanged(user => {
+      if (user) {
+        this.userId = user.uid;
+        this.userDataRef = doc(this.db, 'userData', this.userId);
+
+        this.unsubscribe = onSnapshot(this.userDataRef, snapshot => {
+          if (snapshot.exists()) {
+            this.onSnapshotCallback(snapshot.data());
+          } else {
+            this.onSnapshotCallback(null);
+          }
+        });
+      }
+    });
   }
 
   async uploadUserDataToFirestore(data) {
-    const preparedData = this.removeUndefinedProperties(data);
-    const { uid } = this.auth.currentUser;
-    const userRef = doc(this.db, 'userData', uid);
+    if (!this.userId) {
+      return;
+    }
 
-    await setDoc(userRef, preparedData);
+    const preparedData = this.removeUndefinedProperties(data);
+
+    await setDoc(this.userDataRef, preparedData);
   }
 
   async getUserDataFromFirestore() {
-    const { uid } = this.auth.currentUser;
-    const userRef = doc(this.db, 'userData', uid);
-    const docSnap = await getDoc(userRef);
+    if (!this.userId) {
+      return null;
+    }
+
+    const docSnap = await getDoc(this.userDataRef);
 
     if (docSnap.exists()) {
       return docSnap.data();
