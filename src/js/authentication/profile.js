@@ -167,6 +167,7 @@ export default class Profile {
   async performDatabaseConsistency() {
     const localData = this.getUserDataFromLocalStorage();
     const firestoreData = await this.getUserDataFromFirestore();
+
     if (localData === false || firestoreData === false) {
       Notify.failure(this.ERROR_MESSAGE, {
         clickToClose: true,
@@ -190,7 +191,9 @@ export default class Profile {
     }
 
     if (isLocalUserDataEmpty && !isFirestoreUserDataEmpty) {
-      this.storeDataFromFirestoreToLocalStorage(firestoreData);
+      if (this.storeDataFromFirestoreToLocalStorage(firestoreData)) {
+        this.updateShowedFilmsList();
+      }
 
       return;
     }
@@ -274,7 +277,9 @@ export default class Profile {
       return;
     }
 
-    this.storeDataFromFirestoreToLocalStorage(firestoreData);
+    if (this.storeDataFromFirestoreToLocalStorage(firestoreData)) {
+      this.updateShowedFilmsList();
+    }
   }
 
   getUserDataFromLocalStorage() {
@@ -321,10 +326,12 @@ export default class Profile {
     if (watchedStored === false || queueStored === false) {
       this.showDataConsistentError();
 
-      return;
+      return false;
     }
 
     this.setDataConsistency();
+
+    return true;
   }
 
   async setDataConsistency() {
@@ -407,6 +414,33 @@ export default class Profile {
     }
 
     return obj;
+  }
+
+  updateShowedFilmsList() {
+    const homeButton = document.querySelector('#nav-link-home');
+
+    if (homeButton.classList.contains('header-nav__link--current')) {
+      return;
+    }
+
+    const screenWidth = window.innerWidth;
+
+    let watchedRadioButton;
+    let queueRadioButton;
+
+    if (screenWidth < 768) {
+      watchedRadioButton = document.querySelector('[for="1"]');
+      queueRadioButton = document.querySelector('[for="2"]');
+    } else {
+      watchedRadioButton = document.querySelector('[for="3"]');
+      queueRadioButton = document.querySelector('[for="4"]');
+    }
+
+    if (watchedRadioButton.control.checked) {
+      watchedRadioButton.click();
+    } else {
+      queueRadioButton.click();
+    }
   }
 
   getSuccessCheckmarkMarkup() {
