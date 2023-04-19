@@ -5,6 +5,7 @@ export default class LocalStorageAPI {
     this.ERROR_MESSAGE = 'Oops, something went wrong. Try again later.';
     this.keyW = 'watched';
     this.keyQ = 'queue';
+    this.lastKey = '';
   }
 
   getValueByKey(key) {
@@ -91,5 +92,24 @@ export default class LocalStorageAPI {
     return false;
   }
 
-  getPage(key, itemsPerPage = 20, page = 1) {}
+  getPageData(key, itemsPerPage = 20, page = 1) {
+    const data = this.getStoredDataByKey(key);
+    if (!data || data.length === 0) {
+      return [];
+    }
+
+    const totalPages = Math.ceil(data.length / itemsPerPage);
+    console.log('totalPages', totalPages);
+    if (totalPages > 1) {
+      const endSlice = itemsPerPage * page;
+      console.log('endSlice', endSlice);
+      const beginSlice = endSlice - itemsPerPage;
+      console.log('beginSlice', beginSlice);
+      const dataOnPage = data.slice(beginSlice, endSlice);
+      console.log('dataOnPage', dataOnPage);
+      return dataOnPage;
+    } else {
+      return data;
+    }
+  }
 }
