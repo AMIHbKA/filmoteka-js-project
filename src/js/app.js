@@ -221,7 +221,7 @@ export function renderLibrary(libraryButton) {
     renderMovies(storage);
   } else {
     pagination.start();
-    customPaginationButtons(Math.ceil());
+
     pagination.onBeforeMove(paginationLocalStorageHandler);
     // console.log('pagination.lastKey', localStorage.lastKey);
     const data = localStorage.getPageData(
