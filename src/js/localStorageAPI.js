@@ -22,11 +22,11 @@ export default class LocalStorageAPI {
   getStoredDataByKey(key) {
     try {
       const storedDataJson = localStorage.getItem(key);
-
       return storedDataJson && storedDataJson.length
-        ? JSON.parse(localStorage.getItem(key))
+        ? JSON.parse(storedDataJson)
         : null;
     } catch (error) {
+      this.items = 0;
       Notify.failure(this.ERROR_MESSAGE);
       console.log(error.message);
 
@@ -90,4 +90,6 @@ export default class LocalStorageAPI {
 
     return false;
   }
+
+  getPage(key, itemsPerPage = 20, page = 1) {}
 }

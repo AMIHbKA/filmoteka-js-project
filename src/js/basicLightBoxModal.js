@@ -19,7 +19,7 @@ galleryBox.addEventListener('click', onMovieCardClickHandler);
 
 async function onMovieCardClickHandler(event) {
   event.preventDefault();
-  console.log('click');
+  // console.log('click');
   if (!event.target.closest('li')) {
     return;
   }
@@ -33,7 +33,7 @@ async function onMovieCardClickHandler(event) {
     }
 
     const selectedMovieId = event.target.closest('li').getAttribute('id');
-    console.log(selectedMovieId);
+    // console.log(selectedMovieId);
 
     try {
       response = await api.getMovieById(selectedMovieId);
@@ -50,6 +50,7 @@ async function onMovieCardClickHandler(event) {
       vote_count,
       popularity,
       original_title,
+      genres_ids,
       genres,
       overview,
       first_air_date,
@@ -57,7 +58,8 @@ async function onMovieCardClickHandler(event) {
       id,
       backdrop_path,
     } = response;
-    console.log(response);
+    // console.log(response);
+    const genreIds = genres_ids ?? genres;
 
     const instance = basicLightbox.create(
       `
@@ -119,7 +121,7 @@ async function onMovieCardClickHandler(event) {
                             <li class="modal-movie__info-item">
                               <span class="modal-movie__text">Genre</span>
                               <span class="modal-movie__genre"
-                                >${genresIdsConvertingToGenres(genres)}</span
+                                >${genresIdsConvertingToGenres(genreIds)}</span
                               >
                             </li>
                           </ul>
@@ -186,6 +188,9 @@ async function onMovieCardClickHandler(event) {
       } else if (windowWidth < 1280) {
         backdrop = `'${backdropURL}w780${backdrop_path}'`;
       }
+      setTimeout(() => {
+        document.body.style.backgroundImage = `url('${backdropURL}w1280${backdrop_path}')`;
+      }, 500);
 
       lightboxContainer.style.backgroundImage = `linear-gradient(
       to bottom,
@@ -196,18 +201,23 @@ async function onMovieCardClickHandler(event) {
 
     checkFilmInLibrary('watched', id);
     checkFilmInLibrary('queue', id);
+    // console.log('response', response);
     return (response = {
       poster_path,
       title,
       name,
       first_air_date,
       original_title,
-      // genre_ids,
+      genresIds: genres_ids,
       genres,
       release_date,
       id,
+      overview,
+      backdropURL,
+      vote_average,
+      vote_count,
     });
   } catch (error) {
-    console.log(error.message);
+    // console.log(error.message);
   }
 }
