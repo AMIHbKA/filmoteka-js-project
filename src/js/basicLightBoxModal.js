@@ -71,14 +71,13 @@ async function onMovieCardClickHandler(event) {
     } = response;
     console.log(response);
     const genreIds = genres_ids ?? genres;
+    console.log(poster);
     if (poster) {
       poster_path = `${imageUrl}/${poster}`;
     } else {
       poster_path = placeholder;
     }
-
-    console.log(poster_path);
-
+    console.log(poster);
     const instance = basicLightbox.create(
       `
                 <div class="modal">
