@@ -4,18 +4,18 @@ export default class LocalStorageAPI {
   constructor() {
     this.storageData = [];
     this.ERROR_MESSAGE = 'Oops, something went wrong. Try again later.';
-    this.keyW = "watched";
-    this.keyQ = "queue"
+    this.keyW = 'watched';
+    this.keyQ = 'queue';
   }
 
   getStoredDataByKey(key) {
     try {
       const storedDataJson = localStorage.getItem(key);
-
       return storedDataJson && storedDataJson.length
-        ? JSON.parse(localStorage.getItem(key))
+        ? JSON.parse(storedDataJson)
         : null;
     } catch (error) {
+      this.items = 0;
       Notify.failure(this.ERROR_MESSAGE);
       console.log(error.message);
     }
@@ -60,4 +60,6 @@ export default class LocalStorageAPI {
 
     return false;
   }
+
+  getPage(key, itemsPerPage = 20, page = 1) {}
 }
