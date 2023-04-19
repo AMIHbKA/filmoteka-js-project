@@ -39,18 +39,22 @@ function doneButton(key) {
     document.querySelector(
       '.modal-movie__add-watched-btn'
     ).textContent = `In ${localStorageAPI.keyW}`;
+
     document
       .querySelector('.modal-movie__add-watched-btn')
       .classList.add('modal-movie__add-watched-btn--active');
+
   }
 
   if (key === localStorageAPI.keyQ) {
     document.querySelector(
       '.modal-movie__add-queue-btn'
     ).textContent = `In ${localStorageAPI.keyQ}`;
+
     document
       .querySelector('.modal-movie__add-queue-btn')
       .classList.add('modal-movie__add-watched-btn--active');
+
   }
 }
 
@@ -59,17 +63,21 @@ function addButton(key) {
     document.querySelector(
       '.modal-movie__add-watched-btn'
     ).textContent = `Add to ${localStorageAPI.keyW}`;
+
     document
       .querySelector('.modal-movie__add-watched-btn')
       .classList.remove('modal-movie__add-watched-btn--active');
+
   }
 
   if (key === localStorageAPI.keyQ) {
     document.querySelector(
       '.modal-movie__add-queue-btn'
     ).textContent = `Add to ${localStorageAPI.keyQ}`;
+
     document
       .querySelector('.modal-movie__add-queue-btn')
       .classList.add('modal-movie__add-watched-btn--active');
+
   }
 }
