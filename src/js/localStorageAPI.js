@@ -61,5 +61,25 @@ export default class LocalStorageAPI {
     return false;
   }
 
-  getPage(key, itemsPerPage = 20, page = 1) {}
+  getPage(key, itemsPerPage = 20, page = 1) {
+    const data = this.getStoredDataByKey(key);
+    console.log('begin data', data);
+    if (!data || data.length === 0) {
+      return;
+    }
+
+    const totalPages = Math.floor(data.length / itemsPerPage);
+    console.log('totalPages', totalPages);
+    if (totalPages > 1) {
+      const endSlice = itemsPerPage * page;
+      console.log('endSlice', endSlice);
+      const beginSlice = endSlice - itemsPerPage;
+      console.log('beginSlice', beginSlice);
+      const dataOnPage = data.slice(beginSlice, endSlice);
+      console.log('dataOnPage', dataOnPage);
+      return dataOnPage;
+    } else {
+      return data;
+    }
+  }
 }

@@ -181,7 +181,7 @@ function buttonsWatchedQueueClickHandler(event) {
   renderLibrary(event.target.control.defaultValue);
 }
 
-function renderLibrary(libraryButton) {
+export function renderLibrary(libraryButton) {
   clearMoviesList();
   removePlaceholder();
   pagination.reset();
@@ -198,11 +198,19 @@ function renderLibrary(libraryButton) {
   }
 
   const storage = localStorage.getStoredDataByKey(currentKey);
-
-  if (!storage) {
+  console.log(storage);
+  if (!storage || storage.length === 0) {
     emptyLibrary();
     return;
   }
 
   renderMovies(storage);
 }
+
+setTimeout(() => {
+  const ls = new LocalStorageAPI();
+  const data = ls.getPage(ls.keyW, 3, 5);
+  clearMoviesList();
+  renderMovies(data);
+  console.log('local page', data);
+}, 2000);
