@@ -52,11 +52,23 @@
 .auth-form__button--red {
   background-color: $bg-color-accent;
   color: $color-text-white;
+
+  &:hover,
+  &:focus {
+    background-color: $bg-color-footer;
+    color: $color-text-primary;
+  }
 }
 
 .auth-form__button--black {
   background-color: $color-text-primary;
   color: $color-text-white;
+
+  &:hover,
+  &:focus {
+    background-color: $bg-color-footer;
+    color: $color-text-primary;
+  }
 }
 
 .auth-form__button--transparent {
