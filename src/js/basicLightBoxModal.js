@@ -188,9 +188,9 @@ async function onMovieCardClickHandler(event) {
       } else if (windowWidth < 1280) {
         backdrop = `'${backdropURL}w780${backdrop_path}'`;
       }
-      setTimeout(() => {
-        document.body.style.backgroundImage = `url('${backdropURL}w1280${backdrop_path}')`;
-      }, 500);
+      // setTimeout(() => {
+      //   document.body.style.backgroundImage = `url('${backdropURL}w1280${backdrop_path}')`;
+      // }, 500);
 
       lightboxContainer.style.backgroundImage = `linear-gradient(
       to bottom,
