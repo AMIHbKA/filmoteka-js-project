@@ -50,7 +50,7 @@ async function onMovieCardClickHandler(event) {
       vote_count,
       popularity,
       original_title,
-      genres,
+      genres: genres_ids,
       overview,
       first_air_date,
       release_date,
@@ -119,7 +119,7 @@ async function onMovieCardClickHandler(event) {
                             <li class="modal-movie__info-item">
                               <span class="modal-movie__text">Genre</span>
                               <span class="modal-movie__genre"
-                                >${genresIdsConvertingToGenres(genres)}</span
+                                >${genresIdsConvertingToGenres(genre_ids)}</span
                               >
                             </li>
                           </ul>
@@ -152,7 +152,6 @@ async function onMovieCardClickHandler(event) {
             .element()
             .querySelector('.modal-movie__add-watched-btn')
             .addEventListener('click', () => {
-              debugger;
               addFilmToLibrary(response, 'watched');
             });
           instance
@@ -206,10 +205,13 @@ async function onMovieCardClickHandler(event) {
       name,
       first_air_date,
       original_title,
-      // genre_ids,
-      genres,
+      genres_ids,
       release_date,
       id,
+      overview,
+      backdropURL,
+      vote_average,
+      vote_count,
     });
   } catch (error) {
     console.log(error.message);

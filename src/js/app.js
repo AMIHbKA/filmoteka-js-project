@@ -178,9 +178,8 @@ function myLibraryButtonsClickHandler(event) {
   }
 
   const storage = localStorage.getStoredDataByKey(currentKey);
-  console.log(storage.length);
 
-  if (storage.length === 0) {
+  if (!storage) {
     emptyLibrary();
     return;
   }

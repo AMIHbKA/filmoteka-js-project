@@ -6,13 +6,11 @@ export default class LocalStorageAPI {
     this.ERROR_MESSAGE = 'Oops, something went wrong. Try again later.';
     this.keyW = 'watched';
     this.keyQ = 'queue';
-    this.items = 0;
   }
 
   getStoredDataByKey(key) {
     try {
       const storedDataJson = localStorage.getItem(key);
-      this.items = JSON.parse(storedDataJson).length;
       return storedDataJson && storedDataJson.length
         ? JSON.parse(storedDataJson)
         : null;
