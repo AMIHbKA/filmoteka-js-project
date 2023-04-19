@@ -146,3 +146,7 @@
     visibility: hidden;
   }
 }
+
+.tui-is-disabled {
+  z-index: -1;
+}
