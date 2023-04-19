@@ -63,7 +63,7 @@ export async function pageLoad() {
       customPaginationButtons(response.total_pages);
       pagination.onBeforeMove(trendingHandler);
       clearMoviesList();
-      paginationVisibility(response.total_results);
+      // paginationVisibility(response.total_results);
       renderMovies(response.results);
     })
     .catch(error => {
@@ -81,7 +81,7 @@ async function trendingHandler({ page }) {
       scrollToTop();
       customPaginationButtons(response.total_pages);
       clearMoviesList();
-      paginationVisibility(response.total_results);
+      // paginationVisibility(response.total_results);
       renderMovies(response.results);
       //      console.log(response.results);
     })
@@ -103,14 +103,22 @@ async function searchButtonClick(query) {
       // pagination.totalItems = response.total_results;
 
       pagination.totalItems = response.total_results;
-      pagination.start();
-      pagination.onBeforeMove(searchingHandler);
-      customPaginationButtons(response.total_pages);
-      removePlaceholder();
-      clearMoviesList();
-      paginationVisibility(response.total_results);
-      renderMovies(response.results);
-      // console.log(response.results);
+      if (response.total_results < 21) {
+        console.log('poisk', response.total_results);
+        clearMoviesList();
+        renderMovies(response.results);
+        pagination.container.innerHTML = '';
+        return;
+      } else {
+        pagination.start();
+        pagination.onBeforeMove(searchingHandler);
+        customPaginationButtons(response.total_pages);
+        removePlaceholder();
+        clearMoviesList();
+        // paginationVisibility(response.total_results);
+        renderMovies(response.results);
+        // console.log(response.results);
+      }
     })
     .catch(error => {
       console.error(error.message);
@@ -126,7 +134,7 @@ async function searchingHandler({ page }, query) {
       scrollToTop();
       customPaginationButtons(response.total_pages);
       clearMoviesList();
-      paginationVisibility(response.total_results);
+      // paginationVisibility(response.total_results);
       renderMovies(response.results);
       // console.log(response.results);
     })
@@ -141,7 +149,7 @@ function emptyLibrary() {
     refs.placeholder.classList.remove('visibility-hidden');
     refs.placeholderImage.classList.add('loaded');
     refs.placeholderImagePopcorn.classList.add('loaded');
-    paginationVisibility(0);
+    pagination.container.innerHTML = '';
   }
 }
 
@@ -187,15 +195,18 @@ export function renderLibrary(libraryButton) {
   switch (libraryButton) {
     case WATCHED_KEY:
       currentKey = WATCHED_KEY;
+      localStorage.lastKey = currentKey;
+      console.log('localStorage.lastKey', localStorage.lastKey);
       checkedButton = WATCHED_KEY;
       break;
     case QUEUE_KEY:
-      currentKey = QUEUE_KEY;
+      localStorage.lastKey = QUEUE_KEY;
+      console.log('localStorage.lastKey', localStorage.lastKey);
       checkedButton = QUEUE_KEY;
       break;
   }
 
-  const storage = localStorage.getStoredDataByKey(currentKey);
+  const storage = localStorage.getStoredDataByKey(localStorage.lastKey);
   console.log(storage);
   if (!storage || storage.length === 0) {
     emptyLibrary();
@@ -204,25 +215,30 @@ export function renderLibrary(libraryButton) {
   }
 
   pagination.totalItems = storage.length;
-  pagination.start();
-  pagination.onBeforeMove(paginationLocalStorageHandler);
-  removePlaceholder();
-  removePlaceholder();
-  clearMoviesList();
-  paginationVisibility(response.total_results);
-  renderMovies(storage);
-}
 
-function paginationVisibility(totalResults) {
-  console.log('poisk', totalResults);
-  if (totalResults < 21) {
+  if (pagination.totalItems < pagination.itemsPerPage + 1) {
     pagination.container.innerHTML = '';
-    return;
+    renderMovies(storage);
+  } else {
+    pagination.start();
+    customPaginationButtons(Math.ceil());
+    pagination.onBeforeMove(paginationLocalStorageHandler);
+    console.log('pagination.lastKey', localStorage.lastKey);
+    const data = localStorage.getPageData(
+      localStorage.lastKey,
+      pagination.itemsPerPage
+    );
+    renderMovies(data);
   }
 }
 
-function paginationLocalStorageHandler({ page }, key) {}
-
-// clearMoviesList();
-// paginationVisibility(response.total_results);
-// renderMovies(response.results);
+function paginationLocalStorageHandler({ page }) {
+  console.log(page);
+  const data = localStorage.getPageData(
+    localStorage.lastKey,
+    pagination.itemsPerPage,
+    page
+  );
+  clearMoviesList();
+  renderMovies(data);
+}

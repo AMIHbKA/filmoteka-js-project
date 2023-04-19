@@ -6,6 +6,7 @@ export default class LocalStorageAPI {
     this.ERROR_MESSAGE = 'Oops, something went wrong. Try again later.';
     this.keyW = 'watched';
     this.keyQ = 'queue';
+    this.lastKey = '';
   }
 
   getStoredDataByKey(key) {
@@ -61,7 +62,7 @@ export default class LocalStorageAPI {
     return false;
   }
 
-  getPage(key, itemsPerPage = 20, page = 1) {
+  getPageData(key, itemsPerPage = 20, page = 1) {
     const data = this.getStoredDataByKey(key);
     if (!data || data.length === 0) {
       return [];
