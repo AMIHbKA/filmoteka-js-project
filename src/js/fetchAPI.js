@@ -10,7 +10,7 @@ export async function fetchDefaultMovies(pageNumber) {
       `${baseUrl}trending/movie/day?api_key=${API_KEY}&language=en-US&include_image_language=en,null&page=${pageNumber}`
     );
   } catch (error) {
-    console.error(error);
+    // console.error(error);
   }
 }
 
@@ -22,8 +22,7 @@ export async function fetchMovieTrailer(movieId) {
     );
     // console.log(result)
   } catch (error) {
-    console.error(error);
-
+    // console.error(error);
     // if (error.response.status === 404) {
     //     console.log(error.data.results.length)
     //     alert("Oops, there is not trailer")

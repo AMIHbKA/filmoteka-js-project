@@ -21,6 +21,6 @@ export async function RenderDefaultMoviesOnMainPage() {
 
     renderMovies(defaultMoviesArray);
   } catch (error) {
-    console.log(error.message);
+    // console.log(error.message);
   }
 }

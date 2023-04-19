@@ -45,7 +45,7 @@ export default class TmdbApi {
       const response = await axios.get(`${this.baseUrl}search/movie`, {
         params: { api_key: this.apiKey, query, page },
       });
-      console.log(response);
+      // console.log(response);
       this.#checkForHttpError(response, {
         400: `Bad request`,
         401: 'Unauthorized request',
@@ -57,10 +57,10 @@ export default class TmdbApi {
       this.totalResults = response.data.total_results;
       this.cache.set(cacheKey, response.data);
       this.cache.set(`${cacheKey}-totalResults`, response.data.total_pages);
-      console.log(response);
+      // console.log(response);
       return response.data;
     } catch (error) {
-      console.error(error.message);
+      // console.error(error.message);
       throw new Error(error.message);
     }
   }
@@ -69,7 +69,7 @@ export default class TmdbApi {
     const cacheKey = `trending-movies-${page}`;
     if (this.cache.has(cacheKey)) {
       this.totalResults = this.cache.get(`${cacheKey}-totalResults`);
-      console.log(`${cacheKey}-totalResults кеш есть`);
+      // console.log(`${cacheKey}-totalResults кеш есть`);
       return this.cache.get(cacheKey);
     }
 
@@ -87,9 +87,9 @@ export default class TmdbApi {
       this.totalResults = response.data.total_pages;
       this.cache.set(cacheKey, response.data);
       this.cache.set(`${cacheKey}-totalResults`, response.data.total_pages);
-      console.log(`${cacheKey}-totalResults добавлен`);
-      console.log(this.cache);
-      console.log(response);
+      // console.log(`${cacheKey}-totalResults добавлен`);
+      // console.log(this.cache);
+      // console.log(response);
       return response.data;
     } catch (error) {
       throw new Error(error.message);
@@ -107,7 +107,7 @@ export default class TmdbApi {
 
     const cacheKey = `movie-by-id-${movieId}`;
     if (this.cache.has(cacheKey)) {
-      console.log(`movie-by-id-${movieId} уже есть`);
+      // console.log(`movie-by-id-${movieId} уже есть`);
       return this.cache.get(cacheKey);
     }
 
@@ -125,10 +125,10 @@ export default class TmdbApi {
 
       this.totalResults = 1;
       this.cache.set(cacheKey, response.data);
-      console.log(response);
+      // console.log(response);
       return response.data;
     } catch (error) {
-      console.error(error.message);
+      // console.error(error.message);
       throw new Error(error.message);
     }
   }
