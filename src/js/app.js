@@ -63,6 +63,7 @@ export async function pageLoad() {
       customPaginationButtons(response.total_pages);
       pagination.onBeforeMove(trendingHandler);
       clearMoviesList();
+      paginationVisibility(response.total_results);
       renderMovies(response.results);
     })
     .catch(error => {
@@ -80,6 +81,7 @@ async function trendingHandler({ page }) {
       scrollToTop();
       customPaginationButtons(response.total_pages);
       clearMoviesList();
+      paginationVisibility(response.total_results);
       renderMovies(response.results);
       //      console.log(response.results);
     })
@@ -103,13 +105,10 @@ async function searchButtonClick(query) {
       pagination.totalItems = response.total_results;
       pagination.start();
       pagination.onBeforeMove(searchingHandler);
-      // pagination.reset(response.total_results);
       customPaginationButtons(response.total_pages);
-
-      // pagination.reset(response.total_results);
-      // console.log(pagination);
       removePlaceholder();
       clearMoviesList();
+      paginationVisibility(response.total_results);
       renderMovies(response.results);
       // console.log(response.results);
     })
@@ -127,6 +126,7 @@ async function searchingHandler({ page }, query) {
       scrollToTop();
       customPaginationButtons(response.total_pages);
       clearMoviesList();
+      paginationVisibility(response.total_results);
       renderMovies(response.results);
       // console.log(response.results);
     })
@@ -141,7 +141,7 @@ function emptyLibrary() {
     refs.placeholder.classList.remove('visibility-hidden');
     refs.placeholderImage.classList.add('loaded');
     refs.placeholderImagePopcorn.classList.add('loaded');
-    pagination.visible = false;
+    paginationVisibility(0);
   }
 }
 
@@ -150,7 +150,6 @@ function removePlaceholder() {
     refs.placeholder.classList.add('visibility-hidden');
     refs.placeholderImage.classList.remove('loaded');
     refs.placeholderImagePopcorn.classList.remove('loaded');
-    pagination.visible = true;
   }
 }
 
@@ -201,16 +200,21 @@ export function renderLibrary(libraryButton) {
   console.log(storage);
   if (!storage || storage.length === 0) {
     emptyLibrary();
+
     return;
   }
 
   renderMovies(storage);
 }
 
-setTimeout(() => {
-  const ls = new LocalStorageAPI();
-  const data = ls.getPage(ls.keyW, 3, 5);
-  clearMoviesList();
-  renderMovies(data);
-  console.log('local page', data);
-}, 2000);
+function paginationVisibility(totalResults) {
+  console.log('poisk', totalResults);
+  if (totalResults < 21) {
+    // clearMoviesList();
+    // renderMovies(response.results);
+    pagination.container.innerHTML = '';
+    return;
+  }
+}
+
+function paginationLocalStorageHandler() {}

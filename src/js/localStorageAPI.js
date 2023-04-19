@@ -63,12 +63,11 @@ export default class LocalStorageAPI {
 
   getPage(key, itemsPerPage = 20, page = 1) {
     const data = this.getStoredDataByKey(key);
-    console.log('begin data', data);
     if (!data || data.length === 0) {
-      return;
+      return [];
     }
 
-    const totalPages = Math.floor(data.length / itemsPerPage);
+    const totalPages = Math.ceil(data.length / itemsPerPage);
     console.log('totalPages', totalPages);
     if (totalPages > 1) {
       const endSlice = itemsPerPage * page;
