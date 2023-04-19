@@ -1,5 +1,3 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from 'firebase/app';
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -10,18 +8,13 @@ import {
 } from 'firebase/auth';
 
 export default class FirebaseAuthAPI {
-  constructor(config, onLoginCallback, onLogoutCallback) {
+  constructor(app, onLoginCallback, onLogoutCallback) {
     this.onLoginCallback = onLoginCallback;
     this.onLogoutCallback = onLogoutCallback;
 
-    this.app = initializeApp(config);
-    this.auth = getAuth(this.app);
+    this.auth = getAuth(app);
 
     this.auth.onAuthStateChanged(this.handleAuthStateChanged.bind(this));
-  }
-
-  isAuthenticated() {
-    return this.auth.currentUser ? true : false;
   }
 
   getAuth() {

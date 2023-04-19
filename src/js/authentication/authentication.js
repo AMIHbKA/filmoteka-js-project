@@ -1,12 +1,10 @@
-import FIREBASE_CONFIG from '../firebaseApis/firebaseConfig.js';
 import FirebaseAuthAPI from '../firebaseApis/firebaseAuthAPI.js';
 import { Notify } from 'notiflix';
 
 export default class Authentication {
-  constructor(onLoginCallback, onLogoutCallback) {
-    console.log(FIREBASE_CONFIG);
+  constructor(app, onLoginCallback, onLogoutCallback) {
     this.firebaseAuth = new FirebaseAuthAPI(
-      FIREBASE_CONFIG,
+      app,
       onLoginCallback,
       onLogoutCallback
     );
@@ -58,10 +56,6 @@ export default class Authentication {
       'click',
       this.handleGoogleAuth.bind(this)
     );
-  }
-
-  isAuthenticated() {
-    return this.firebaseAuth.isAuthenticated();
   }
 
   onLoginButtonClick() {

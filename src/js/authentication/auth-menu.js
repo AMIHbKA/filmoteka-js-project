@@ -1,16 +1,23 @@
+import { initializeApp } from 'firebase/app';
+import FIREBASE_CONFIG from '../firebaseApis/firebaseConfig.js';
 import Authentication from '../authentication/authentication';
+import Profile from './profile';
 export default class AuthMenu {
   constructor() {
-    this.authentication = new Authentication(
-      this.showProfile.bind(this),
-      this.showLoginForm.bind(this)
+    this.app = initializeApp(FIREBASE_CONFIG);
+
+    new Authentication(
+      this.app,
+      this.handleLogin.bind(this),
+      this.handleLogout.bind(this)
     );
+
+    this.profile = new Profile(this.app);
 
     this.refs = {};
 
     this.buildRefs();
     this.hangListeners();
-    this.initMenu();
   }
 
   buildRefs() {
@@ -36,12 +43,14 @@ export default class AuthMenu {
     );
   }
 
-  initMenu() {
-    if (this.authentication.isAuthenticated()) {
-      this.showProfile();
-    } else {
-      this.showLoginForm();
-    }
+  handleLogin() {
+    this.showProfile();
+    this.profile.handleLogin();
+  }
+
+  handleLogout() {
+    this.showLoginForm();
+    this.profile.handleLogout();
   }
 
   openMenu() {
