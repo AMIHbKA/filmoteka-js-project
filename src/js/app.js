@@ -69,6 +69,7 @@ export async function pageLoad() {
       console.error(error.message);
       Notify.failure(error.message);
     });
+  scrollToTop();
 }
 
 async function trendingHandler({ page }) {
@@ -76,9 +77,9 @@ async function trendingHandler({ page }) {
     .fetchTrendingMovies(page)
     .then(response => {
       pagination.totalItems = response.total_results;
-
-      clearMoviesList();
       scrollToTop();
+      customPaginationButtons(response.total_pages);
+      clearMoviesList();
       renderMovies(response.results);
       //      console.log(response.results);
     })
@@ -103,6 +104,7 @@ async function searchButtonClick(query) {
       pagination.start();
       pagination.onBeforeMove(searchingHandler);
       // pagination.reset(response.total_results);
+      customPaginationButtons(response.total_pages);
 
       // pagination.reset(response.total_results);
       // console.log(pagination);
@@ -122,8 +124,9 @@ async function searchingHandler({ page }, query) {
   await api
     .searchMovies(query, page)
     .then(response => {
-      clearMoviesList();
       scrollToTop();
+      customPaginationButtons(response.total_pages);
+      clearMoviesList();
       renderMovies(response.results);
       // console.log(response.results);
     })
