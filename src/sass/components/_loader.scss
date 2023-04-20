@@ -30,3 +30,9 @@
     transform: rotate(360deg);
   }
 }
+
+.hero .loader {
+  & .loader__container {
+    margin-top: 10%;
+  }
+}

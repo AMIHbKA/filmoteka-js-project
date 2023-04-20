@@ -70,7 +70,7 @@ export async function pageLoad() {
       // console.error(error.message);
       Notify.failure(error.message);
     });
-  scrollToTop();
+  // scrollToTop();
 }
 
 async function trendingHandler({ page }) {
@@ -136,6 +136,7 @@ async function searchingHandler({ page }, query) {
       clearMoviesList();
       // paginationVisibility(response.total_results);
       renderMovies(response.results);
+      refs.form.reset();
       // console.log(response.results);
     })
     .catch(error => {
