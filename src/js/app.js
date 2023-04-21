@@ -58,6 +58,17 @@ export async function pageLoad() {
   await api
     .fetchTrendingMovies()
     .then(response => {
+      if (window.innerWidth >= 1280) {
+        pagination.totalItems = response.data.total_results;
+        pagination.start();
+        customPaginationButtons(response.data.total_pages);
+        pagination.onBeforeMove(trendingHandler);
+        clearMoviesList();
+        // paginationVisibility(response.total_results);
+        renderMovies(response.moviesArrPerPage);
+        return;
+      }
+
       pagination.totalItems = response.total_results;
       pagination.start();
       customPaginationButtons(response.total_pages);
@@ -77,6 +88,16 @@ async function trendingHandler({ page }) {
   await api
     .fetchTrendingMovies(page)
     .then(response => {
+      if (window.innerWidth >= 1280) {
+        scrollToTop();
+        pagination.totalItems = response.data.total_results;
+        customPaginationButtons(response.data.total_pages);
+        clearMoviesList();
+        // paginationVisibility(response.total_results);
+        renderMovies(response.moviesArrPerPage);
+        return;
+      }
+
       pagination.totalItems = response.total_results;
       scrollToTop();
       customPaginationButtons(response.total_pages);
@@ -100,6 +121,25 @@ async function searchButtonClick(query) {
   await api
     .searchMovies(query)
     .then(response => {
+      if (window.innerWidth >= 1280) {
+        pagination.totalItems = response.data.total_results;
+        if (response.data.total_results < 21) {
+          // console.log('poisk', response.total_results);
+          clearMoviesList();
+          renderMovies(response.moviesArrPerPage);
+          pagination.container.innerHTML = '';
+          return;
+        }
+        pagination.start();
+        pagination.onBeforeMove(searchingHandler);
+        customPaginationButtons(response.data.total_pages);
+        removePlaceholder();
+        clearMoviesList();
+        // paginationVisibility(response.total_results);
+        renderMovies(response.moviesArrPerPage);
+        return;
+      }
+
       // pagination.totalItems = response.total_results;
 
       pagination.totalItems = response.total_results;
@@ -131,6 +171,16 @@ async function searchingHandler({ page }, query) {
   await api
     .searchMovies(query, page)
     .then(response => {
+      if (window.innerWidth >= 1280) {
+        scrollToTop();
+        // pagination.totalItems = response.data.total_results;
+        customPaginationButtons(response.data.total_pages);
+        clearMoviesList();
+        // paginationVisibility(response.total_results);
+        renderMovies(response.moviesArrPerPage);
+        return;
+      }
+
       scrollToTop();
       customPaginationButtons(response.total_pages);
       clearMoviesList();
